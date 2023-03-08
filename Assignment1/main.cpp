@@ -49,21 +49,15 @@ Eigen::Matrix4f get_projection_matrix(float eye_fov, float aspect_ratio,
     // Create the projection matrix for the given parameters.
     // Then return it.
     float h_fov_y = eye_fov / 180 * M_PI; // half of FOV_Y in degrees
-
-    projection(0, 0) = projection(1, 1) = zNear;
-    projection(2, 2) = zNear + zFar;
-    projection(2, 3) = -zNear * zFar;
-    projection(3, 2) = 1.0f;
+    float hh = (std::tan(h_fov_y) * zNear);
+    float hw = (std::tan(h_fov_y) * zNear * aspect_ratio);
+    float dz = zFar - zNear;
+    projection(0, 0) = zNear / hw;
+    projection(1, 1) = zNear / hh;
+    projection(2, 2) = (zNear + zFar) / dz;
+    projection(2, 3) = - 2.0f * (zNear * zFar) / dz;
     projection(3, 3) = 0.0f;
-
-    Eigen::Matrix4f orthol = Eigen::Matrix4f::Identity(); // Normalization
-    Eigen::Matrix4f orthor = Eigen::Matrix4f::Identity(); // Translation
-    orthol(0, 0) = 1.0f / (std::tan(h_fov_y) * zNear * aspect_ratio);
-    orthol(1, 1) = 1.0f / (std::tan(h_fov_y) * zNear);
-    orthol(2, 2) = 2.0f / (zNear - zFar);
-    orthor(2, 2) = -(zNear + zFar) / 2.0f;
-
-    projection = orthol * orthor * projection;
+    projection(3, 2) = 1.0f; 
 
     return projection;
 }
