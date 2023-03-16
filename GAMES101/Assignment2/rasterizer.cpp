@@ -91,13 +91,13 @@ void rst::rasterizer::draw(pos_buf_id pos_buffer, ind_buf_id ind_buffer, col_buf
                 mvp * to_vec4(buf[i[2]], 1.0f)
         };
         // TODO: Delete DEBUG info
-        std::cout << "Z-Coordinate before transformation: " << buf[i[0]].z() << "\n"; 
+        // std::cout << "Z-Coordinate before transformation: " << buf[i[0]].z() << "\n"; 
         //Homogeneous division
         for (auto& vec : v) {
             vec /= vec.w();
         }
         // TODO: Delete DEBUG info
-        std::cout << "Z-Coordinate after transformation: " << v[0].z() << "\n"; 
+        // std::cout << "Z-Coordinate after transformation: " << v[0].z() << "\n"; 
         //Viewport transformation
         for (auto & vert : v)
         {
@@ -106,7 +106,7 @@ void rst::rasterizer::draw(pos_buf_id pos_buffer, ind_buf_id ind_buffer, col_buf
             vert.z() = vert.z() * f1 + f2;
         }
         // TODO: Delete DEBUG info
-        std::cout << "Z-Coordinate after expansion: " << v[0].z() << "\n"; 
+        // std::cout << "Z-Coordinate after expansion: " << v[0].z() << "\n"; 
 
         for (int i = 0; i < 3; ++i)
         {
