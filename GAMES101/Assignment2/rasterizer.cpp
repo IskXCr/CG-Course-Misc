@@ -146,10 +146,10 @@ void rst::rasterizer::rasterize_triangle(const Triangle& t) {
         fymax = std::max(vec.y(), fymax);
     }
 
-    int xmin = std::max(0, std::min((int)std::ceil(fxmin), width));
-    int xmax = std::min(width, std::max((int)std::floor(fxmax), 0));
-    int ymin = std::max(0, std::min((int)std::ceil(fymin), height));
-    int ymax = std::min(height, std::max((int)std::floor(fymax), 0));
+    int xmin = std::max(0, std::min((int)std::floor(fxmin), width));
+    int xmax = std::min(width - 1, std::max((int)std::ceil(fxmax), 0));
+    int ymin = std::max(0, std::min((int)std::floor(fymin), height));
+    int ymax = std::min(height - 1, std::max((int)std::ceil(fymax), 0));
 
     // std::cout << "Triangle Coordinate:\n" << t.v[0] << ", \n" << t.v[1] << ", \n" << t.v[2] << "\n";
     // Eigen::Vector3f _color = t.color[0] * 255;
@@ -165,9 +165,9 @@ void rst::rasterizer::rasterize_triangle(const Triangle& t) {
 
     // TODO : set the current pixel (use the set_pixel function) to the color of the triangle (use getColor function) if it should be painted.
 
-    for (int x = xmin; x < xmax; ++x)
+    for (int x = xmin; x <= xmax; ++x)
     {
-        for (int y = ymin; y < ymax; ++y)
+        for (int y = ymin; y <= ymax; ++y)
         {
             // Procedure:
             // 1. Update buffer on each individual subpixel.

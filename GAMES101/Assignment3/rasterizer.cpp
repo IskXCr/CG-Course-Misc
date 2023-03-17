@@ -181,33 +181,37 @@ void rst::rasterizer::draw(std::vector<Triangle *> &TriangleList)
     {
         Triangle newtri = *t;
 
-        std::array<Eigen::Vector4f, 3> mm{
-            (view * model * t->v[0]),
-            (view * model * t->v[1]),
-            (view * model * t->v[2])};
+        std::array<Eigen::Vector4f, 3> mm{// Vertices after MV-transformation only
+                                          (view * model * t->v[0]),
+                                          (view * model * t->v[1]),
+                                          (view * model * t->v[2])};
 
         std::array<Eigen::Vector3f, 3> viewspace_pos;
 
         std::transform(mm.begin(), mm.end(), viewspace_pos.begin(), [](auto &v)
                        { return v.template head<3>(); });
 
-        Eigen::Vector4f v[] = {
-            mvp * t->v[0],
-            mvp * t->v[1],
-            mvp * t->v[2]};
+        Eigen::Vector4f v[] = {// Vertices after MVP transformation
+                               mvp * t->v[0],
+                               mvp * t->v[1],
+                               mvp * t->v[2]};
         // Homogeneous division
         for (auto &vec : v)
         {
             vec.x() /= vec.w();
             vec.y() /= vec.w();
             vec.z() /= vec.w();
+            // QUESTION: Why isn't w involved?
+            // ANSWER: After standard transformation, the w() coordinate is actually the z() coordinate in clip space. w() will not be scaled during the viewport transformation
         }
 
-        Eigen::Matrix4f inv_trans = (view * model).inverse().transpose();
-        Eigen::Vector4f n[] = {
-            inv_trans * to_vec4(t->normal[0], 0.0f),
-            inv_trans * to_vec4(t->normal[1], 0.0f),
-            inv_trans * to_vec4(t->normal[2], 0.0f)};
+        Eigen::Matrix4f inv_trans = (view * model).inverse().transpose(); // ((VM)^-1)^T
+
+        // Why inversed transformation?
+        Eigen::Vector4f n[] = {// Pre-multiplied to get a correct result when taking an inner-product with the MV-transformed triangle vertices.
+                               inv_trans * to_vec4(t->normal[0], 0.0f),
+                               inv_trans * to_vec4(t->normal[1], 0.0f),
+                               inv_trans * to_vec4(t->normal[2], 0.0f)};
 
         // Viewport transformation
         for (auto &vert : v)
@@ -220,13 +224,13 @@ void rst::rasterizer::draw(std::vector<Triangle *> &TriangleList)
         for (int i = 0; i < 3; ++i)
         {
             // screen space coordinates
-            newtri.setVertex(i, v[i]);
+            newtri.setVertex(i, v[i]); // Keep the w() coordinates
         }
 
         for (int i = 0; i < 3; ++i)
         {
             // view space normal
-            newtri.setNormal(i, n[i].head<3>());
+            newtri.setNormal(i, n[i].head<3>()); // DEBUG: Force normalization
         }
 
         newtri.setColor(0, 148, 121.0, 92.0);
@@ -238,12 +242,27 @@ void rst::rasterizer::draw(std::vector<Triangle *> &TriangleList)
     }
 }
 
-static Eigen::Vector3f interpolate(float alpha, float beta, float gamma, const Eigen::Vector3f &vert1, const Eigen::Vector3f &vert2, const Eigen::Vector3f &vert3, float weight)
+static Eigen::Vector3f interpolate(float alpha, float beta, float gamma,
+                                   const Eigen::Vector3f &vert1, const Eigen::Vector3f &vert2, const Eigen::Vector3f &vert3,
+                                   float weight)
 {
     return (alpha * vert1 + beta * vert2 + gamma * vert3) / weight;
 }
 
-static Eigen::Vector2f interpolate(float alpha, float beta, float gamma, const Eigen::Vector2f &vert1, const Eigen::Vector2f &vert2, const Eigen::Vector2f &vert3, float weight)
+// Perspective-correct interpolation
+static Eigen::Vector3f prsp_correct_intpl(float alpha, float beta, float gamma,
+                                          const Eigen::Vector3f &vert1, const Eigen::Vector3f &vert2, const Eigen::Vector3f &vert3,
+                                          float weight)
+{
+    float p1 = 1.0 / (alpha / vert1.x() + beta / vert2.x() + gamma / vert3.x());
+    float p2 = 1.0 / (alpha / vert1.y() + beta / vert2.y() + gamma / vert3.y());
+    float p3 = 1.0 / (alpha / vert1.z() + beta / vert2.z() + gamma / vert3.z());
+    return Eigen::Vector3f(p1, p2, p3) / weight;
+}
+
+static Eigen::Vector2f interpolate(float alpha, float beta, float gamma,
+                                   const Eigen::Vector2f &vert1, const Eigen::Vector2f &vert2, const Eigen::Vector2f &vert3,
+                                   float weight)
 {
     auto u = (alpha * vert1[0] + beta * vert2[0] + gamma * vert3[0]);
     auto v = (alpha * vert1[1] + beta * vert2[1] + gamma * vert3[1]);
@@ -254,24 +273,87 @@ static Eigen::Vector2f interpolate(float alpha, float beta, float gamma, const E
     return Eigen::Vector2f(u, v);
 }
 
+// Perspective-correct interpolation
+static Eigen::Vector2f prsp_correct_intpl(float alpha, float beta, float gamma,
+                                          const Eigen::Vector2f &vert1, const Eigen::Vector2f &vert2, const Eigen::Vector2f &vert3,
+                                          float weight)
+{
+    float p1 = 1.0 / (alpha / vert1.x() + beta / vert2.x() + gamma / vert3.x());
+    float p2 = 1.0 / (alpha / vert1.y() + beta / vert2.y() + gamma / vert3.y());
+    return Eigen::Vector2f(p1, p2) / weight;
+}
+
 // Screen space rasterization
+// @param Triangle &t - the triangle in clip space after viewport transformation. w() coordinate records the clip space z() coordinate.
+// @param std::array<Eigen::Vector3f, 3> &view_pos - the vertex set of the triangle in view space
 void rst::rasterizer::rasterize_triangle(const Triangle &t, const std::array<Eigen::Vector3f, 3> &view_pos)
 {
-    // TODO: From your HW3, get the triangle rasterization code.
-    // TODO: Inside your rasterization loop:
-    //    * v[i].w() is the vertex view space depth value z.
-    //    * Z is interpolated view space depth for the current pixel
-    //    * zp is depth between zNear and zFar, used for z-buffer
+    auto v = t.toVector4();
+    // std::array<Vector4f, 3> v;
+    // std::transform(view_pos.begin(), view_pos.end(), v.begin(), [](auto &v)
+    //                { return to_vec4(v); });
 
-    // float Z = 1.0 / (alpha / v[0].w() + beta / v[1].w() + gamma / v[2].w());
-    // float zp = alpha * v[0].z() / v[0].w() + beta * v[1].z() / v[1].w() + gamma * v[2].z() / v[2].w();
-    // zp *= Z;
+    // Find out the bounding box of current triangle.
+    auto limit = std::numeric_limits<float>();
+    float fxmin = limit.max();
+    float fxmax = limit.min();
+    float fymin = limit.max();
+    float fymax = limit.min();
+    for (auto &vec : t.v)
+    {
+        fxmin = std::min(vec.x(), fxmin);
+        fxmax = std::max(vec.x(), fxmax);
+        fymin = std::min(vec.y(), fymin);
+        fymax = std::max(vec.y(), fymax);
+    }
 
-    // TODO: Interpolate the attributes:
-    // auto interpolated_color
-    // auto interpolated_normal
-    // auto interpolated_texcoords
-    // auto interpolated_shadingcoords
+    int xmin = std::max(0, std::min((int)std::floor(fxmin), width));
+    int xmax = std::min(width - 1, std::max((int)std::ceil(fxmax), 0));
+    int ymin = std::max(0, std::min((int)std::floor(fymin), height));
+    int ymax = std::min(height - 1, std::max((int)std::ceil(fymax), 0));
+
+    for (int x = xmin; x <= xmax; ++x)
+    {
+        for (int y = ymin; y <= ymax; ++y)
+        {
+            if (insideTriangle(x, y, t.v))
+            {
+                // TODO: Inside your rasterization loop:
+                //    * v[i].w() is the vertex view space depth value z.
+                //    * Z is interpolated view space depth for the current pixel
+                //    * zp is depth between zNear and zFar, used for z-buffer
+
+                auto [alpha, beta, gamma] = computeBarycentric2D(x, y, t.v); // [alpha, beta, gamma] in viewport
+                float Z = 1.0 / (alpha / v[0].w() + beta / v[1].w() + gamma / v[2].w()); // w() is the z() coordinate in the view space
+                float zp = alpha * v[0].z() / v[0].w() + beta * v[1].z() / v[1].w() + gamma * v[2].z() / v[2].w(); // interpolate to get the normalized z()/w()
+
+                zp *= Z; // multiply by original w() to get the actual z() value in viewport
+
+                if (zp < depth_buf[get_index(x, y)])
+                {
+                    depth_buf[get_index(x, y)] = zp;
+                    // TODO: Interpolate the attributes.
+                    // WARNING: These are all interpolated based on coorinates in the viewport
+
+                    // auto interpolated_color = prsp_correct_intpl(alpha, beta, gamma, t.color[0], t.color[1], t.color[2], 1.0);
+                    auto interpolated_color = interpolate(alpha, beta, gamma, t.color[0], t.color[1], t.color[2], 1.0);
+                    // auto interpolated_normal = prsp_correct_intpl(alpha, beta, gamma, t.normal[0], t.normal[1], t.normal[2], 1.0);
+                    auto interpolated_normal = interpolate(alpha, beta, gamma, t.normal[0], t.normal[1], t.normal[2], 1.0);
+                    // auto interpolated_texcoords = prsp_correct_intpl(alpha, beta, gamma, t.tex_coords[0], t.tex_coords[1], t.tex_coords[2], 1.0);
+                    auto interpolated_texcoords = interpolate(alpha, beta, gamma, t.tex_coords[0], t.tex_coords[1], t.tex_coords[2], 1.0);
+                    
+                    auto interpolated_shadingcoords = Eigen::Vector3f(0.0, 0.0, 0.0); // TODO: Fix this. Currently looking at axis -z.
+
+                    fragment_shader_payload payload(interpolated_color, interpolated_normal.normalized(), interpolated_texcoords, texture ? &*texture : nullptr);
+                    payload.view_pos = interpolated_shadingcoords;
+
+                    auto pixel_color = fragment_shader(payload);
+                    set_pixel(Eigen::Vector2i(x, y), pixel_color);
+                }
+            }
+        }
+    }
+
 
     // Use: fragment_shader_payload payload( interpolated_color, interpolated_normal.normalized(), interpolated_texcoords, texture ? &*texture : nullptr);
     // Use: payload.view_pos = interpolated_shadingcoords;
