@@ -1,6 +1,6 @@
 # GAMES101 Assignment 3
 ## Demonstration
-## Bilinear Interpolation
+### Bilinear Interpolation
 Before:
 
 ![Before](output/before_bi_intpl.png)
