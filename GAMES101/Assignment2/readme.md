@@ -6,3 +6,8 @@ Implemented by IskXCr
 2. Test `insideTriangle` using vector cross-product.
 3. **Z-Buffer** algorithm.
 4. **MSAA 4x** by sampling a single pixel at four corner locations (evenly distributed).
+
+## Demonstration
+![Test](test.png)
+
+The image is under the root of this readme file.

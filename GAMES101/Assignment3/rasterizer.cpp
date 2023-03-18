@@ -240,6 +240,7 @@ void rst::rasterizer::draw(std::vector<Triangle *> &TriangleList)
         // Also pass view space vertice position
         rasterize_triangle(newtri, viewspace_pos);
     }
+    std::cout << "Completed rasterization.\n";
 }
 
 static Eigen::Vector3f interpolate(float alpha, float beta, float gamma,

@@ -1,5 +1,15 @@
 # GAMES101 Assignment 3
 ## Demonstration
+## Bilinear Interpolation
+Before:
+
+![Before](output/before_bi_intpl.png)
+
+After:
+
+![After](output/after_bi_intpl.png)
+
+
 ### Spot
 ![Normal](output/spot/o-normal.png)
 
@@ -47,3 +57,4 @@
 ## Known problems
 1. Why do we calculate the ambient lighting for each light source instead of applying it for only once?
 2. Self-implemented perspective correct interpolation resulted in unexpected artifacts.
+3. Added `0.5f` offset to `(u, v)` coordinate to avoid invalid coordinate accesses.
