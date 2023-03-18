@@ -60,15 +60,15 @@ public:
 
         auto u4 = std::ceil(u0);
         auto v4 = std::ceil(v0);
-        if (u0 < 0 || v0 < 0 || u1 < 0 || v1 < 0 || u2 < 0 || v2 < 0 || u3 < 0 || v3 < 0 || u4 < 0 || v4 < 0) 
-        {
-            std::cout << "Interpolation: \n";
-            std::printf("Interpolation: (u0, v0)=(%f, %f)\n", u0, v0);
-            std::printf("Interpolation: (u1, v1)=(%f, %f)\n", u1, v1);
-            std::printf("Interpolation: (u2, v2)=(%f, %f)\n", u2, v2);
-            std::printf("Interpolation: (u3, v3)=(%f, %f)\n", u3, v3);
-            std::printf("Interpolation: (u4, v4)=(%f, %f)\n", u4, v4);
-        }
+        // if (u0 < 0 || v0 < 0 || u1 < 0 || v1 < 0 || u2 < 0 || v2 < 0 || u3 < 0 || v3 < 0 || u4 < 0 || v4 < 0) 
+        // {
+        //     std::cout << "Interpolation: \n";
+        //     std::printf("Interpolation: (u0, v0)=(%f, %f)\n", u0, v0);
+        //     std::printf("Interpolation: (u1, v1)=(%f, %f)\n", u1, v1);
+        //     std::printf("Interpolation: (u2, v2)=(%f, %f)\n", u2, v2);
+        //     std::printf("Interpolation: (u3, v3)=(%f, %f)\n", u3, v3);
+        //     std::printf("Interpolation: (u4, v4)=(%f, %f)\n", u4, v4);
+        // }
 
         auto raw_color1 = image_data.at<cv::Vec3b>(v1, u1);
         auto raw_color2 = image_data.at<cv::Vec3b>(v2, u2);
