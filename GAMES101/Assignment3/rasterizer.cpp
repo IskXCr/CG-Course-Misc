@@ -230,7 +230,7 @@ void rst::rasterizer::draw(std::vector<Triangle *> &TriangleList)
         for (int i = 0; i < 3; ++i)
         {
             // view space normal
-            newtri.setNormal(i, n[i].head<3>()); // DEBUG: Force normalization
+            newtri.setNormal(i, n[i].head<3>());
         }
 
         newtri.setColor(0, 148, 121.0, 92.0);
@@ -342,7 +342,8 @@ void rst::rasterizer::rasterize_triangle(const Triangle &t, const std::array<Eig
                     // auto interpolated_texcoords = prsp_correct_intpl(alpha, beta, gamma, t.tex_coords[0], t.tex_coords[1], t.tex_coords[2], 1.0);
                     auto interpolated_texcoords = interpolate(alpha, beta, gamma, t.tex_coords[0], t.tex_coords[1], t.tex_coords[2], 1.0);
                     
-                    auto interpolated_shadingcoords = Eigen::Vector3f(0.0, 0.0, 0.0); // TODO: Fix this. Currently looking at axis -z.
+                    // auto interpolated_shadingcoords = prsp_correct_intpl(alpha, beta, gamma, view_pos[0], view_pos[1], view_pos[2], 1.0);
+                    auto interpolated_shadingcoords = interpolate(alpha, beta, gamma, view_pos[0], view_pos[1], view_pos[2], 1.0);
 
                     fragment_shader_payload payload(interpolated_color, interpolated_normal.normalized(), interpolated_texcoords, texture ? &*texture : nullptr);
                     payload.view_pos = interpolated_shadingcoords;

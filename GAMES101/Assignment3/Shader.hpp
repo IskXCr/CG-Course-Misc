@@ -17,7 +17,7 @@ struct fragment_shader_payload
     fragment_shader_payload(const Eigen::Vector3f &col, const Eigen::Vector3f &nor, const Eigen::Vector2f &tc, Texture *tex)
         : color(col), normal(nor), tex_coords(tc), texture(tex) {}
 
-    Eigen::Vector3f view_pos; // Viewer's position, after MV-transformation
+    Eigen::Vector3f view_pos; // Target pixel's position\ in the view space
     Eigen::Vector3f color;
     Eigen::Vector3f normal;
     Eigen::Vector2f tex_coords;
