@@ -12,6 +12,27 @@
 ![Displacement](output/spot/o-displacement.png)
 
 ### Bunny
+![Normal](output/bunny/o-normal.png)
+
+![Phong](output/bunny/o-phong.png)
+
+### Cube
+![Normal](output/cube/o-normal.png)
+
+![Phong](output/cube/o-phong.png)
+
+![Texture](output/cube/o-texture.png)
+
+![Bump](output/cube/o-bump.png)
+
+![Displacement](output/cube/o-displacement.png)
+
+### Rock
+![Normal](output/rock/o-normal.png)
+
+![Phong](output/rock/o-phong.png)
+
+![Texture](output/rock/o-texture.png)
 
 ## Known issues related to the framework
 1. Inside function `phong_fragment_shader`,
@@ -23,6 +44,6 @@
 3. Interpolation done in viewport space rather than in the view space.
 
 
-## Known questions
+## Known problems
 1. Why do we calculate the ambient lighting for each light source instead of applying it for only once?
 2. Self-implemented perspective correct interpolation resulted in unexpected artifacts.

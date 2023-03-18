@@ -365,10 +365,13 @@ int main(int argc, const char **argv)
 
     std::string filename = "output.png";
     objl::Loader Loader;
-    std::string obj_path = "models/spot/"; // Adjusted to fit the path of the executable
+    std::string obj_path = "models/spot/";
+    // std::string obj_path = "models/rock/"; // Adjusted to fit the path of the model
+    std::string hmap_path = "models/spot/";
 
     // Load .obj File
     bool loadout = Loader.LoadFile("models/spot/spot_triangulated_good.obj");
+    // bool loadout = Loader.LoadFile("models/rock/rock.obj");
     for (auto mesh : Loader.LoadedMeshes)
     {
         for (int i = 0; i < mesh.Vertices.size(); i += 3)
@@ -387,7 +390,7 @@ int main(int argc, const char **argv)
     rst::rasterizer r(700, 700);
 
     auto texture_path = "hmap.jpg";
-    r.set_texture(Texture(obj_path + texture_path));
+    r.set_texture(Texture(hmap_path + texture_path));
 
     std::function<Eigen::Vector3f(fragment_shader_payload)> active_shader = phong_fragment_shader;
 
@@ -401,6 +404,7 @@ int main(int argc, const char **argv)
             std::cout << "Rasterizing using the texture shader\n";
             active_shader = texture_fragment_shader;
             texture_path = "spot_texture.png";
+            // texture_path = "rock.png";
             r.set_texture(Texture(obj_path + texture_path));
         }
         else if (argc == 3 && std::string(argv[2]) == "normal")
@@ -438,6 +442,7 @@ int main(int argc, const char **argv)
         r.clear(rst::Buffers::Color | rst::Buffers::Depth);
         r.set_model(get_model_matrix(angle));
         r.set_view(get_view_matrix(eye_pos));
+        // r.set_projection(get_projection_matrix(45.0, 1, 0.1, 50)); // DEBUG: Original: 45.0, 1, 0.1, 50
         r.set_projection(get_projection_matrix(20.0, 1, 0.1, 50)); // DEBUG: Original: 45.0, 1, 0.1, 50
 
         r.draw(TriangleList);
@@ -456,6 +461,7 @@ int main(int argc, const char **argv)
 
         r.set_model(get_model_matrix(angle));
         r.set_view(get_view_matrix(eye_pos));
+        // r.set_projection(get_projection_matrix(45.0, 1, 0.1, 50)); // DEBUG: Original: 45.0, 1, 0.1, 50
         r.set_projection(get_projection_matrix(20.0, 1, 0.1, 50)); // DEBUG: Original: 45.0, 1, 0.1, 50
 
         // r.draw(pos_id, ind_id, col_id, rst::Primitive::Triangle);
