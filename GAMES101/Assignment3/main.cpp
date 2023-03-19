@@ -247,7 +247,7 @@ Eigen::Vector3f displacement_fragment_shader(const fragment_shader_payload &payl
      *        4. Adjust the location of the target shading point
      */
 
-    Eigen::Vector3f &n = normal; // Quick reference for the normal vector
+    Eigen::Vector3f n = normal; // Quick reference for the normal vector
     Eigen::Vector3f t = Eigen::Vector3f{n.x() * n.y(), n.x() * n.x() + n.z() * n.z(), n.z() * n.y()} / std::sqrt(n.x() * n.x() + n.z() * n.z());
     Eigen::Vector3f b = n.cross(t); // Bitangent
     Eigen::Matrix3f TBN;
@@ -425,7 +425,7 @@ int main(int argc, const char **argv)
         }
         else if (argc == 3 && std::string(argv[2]) == "displacement")
         {
-            std::cout << "Rasterizing using the bump shader\n";
+            std::cout << "Rasterizing using the displacement shader\n";
             active_shader = displacement_fragment_shader;
         }
     }
@@ -444,7 +444,7 @@ int main(int argc, const char **argv)
         r.set_model(get_model_matrix(angle));
         r.set_view(get_view_matrix(eye_pos));
         // r.set_projection(get_projection_matrix(45.0, 1, 0.1, 50)); // DEBUG: Original: 45.0, 1, 0.1, 50
-        r.set_projection(get_projection_matrix(10.0, 1, 0.1, 50)); // DEBUG: Original: 45.0, 1, 0.1, 50
+        r.set_projection(get_projection_matrix(20.0, 1, 0.1, 50)); // DEBUG: Original: 45.0, 1, 0.1, 50
 
         r.draw(TriangleList);
         cv::Mat image(700, 700, CV_32FC3, r.frame_buffer().data());
@@ -463,7 +463,7 @@ int main(int argc, const char **argv)
         r.set_model(get_model_matrix(angle));
         r.set_view(get_view_matrix(eye_pos));
         // r.set_projection(get_projection_matrix(45.0, 1, 0.1, 50)); // DEBUG: Original: 45.0, 1, 0.1, 50
-        r.set_projection(get_projection_matrix(10.0, 1, 0.1, 50)); // DEBUG: Original: 45.0, 1, 0.1, 50
+        r.set_projection(get_projection_matrix(20.0, 1, 0.1, 50)); // DEBUG: Original: 45.0, 1, 0.1, 50
 
         // r.draw(pos_id, ind_id, col_id, rst::Primitive::Triangle);
         r.draw(TriangleList);
