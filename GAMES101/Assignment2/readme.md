@@ -1,11 +1,17 @@
 # GAMES101 Assignment 2
 Implemented by IskXCr
 
-## Implemented features
-1. Correct rasterization of the triangle.
-2. Test `insideTriangle` using vector cross-product.
-3. **Z-Buffer** algorithm.
-4. **MSAA 4x** by sampling a single pixel at four corner locations (evenly distributed).
+## Features Implemented
+
+| Name                    | Score |
+| ----------------------- | ----- |
+| Runnable Implementation | 5     |
+| Triangle Rasterization  | 20    |
+| Point-In-Triangle Test  | 10    |
+| Z-Buffer Algorithm      | 10    |
+| 4x MSAA Super Sampling  | 5     |
+
+
 
 ## Demonstration
 ![Test](test.png)

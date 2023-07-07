@@ -67,9 +67,7 @@ namespace rst
         void set_projection(const Eigen::Matrix4f &p);
 
         void set_pixel(const Eigen::Vector3f &point, const Eigen::Vector3f &color);
-
-        // MSAA
-        void set_pixel_msaa_4x(int x, int y, int xoffset, int yoffset, const Eigen::Vector3f &color);
+        void set_sample_msaa_4x(int x, int y, int xoffset, int yoffset, const Eigen::Vector3f &color);
 
         void clear(Buffers buff);
 
@@ -96,13 +94,10 @@ namespace rst
         std::vector<Eigen::Vector3f> frame_buf;
         std::vector<float> depth_buf;
 
-        // MSAA
-        std::vector<float> depth_buf_msaa_4x;
         std::vector<Eigen::Vector3f> frame_buf_msaa_4x;
+        std::vector<float> depth_buf_msaa_4x;
 
         int get_index(int x, int y);
-
-        // MSAA
         int get_index_msaa_4x(int x, int y, int xoffset, int yoffset);
 
         int width, height;
