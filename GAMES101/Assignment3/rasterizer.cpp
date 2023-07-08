@@ -320,13 +320,13 @@ void rst::rasterizer::rasterize_triangle(const Triangle &t, const std::array<Eig
             if (insideTriangle(x, y, t.v))
             {
                 // TODO: Inside your rasterization loop:
-                //    * v[i].w() is the vertex view space depth value z.
+                //    * v[i].w() is the vertex view space depth value z. (v[i].w() is always 1 after .toVector4() method. See its definition.)
                 //    * Z is interpolated view space depth for the current pixel
                 //    * zp is depth between zNear and zFar, used for z-buffer
 
                 auto [alpha, beta, gamma] = computeBarycentric2D(x, y, t.v);                                       // [alpha, beta, gamma] in viewport
-                float Z = 1.0 / (alpha / v[0].w() + beta / v[1].w() + gamma / v[2].w());                           // w() is the z() coordinate in the view space
-                float zp = alpha * v[0].z() / v[0].w() + beta * v[1].z() / v[1].w() + gamma * v[2].z() / v[2].w(); // interpolate to get the normalized z()/w()
+                float Z = 1.0 / (alpha / t.v[0].w() + beta / t.v[1].w() + gamma / t.v[2].w());                           // w() is the z() coordinate in the view space
+                float zp = alpha * t.v[0].z() / t.v[0].w() + beta * t.v[1].z() / t.v[1].w() + gamma * t.v[2].z() / t.v[2].w(); // interpolate to get the normalized z()/w()
 
                 zp *= Z; // multiply by original w() to get the actual z() value in viewport
 
