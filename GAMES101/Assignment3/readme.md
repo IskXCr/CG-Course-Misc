@@ -1,50 +1,68 @@
 # GAMES101 Assignment 3
+## Features Implemented
+
+| Name                                                         | Score |
+| ------------------------------------------------------------ | ----- |
+| Runnable Implementation                                      | 5     |
+| Interpolations: Colors, Normal Vectors, Texture Coordinates, Shading Positions | 10    |
+| Blinn-Phong Reflectance Model                                | 20    |
+| Texture Mapping                                              | 5     |
+| Bump Mapping & Displacement Mapping                          | 10    |
+| More Models!                                                 | 3     |
+| Bilinear Texture Interpolation                               | 5     |
+
+
+
 ## Demonstration
+
 ### Bilinear Interpolation
 Before:
 
-![Before](output/before_bi_intpl.png)
+![Before](images/before_bi_intpl.png)
 
 After:
 
-![After](output/after_bi_intpl.png)
+![After](images/after_bi_intpl.png)
 
 
 ### Spot
-![Normal](output/spot/o-normal.png)
+![Normal](images/spot/o-normal.png)
 
-![Phong](output/spot/o-phong.png)
+![Phong](images/spot/o-phong.png)
 
-![Texture](output/spot/o-texture.png)
+![Texture](images/spot/o-texture.png)
 
-![Bump](output/spot/o-bump.png)
+![Bump](images/spot/o-bump.png)
 
-![Displacement](output/spot/o-displacement.png)
+![Displacement](images/spot/o-displacement.png)
 
 ### Bunny
-![Normal](output/bunny/o-normal.png)
+![Normal](images/bunny/o-normal.png)
 
-![Phong](output/bunny/o-phong.png)
+![Phong](images/bunny/o-phong.png)
 
 ### Cube
-![Normal](output/cube/o-normal.png)
+![Normal](images/cube/o-normal.png)
 
-![Phong](output/cube/o-phong.png)
+![Phong](images/cube/o-phong.png)
 
-![Texture](output/cube/o-texture.png)
+![Texture](images/cube/o-texture.png)
 
-![Bump](output/cube/o-bump.png)
+![Bump](images/cube/o-bump.png)
 
-![Displacement](output/cube/o-displacement.png)
+![Displacement](images/cube/o-displacement.png)
 
 ### Rock
-![Normal](output/rock/o-normal.png)
+![Normal](images/rock/o-normal.png)
 
-![Phong](output/rock/o-phong.png)
+![Phong](images/rock/o-phong.png)
 
-![Texture](output/rock/o-texture.png)
+![Texture](images/rock/o-texture.png)
+
+
 
 ## Known issues related to the framework
+
 1. Inside function `phong_fragment_shader`,
    ```
         Eigen::Vector3f v = (eye_pos - point).normalized(); // WARNING: Calculating eye_pos in world space with shading point from view space.
@@ -54,7 +72,9 @@ After:
 3. Interpolation done in viewport space rather than in the view space.
 
 
+
 ## Known problems
+
 1. Why do we calculate the ambient lighting for each light source instead of applying it for only once?
 2. Self-implemented perspective correct interpolation resulted in unexpected artifacts.
 3. Added `0.5f` offset to `(u, v)` coordinate to avoid invalid coordinate accesses.

@@ -181,20 +181,21 @@ void rst::rasterizer::draw(std::vector<Triangle *> &TriangleList)
     {
         Triangle newtri = *t;
 
-        std::array<Eigen::Vector4f, 3> mm{// Vertices after MV-transformation only
-                                          (view * model * t->v[0]),
-                                          (view * model * t->v[1]),
-                                          (view * model * t->v[2])};
+        std::array<Eigen::Vector4f, 3> mm{
+            (view * model * t->v[0]),
+            (view * model * t->v[1]),
+            (view * model * t->v[2])}; // Vertices after MV-transformation only
 
         std::array<Eigen::Vector3f, 3> viewspace_pos;
 
         std::transform(mm.begin(), mm.end(), viewspace_pos.begin(), [](auto &v)
                        { return v.template head<3>(); });
 
-        Eigen::Vector4f v[] = {// Vertices after MVP transformation
-                               mvp * t->v[0],
-                               mvp * t->v[1],
-                               mvp * t->v[2]};
+        Eigen::Vector4f v[] = {
+            mvp * t->v[0],
+            mvp * t->v[1],
+            mvp * t->v[2]}; // Vertices after MVP transformation
+
         // Homogeneous division
         for (auto &vec : v)
         {
@@ -208,10 +209,10 @@ void rst::rasterizer::draw(std::vector<Triangle *> &TriangleList)
         Eigen::Matrix4f inv_trans = (view * model).inverse().transpose(); // ((VM)^-1)^T
 
         // Why inversed transformation?
-        Eigen::Vector4f n[] = {// Pre-multiplied to get a correct result when taking an inner-product with the MV-transformed triangle vertices.
-                               inv_trans * to_vec4(t->normal[0], 0.0f),
-                               inv_trans * to_vec4(t->normal[1], 0.0f),
-                               inv_trans * to_vec4(t->normal[2], 0.0f)};
+        Eigen::Vector4f n[] = {
+            inv_trans * to_vec4(t->normal[0], 0.0f),
+            inv_trans * to_vec4(t->normal[1], 0.0f),
+            inv_trans * to_vec4(t->normal[2], 0.0f)}; // Pre-multiplied to get a correct result when taking an inner-product with the MV-transformed triangle vertices.
 
         // Viewport transformation
         for (auto &vert : v)
@@ -240,7 +241,6 @@ void rst::rasterizer::draw(std::vector<Triangle *> &TriangleList)
         // Also pass view space vertice position
         rasterize_triangle(newtri, viewspace_pos);
     }
-    std::cout << "Completed rasterization.\n";
 }
 
 static Eigen::Vector3f interpolate(float alpha, float beta, float gamma,
@@ -285,8 +285,8 @@ static Eigen::Vector2f prsp_correct_intpl(float alpha, float beta, float gamma,
 }
 
 // Screen space rasterization
-// @param Triangle &t - the triangle in clip space after viewport transformation. w() coordinate records the clip space z() coordinate.
-// @param std::array<Eigen::Vector3f, 3> &view_pos - the vertex set of the triangle in view space
+// @param t - the triangle in clip space after viewport transformation. w() coordinate records the clip space z() coordinate.
+// @param view_pos - the vertex set of the triangle in camera space
 void rst::rasterizer::rasterize_triangle(const Triangle &t, const std::array<Eigen::Vector3f, 3> &view_pos)
 {
     auto v = t.toVector4();
@@ -296,10 +296,10 @@ void rst::rasterizer::rasterize_triangle(const Triangle &t, const std::array<Eig
 
     // Find out the bounding box of current triangle.
     auto limit = std::numeric_limits<float>();
-    float fxmin = limit.max();
-    float fxmax = limit.min();
-    float fymin = limit.max();
-    float fymax = limit.min();
+    auto fxmin = limit.max();
+    auto fxmax = limit.min();
+    auto fymin = limit.max();
+    auto fymax = limit.min();
     for (auto &vec : t.v)
     {
         fxmin = std::min(vec.x(), fxmin);
@@ -324,8 +324,8 @@ void rst::rasterizer::rasterize_triangle(const Triangle &t, const std::array<Eig
                 //    * Z is interpolated view space depth for the current pixel
                 //    * zp is depth between zNear and zFar, used for z-buffer
 
-                auto [alpha, beta, gamma] = computeBarycentric2D(x, y, t.v); // [alpha, beta, gamma] in viewport
-                float Z = 1.0 / (alpha / v[0].w() + beta / v[1].w() + gamma / v[2].w()); // w() is the z() coordinate in the view space
+                auto [alpha, beta, gamma] = computeBarycentric2D(x, y, t.v);                                       // [alpha, beta, gamma] in viewport
+                float Z = 1.0 / (alpha / v[0].w() + beta / v[1].w() + gamma / v[2].w());                           // w() is the z() coordinate in the view space
                 float zp = alpha * v[0].z() / v[0].w() + beta * v[1].z() / v[1].w() + gamma * v[2].z() / v[2].w(); // interpolate to get the normalized z()/w()
 
                 zp *= Z; // multiply by original w() to get the actual z() value in viewport
@@ -334,7 +334,7 @@ void rst::rasterizer::rasterize_triangle(const Triangle &t, const std::array<Eig
                 {
                     depth_buf[get_index(x, y)] = zp;
                     // TODO: Interpolate the attributes.
-                    // WARNING: These are all interpolated based on coorinates in the viewport
+                    // WARNING: These are all interpolated based on coorinates in the canonical view space
 
                     // auto interpolated_color = prsp_correct_intpl(alpha, beta, gamma, t.color[0], t.color[1], t.color[2], 1.0);
                     auto interpolated_color = interpolate(alpha, beta, gamma, t.color[0], t.color[1], t.color[2], 1.0);
@@ -342,7 +342,7 @@ void rst::rasterizer::rasterize_triangle(const Triangle &t, const std::array<Eig
                     auto interpolated_normal = interpolate(alpha, beta, gamma, t.normal[0], t.normal[1], t.normal[2], 1.0);
                     // auto interpolated_texcoords = prsp_correct_intpl(alpha, beta, gamma, t.tex_coords[0], t.tex_coords[1], t.tex_coords[2], 1.0);
                     auto interpolated_texcoords = interpolate(alpha, beta, gamma, t.tex_coords[0], t.tex_coords[1], t.tex_coords[2], 1.0);
-                    
+
                     // auto interpolated_shadingcoords = prsp_correct_intpl(alpha, beta, gamma, view_pos[0], view_pos[1], view_pos[2], 1.0);
                     auto interpolated_shadingcoords = interpolate(alpha, beta, gamma, view_pos[0], view_pos[1], view_pos[2], 1.0);
 
@@ -355,7 +355,6 @@ void rst::rasterizer::rasterize_triangle(const Triangle &t, const std::array<Eig
             }
         }
     }
-
 
     // Use: fragment_shader_payload payload( interpolated_color, interpolated_normal.normalized(), interpolated_texcoords, texture ? &*texture : nullptr);
     // Use: payload.view_pos = interpolated_shadingcoords;

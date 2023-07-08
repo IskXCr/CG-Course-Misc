@@ -49,21 +49,21 @@ Eigen::Matrix4f get_model_matrix(float angle)
 
 Eigen::Matrix4f get_projection_matrix(float eye_fov, float aspect_ratio, float zNear, float zFar)
 {
-    // TODO: Use the same projection matrix from the previous assignments
-    Eigen::Matrix4f projection = Eigen::Matrix4f::Identity();
-
     // Create the projection matrix for the given parameters.
     // Then return it.
-    float h_fov_y = eye_fov / 180 * M_PI; // half of FOV_Y in radians
-    float hh = (std::tan(h_fov_y) * (-zNear));
-    float hw = aspect_ratio * hh;
+
+    Eigen::Matrix4f projection = Eigen::Matrix4f::Zero();
+
+    float h_fov = eye_fov / 360.f * M_PI;
+    float hh = std::tan(h_fov) * (-zNear);
+    float hw = hh * aspect_ratio;
     float dz = zNear - zFar;
+
     projection(0, 0) = zNear / hw;
     projection(1, 1) = zNear / hh;
     projection(2, 2) = (zNear + zFar) / dz;
-    projection(2, 3) = -2.0f * (zNear * zFar) / dz;
+    projection(2, 3) = -2.f * zNear * zFar / dz;
     projection(3, 2) = 1.0f;
-    projection(3, 3) = 0.0f;
 
     return projection;
 }
@@ -443,8 +443,8 @@ int main(int argc, const char **argv)
         r.clear(rst::Buffers::Color | rst::Buffers::Depth);
         r.set_model(get_model_matrix(angle));
         r.set_view(get_view_matrix(eye_pos));
-        // r.set_projection(get_projection_matrix(45.0, 1, 0.1, 50)); // DEBUG: Original: 45.0, 1, 0.1, 50
-        r.set_projection(get_projection_matrix(20.0, 1, 0.1, 50)); // DEBUG: Original: 45.0, 1, 0.1, 50
+        r.set_projection(get_projection_matrix(45.0, 1, 0.1, 50)); // DEBUG: Original: 45.0, 1, 0.1, 50
+        // r.set_projection(get_projection_matrix(20.0, 1, 0.1, 50)); // DEBUG: Original: 45.0, 1, 0.1, 50
 
         r.draw(TriangleList);
         cv::Mat image(700, 700, CV_32FC3, r.frame_buffer().data());
