@@ -323,7 +323,7 @@ Eigen::Vector3f bump_fragment_shader(const fragment_shader_payload &payload)
     float kh = 0.2, kn = 0.1;
 
     // TODO: Implement bump mapping here
-    // WARNING: This whole description is some kind of annoying
+    // NOTE: This whole description is some kind of annoying
     // Let n = normal = (x, y, z)
     // Vector t = (x*y/sqrt(x*x+z*z),sqrt(x*x+z*z),z*y/sqrt(x*x+z*z))
     // Vector b = n cross product t

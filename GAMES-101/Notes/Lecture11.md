@@ -8,3 +8,76 @@
 
 ## II. Curves
 
+### Bézier Curve
+
+- **Evaluating Bézier Curves**: *de Casteljau Algorithm*
+
+  - Intuitive Procedure:
+
+    - Repeat linear interpolation on adjacent points for parameter $t \in [0, 1]$ until there is only one point left.
+    - On each iteration, reduce the number of points to be evaluated by 1.
+
+    ![img-1](images/Lecture11-img-1.png)
+
+  - Algebraic Formula:
+
+    *Bernstein form of a Bézier curve of order* $n$:
+    $$
+    \bold{b}^n (t) = \bold{b}^n_t (t) = \sum_{j = 0}^{n} \bold{b}_j B^n_j (t)
+    $$
+    where the Bernstein polynomial $B^n_j$ is
+    $$
+    B^n_i (t) = {n \choose i} t^i (1 - t)^{n - i}
+    $$
+    Similar to the binomial expansion.
+
+- **Properties**: 
+
+  - *Endpoint interpolation*: Endpoints must be on the curve
+  - *Tangent to end segments*: **In the cubic case**, $\bold{b}'(0) = 3(\bold{b}_1 - \bold{b}_0)$, and $\bold{b}'(1) = 3(\bold{b}_3 - \bold{b}_2)$
+  - *Affine transformation property*: The curve can be transformed by transforming control points
+  - *Convex hull property*: The curve is within convex hull of control points
+
+
+
+### Piecewise Bézier Curves
+
+- **Piecewise Cubic Bézier**: the most common technique
+  - *Continuity*:
+    - $C^0$ continuity: $\bold{a}_n = \bold{b}_0$ 
+    - $C^1$ continuity: $\bold{a}_n = \bold{b}_0 = \frac{1}{2} (\bold{a}_{n-1} + \bold{b}_1)$
+    - ...
+
+
+
+### Splines (样条)
+
+- **Spline**: A continuous curve constructed so as to pass through a given set of points and have a certain number of continuous derivatives.
+  - A curve under control
+- **B-Spline**: Short for basis splines.
+  - Require more information than Bézier curves
+  - Superset of the Bézier curves
+  - Locality
+
+
+
+## III. Surfaces
+
+### Bézier Surfaces
+
+- Created by interpolating Bézier curves on two axes.
+
+  ![img-2](images/Lecture11-img-2.png)
+
+
+
+### Mesh Operations: Geometry Processing
+
+- **Mesh Subdivision**
+- **Mesh Simplification**
+- **Mesh Regularization**
+
+![img-3](images/Lecture11-img-3.png)
+
+
+

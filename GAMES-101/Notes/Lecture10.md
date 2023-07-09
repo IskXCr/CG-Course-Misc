@@ -50,16 +50,48 @@
 
     - *Fractals*: Exhibit self-similarity, detail at all scales
 
+
+
 - **Explicit**: All points are **given directly** or via **parameter mapping**. Example:
   $$
   f:\mathbb{R}^2 \to \mathbb{R}^3;(u,v) \to (x,y,z)
   $$
 
   - Easy to sample
+
   - Hard to test inside/outside
 
-  - **Examples**:
+  - **Examples**:*
+
     - *Point Cloud*
+
+      - Easiest representation
+      - Useful for **large** datasets
+      - Often converted into polygon mesh
+      - Difficult to draw in under-sampled regions
+
+    - *Polygon Meshes*
+
+      - Store vertices & polygons (often *triangles* or *quads*)
+
+      - Easier to do processing / simulation, adaptive sampling
+
+      - More complicated data structures
+
+      - Perhaps the most common representation in graphics
+
+      - **Format Example**:
+
+        - The Wavefront Object File (`.obj`) Format
+
+          Text file specifying vertices, normals ,texture coordinates and their connectivity (by *specifying for example the triangular face, with normals and texture coordinates on three vertices*)
+
+    - *Bezier Surfaces*
+
     - *Polygon Mesh*
-    - *Subdivision, NURBS*
+
+    - *Subdivision Surfaces*
+
+    - *NURBS*
+
   - ...

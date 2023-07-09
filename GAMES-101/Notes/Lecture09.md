@@ -214,3 +214,22 @@ Applications:
 - Stanford Dragon
 - Cornell Box
   - Used to verify global illumination implementation.
+
+
+
+## Appendix B: Normal Mapping and TBN Matrix
+
+Reference: [Normal-Mapping]([LearnOpenGL - Normal Mapping](https://learnopengl.com/Advanced-Lighting/Normal-Mapping))
+
+### Tangent Space
+
+Normal vectors in a normal map are expressed in tangent space where normals always point roughly in the positive $z$ direction. Tangent space is a space that's local to the surface of a triangle: the normals are relative to the local reference frame of the individual triangles. Think of it as the local space of the normal map's vectors; they're all defined pointing in the positive z direction regardless of the final transformed direction. Using a specific matrix we can then transform normal vectors from this *local* tangent space to world or view coordinates, orienting them along the final mapped surface's direction.
+
+**The TBN Matrix** is computed to transform normals from the tangent space to a different space such that they're aligned with the surface's normal direction.
+
+-  **TBN Matrix**: Tangent, Bitangent and Normal Vector.
+
+  ![img-12](images/Lecture09-img-12.png)
+
+  - *The tangent vector and the bitangent vector align with the direction in which we define a surface's texture coordinates.*
+  - *Multiply the acquired normal vector from the normal map, by the TBN matrix, transforms the vector into the global coordinates.*

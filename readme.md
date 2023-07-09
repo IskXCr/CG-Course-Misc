@@ -1,22 +1,26 @@
-# Collection of Implementations of Assignments from Various Open CG Courses
+# Collection of Implementations of Assignments and Projects from Various Open CG Courses
 Author: IskXCr
 
 ## Introduction
-This repository contains the author's implementations of assignments from various open courses in computer graphics.
+This repository contains the author's implementations of assignments and projects from various open courses in computer graphics.
 
 The current list is as follows. 
 
 In each course, if there is a course project, the project constitutes 50% of the entire progress.
 
-| Course Name | Starting Date | Progress |
-| ----------- | ------------- | -------- |
-| GAMES101    | 3/4/2023      | 18.75%   |
+| Course Code | Course Name                                     | Starting Date | Progress |
+| ----------- | ----------------------------------------------- | ------------- | -------- |
+| GAMES-101   | Introduction to Computer Graphics               | 3/4/2023      | 18.75%   |
+| GAMES-102   | Foundations of Geometry Modeling and Processing | 7/17/2023     | 0%       |
+| GAMES-202   | Real-Time High Quality Rendering                | 7/17/2023     | 0%       |
+
+*GAMES: Graphics and Mixed Environment Symposium*.
 
 
 
 ## Course Repositories
 
-At the root level, you will find the repositories associated with each specific course. For each assignment within a given course, a corresponding `readme.md` file in the assignment folder provides a brief description of the author's implementation, along with a few accompanying images for demonstration purposes.
+At the root level, you will find the repositories associated with each specific course. For each assignment/project within a given course, a corresponding `readme.md` file in the assignment folder provides a brief description of the author's implementation, along with a few accompanying images for demonstration purposes.
 
 
 
