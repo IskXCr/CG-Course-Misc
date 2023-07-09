@@ -46,7 +46,7 @@ public:
         // --s3---s4--
         // -----s0----
         // --s1---s2--
-        // WARNING: Assuming the (u, v) coordinate is after the (-0.5, -0.5) translation
+        // NOTE: Assuming the (u, v) coordinate is after the (-0.5, -0.5) translation
         // which takes the position of the center of the texel into account.
 
         auto u1 = std::floor(u0);
@@ -80,7 +80,7 @@ public:
         Eigen::Vector3f color3(raw_color3[0], raw_color3[1], raw_color3[2]);
         Eigen::Vector3f color4(raw_color4[0], raw_color4[1], raw_color4[2]);
 
-        // WARNING: Possible optimization when either one or both of the coordinates align exactly on the texels.
+        // NOTE: Possible optimization when either one or both of the coordinates align exactly on the texels.
         auto s = u0 - u1;
         auto t = v0 - v1;
         auto lerp_h1 = lerp(color1, color2, s); // Horizontal lerp
