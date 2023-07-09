@@ -15,6 +15,7 @@
 ### Ways to Represent Geometry
 
 - **Implicit**: Points satisfy some specified relationship. Example:
+
   $$
   f(x, y, z) = 0
   $$
@@ -35,6 +36,7 @@
   - **Examples**:
 
     - *Algebraic Surfaces*
+
       $$
       x^2 + y^2 + z^2 = 1
       $$
@@ -53,6 +55,7 @@
 
 
 - **Explicit**: All points are **given directly** or via **parameter mapping**. Example:
+  
   $$
   f:\mathbb{R}^2 \to \mathbb{R}^3;(u,v) \to (x,y,z)
   $$

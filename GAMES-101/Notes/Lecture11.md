@@ -22,19 +22,23 @@
   - Algebraic Formula:
 
     *Bernstein form of a Bézier curve of order* $n$:
+
     $$
-    \bold{b}^n (t) = \bold{b}^n_t (t) = \sum_{j = 0}^{n} \bold{b}_j B^n_j (t)
+    \textbf{b}^n (t) = \textbf{b}^n_t (t) = \sum_{j = 0}^{n} \textbf{b}_j B^n_j (t)
     $$
+
     where the Bernstein polynomial $B^n_j$ is
+
     $$
     B^n_i (t) = {n \choose i} t^i (1 - t)^{n - i}
     $$
+    
     Similar to the binomial expansion.
 
 - **Properties**: 
 
   - *Endpoint interpolation*: Endpoints must be on the curve
-  - *Tangent to end segments*: **In the cubic case**, $\bold{b}'(0) = 3(\bold{b}_1 - \bold{b}_0)$, and $\bold{b}'(1) = 3(\bold{b}_3 - \bold{b}_2)$
+  - *Tangent to end segments*: **In the cubic case**, $\textbf{b}'(0) = 3(\textbf{b}_1 - \textbf{b}_0)$, and $\textbf{b}'(1) = 3(\textbf{b}_3 - \textbf{b}_2)$
   - *Affine transformation property*: The curve can be transformed by transforming control points
   - *Convex hull property*: The curve is within convex hull of control points
 
@@ -44,8 +48,10 @@
 
 - **Piecewise Cubic Bézier**: the most common technique
   - *Continuity*:
-    - $C^0$ continuity: $\bold{a}_n = \bold{b}_0$ 
-    - $C^1$ continuity: $\bold{a}_n = \bold{b}_0 = \frac{1}{2} (\bold{a}_{n-1} + \bold{b}_1)$
+    - $C^0$ continuity: $\textbf{a}_n = \textbf{b}_0$ 
+
+    - $C^1$ continuity: $\textbf{a}_n = \textbf{b}_0 = \frac{1}{2} (\textbf{a}_{n-1} + \textbf{b}_1)$
+
     - ...
 
 

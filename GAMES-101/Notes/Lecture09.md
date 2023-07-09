@@ -40,6 +40,7 @@ Assume the origin $O$. Inside the plane where a triangle $ABC$ resides, for any 
   ![img-4](images/Lecture09-img-4.png)
 
   Then: 
+
   $$
   \alpha = \frac{A_A}{A_A + A_B + A_C}
   $$
@@ -55,6 +56,7 @@ Assume the origin $O$. Inside the plane where a triangle $ABC$ resides, for any 
   
 
 - **Formula**: 
+
   $$
   \alpha = \frac{-(x - x_B)(y_C - y_B) + (y - y_B)(x_C - x_B)}{-(x_A - x_B)(y_C - y_B) + (y_A - y_B)(x_C - x_B)}
   $$
@@ -88,6 +90,7 @@ For each rasterized screen sample, determine its $(u, v)$ coordinate by (possibl
 #### Insufficient texture resolution
 
 - **Linear Interpolation**: 
+  
   $$
   \text{lerp}(x, v_0, v_1) = v_0 + x(v_1 - v_0)
   $$
@@ -103,6 +106,7 @@ For each rasterized screen sample, determine its $(u, v)$ coordinate by (possibl
   - Texture mapping in multiple levels, each the one-fourth of the previous level until the texture becomes 1x1.
 
   - Calculating Mipmap Level $D$: Estimate texture footprint using texture coordinates of neighboring screen samples:
+
     $$
     D = \log_2L
     $$
@@ -174,6 +178,7 @@ Applications:
     - Calculate the **new surface normal**.
 
       - In 3D, first compute
+
         $$
         \frac{dp}{du} = c_1 [h(u + 1) - h(u)]
         $$
@@ -183,9 +188,11 @@ Applications:
         $$
 
         The perturbed normal is then
+
         $$
         n = \frac{(-dp/du, -dp/dv, 1)}{\lVert (-dp/du, -dp/dv, 1) \rVert}
         $$
+
         in **local coordinate**.
 
   - *Displacement Mapping*: **Move the vertices instead**.

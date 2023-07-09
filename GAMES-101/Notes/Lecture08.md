@@ -22,6 +22,7 @@
 #### Defining Per-Vertex Normal Vectors
 
 - **Simple Scheme**: average surrounding face normals. *Possibly weighted.*
+  
   $$
   N_v = \frac{\sum_i N_i}{\lVert \sum_i N_i \rVert}
   $$

@@ -2,14 +2,15 @@
 
 ## I. Rodrigues' Rotation Formula
 
-Rotation by angle $\alpha$ around axis $\bold{n}$
+Rotation by angle $\alpha$ around axis $\textbf{n}$
+
 $$
-R(\bold{n}, \alpha) = \cos(\alpha)\bold{I} + (1 - \cos(\alpha))\bold{n}\bold{n}^T + \sin(\alpha)
+R(\textbf{n}, \alpha) = \cos(\alpha)\textbf{I} + (1 - \cos(\alpha))\textbf{n}\textbf{n}^T + \sin(\alpha)
 \underbrace{\begin{bmatrix}
 0 & -n_z & n_y \\
 n_z & 0 & -n_x \\
 -n_y & n_x & 0 \\
-\end{bmatrix}}_{\bold{N}}
+\end{bmatrix}}_{\textbf{N}}
 $$
 
 
@@ -51,6 +52,7 @@ When deducting the matrix for view transformation, consider the *inverse* rotati
 ##### Orthographic projection:
 
 The purpose of this projection is to transform the selected volume such that it then centers at origin and has a normalized size of $[-1, 1]^3$.
+
 $$
 M_{\text{ortho}}=
 \begin{bmatrix}
@@ -80,6 +82,7 @@ $$
 *Note that $z_n > z_f$ by convention.*
 
 If such an orthographic projection happens after applying a perspective projection, then the matrix can be simplified to:
+
 $$
 M_{\text{ortho}}=
 \begin{bmatrix}
@@ -105,6 +108,7 @@ M_{\text{persp}} = M_{\text{ortho}}M_{\text{persp$\to$ortho}}=
 $$
 
 where
+
 $$
 M_{\text{persp$\to$ortho}}=
 \begin{bmatrix}
