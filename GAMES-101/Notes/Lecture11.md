@@ -87,3 +87,5 @@
 
 
 
+## Note: Bézier curve and Anti-aliasing
+
