@@ -124,10 +124,10 @@ int main()
     cv::setMouseCallback("Bezier Curve", mouse_handler, nullptr);
 
     // produce consistent input
-    control_points.emplace_back(63, 540);
-    control_points.emplace_back(200, 171);
-    control_points.emplace_back(522, 177);
-    control_points.emplace_back(672, 603);
+    // control_points.emplace_back(63, 540);
+    // control_points.emplace_back(200, 171);
+    // control_points.emplace_back(522, 177);
+    // control_points.emplace_back(672, 603);
 
     int key = -1;
     while (key != 27)
@@ -140,8 +140,8 @@ int main()
         if (control_points.size() == 4)
         {
             // naive_bezier(control_points, window);
-            // bezier(control_points, window);
-            bezier_aa(control_points, window);
+            bezier(control_points, window);
+            // bezier_aa(control_points, window);
 
             cv::imshow("Bezier Curve", window);
             cv::imwrite("my_bezier_curve.png", window);
