@@ -1,4 +1,6 @@
-# GAMES101 Lecture 09 - Shading 3 (Texture Mapping)
+# GAMES101 Lecture 09 - Shading 3 (Texture Mapping and Shadow Mapping)
+
+*Shadow mapping is from Lecture 12. For convenience it is integrated into this lecture note.*
 
 ## I. Texture Mapping
 
@@ -214,6 +216,62 @@ Applications:
 
 
 
+## IV. Shadow Mapping
+
+*From* `Lecture 12.md`.
+
+- An **image-space** algorithm.
+  - **No** knowledge of scene's geometry during shadow computation
+  - Must deal with aliasing artifacts.
+
+- **Key idea**: the points NOT in shadow must be **seen** 
+
+  - both **by the light**, and
+
+  - **by the camera**.
+
+- Classic shadow map:
+
+  - Can only deal with point/directional light sources.
+
+    
+
+### Procedure
+
+- **Pass 1: Render from Light**:
+
+  - Get the depth image from light source
+
+- **Pass 2A: Render from Eye:**
+
+  - Get the depth image from camera
+
+- **Pass 2B: Project to Light**:
+
+  - **For each sampled point from Pass 2A**:
+
+    - If the depth of that point, when projected back to the light source, doesn't match the depth value in the shadow map, it means that the point has been blocked from receiving light.
+
+  - ***Visible Sample:***
+
+    ![img-7](images/Lecture12-img-7.png)
+
+  - ***Invisible Sample***:
+
+    ![img-8](images/Lecture12-img-8.png)
+
+
+
+### Problems
+
+- Precision of the underlying floating-point arithmetic
+  - Scale, bias, tolerance...
+- Resolution of the shadow mapping (from the view of light source)
+- **Hard shadows** (point lights only)
+  - In comparison to soft shadows (light sources with volume)
+
+
+
 ## Appendix A: Famous Models
 
 - Utah Teapot
@@ -240,3 +298,6 @@ Normal vectors in a normal map are expressed in tangent space where normals alwa
 
   - *The tangent vector and the bitangent vector align with the direction in which we define a surface's texture coordinates.*
   - *Multiply the acquired normal vector from the normal map, by the TBN matrix, transforms the vector into the global coordinates.*
+
+
+

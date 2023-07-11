@@ -14,6 +14,6 @@ Implemented by IskXCr
 
 
 ## Demonstration
-![Test](test.png)
+![Test](images/test.png)
 
 The image is under the root of this readme file.

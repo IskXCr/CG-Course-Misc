@@ -79,11 +79,7 @@
 
 ### Mesh Operations: Geometry Processing
 
-- **Mesh Subdivision**
-- **Mesh Simplification**
-- **Mesh Regularization**
-
-![img-3](images/Lecture11-img-3.png)
+*Refer to* `Lecture11.md`.
 
 
 

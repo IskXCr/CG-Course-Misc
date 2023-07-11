@@ -22,6 +22,7 @@ inline bool solveQuadratic(const float& a, const float& b, const float& c, float
         x0 = x1 = -0.5 * b / a;
     else
     {
+        // Compute the roots faster
         float q = (b > 0) ? -0.5 * (b + sqrt(discr)) : -0.5 * (b - sqrt(discr));
         x0 = q / a;
         x1 = c / q;
