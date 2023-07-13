@@ -42,7 +42,7 @@ $$
 
 **The Reflection Equation:**
 $$
-\begin{equation} \label{ref1} \tag{1}
+\begin{equation} \label{refleq} \tag{1}
 L_r (\text{p}, \omega_r) 
 = \int_{H^2} f_r(\text{p}, \omega_i \to \omega_r) L_i (\text{p}, \omega_i) \cos{\theta_i} \dd{\omega_i}
 \end{equation}
@@ -61,12 +61,14 @@ In this equation, what we do is essentially **summing up the contributions** to 
 
 ### The Rendering Equation
 
-Adding **an emission term** on the reflection equations gives the **rendering equation**:
+Adding **an emission term** on equation $\ref{refleq}$ gives the **rendering equation**:
 $$
+\begin{equation} \label{rendeq} \tag{2}
 L_o (\text{p}, \omega_o) = 
 L_e (\text{p}, \omega_o) + 
 \int_{\Omega_{+}} L_i (\text{p}, \omega_i) f_r(\text{p}, \omega_i, \omega_o)
 (\textbf{n} \cdot \omega_i) \dd{\omega_i}
+\end{equation}
 $$
 where $p$ is the point being considered, and $\Omega_{+}$ denotes the upper hemisphere.
 
@@ -81,14 +83,14 @@ where $p$ is the point being considered, and $\Omega_{+}$ denotes the upper hemi
 
 Equation $\ref{ref1}$ is a **Fredhold Integral Equation** of second kind (extensively studied numerically) with **canonical form**:
 $$
-\begin{equation} \label{ref2} \tag{2}
+\begin{equation} \label{fredhold} \tag{3}
 l(u) = e(u) + \int l(v) \underbrace{K(u, v)}_{\text{Kernel of the Equation}} \dd{v}
 \end{equation}
 $$
 
 #### Linear Operator Equation
 
-Equation $\ref{ref2}$ can be further transformed by applying the **Light Transport Operator**.
+Equation $\ref{fredhold}$ can be further transformed by applying the **Light Transport Operator**.
 $$
 L = E + KL
 $$
