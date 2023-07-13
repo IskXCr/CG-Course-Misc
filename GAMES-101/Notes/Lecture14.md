@@ -181,8 +181,7 @@ Intersect(Ray ray, BVH node) {
 
 ### Radiant Energy and Flux (Power)
 
-***Definition***: **Radiant energy** is the energy of electromagnetic radiation. It is measured in *units of joules*, and denoted by the symbol
-
+***Definition***: **Radiant energy** is the energy of electromagnetic radiation. It is measured in units of joules, and denoted by the symbol
 $$
 Q \quad[\text{J $=$ Joule}]
 $$
@@ -198,8 +197,7 @@ $$
 
 <img src="images/Lecture14-img-4.png" alt="img-4" style="zoom:50%;" />
 
-***Definition***: The **radiant (luminous) intensity** is the power per *unit solid angle* emitted by a point light source.
-
+***Definition***: The **radiant (luminous) intensity** is the power *per unit solid angle* emitted by a point light source.
 $$
 I(\omega) \equiv \dv{\Phi}{\omega}
 \quad
@@ -228,7 +226,11 @@ $$
 $$
 A sphere has $4\pi$ **steradians**.
 
-$\omega$ will be used to denote a **direction vector** of unit length.
+*The area, when calculated, must be that of a part of the shell, or that projected to the shell.*
+
+
+
+**Direction Vector**: **$\omega$** will be used to denote a **direction vector** of unit length.
 
 <img src="images\Lecture14-img-5.png" alt="img-5" style="zoom: 33%;" />
 
@@ -253,13 +255,106 @@ $$
 ### Isotropic Point Source
 
 <img src="images/Lecture14-img-7.png" alt="img-7" style="zoom:50%;" />
+
+An **isotropic point source** has an uniform intensity.
 $$
 \begin{align}
 \Phi &= \int_{S^2} I \dd{\omega} \\
 &= 4 \pi I
 \end{align}
 $$
-If uniform, 
 $$
 I = \frac{\Phi}{4\pi}
 $$
+
+
+
+### Irradiance
+
+<img src="images/Lecture14-img-8.png" alt="img-8" style="zoom:50%;" />
+
+***Definition***: The **irradiance** is the power per unit area **incident** on a surface point.
+$$
+E(\textbf{x}) \equiv \dv{\Phi(\textbf{x})}{A} \cos{\theta}
+\quad 
+\text{$\left[\frac{\text{W}}{\text{m}^2} \right]$ 
+$\left[\frac{\text{lm}}{\text{m}^2} = \text{lux}\right]$}
+$$
+where $\theta$ is the angle of incidence following **Lambert's Cosine Law**.
+
+<img src="images/Lecture14-img-13.png" alt="img-13" style="zoom:33%;" />
+
+*Hint: Think of the $\cos{\theta}$ operation as adjusting the plane such that it sits perpendicular to the incident light.*
+
+
+
+#### Correction: Irradiance Falloff
+
+![img-9](images/Lecture14-img-9.png)
+
+
+
+### Radiance
+
+<img src="images/Lecture14-img-10.png" alt="img-10" style="zoom:33%;" />
+
+Radiance is the fundamental field quantity that describes the distribution of light in an environment.
+
+- Radiance is the quantity associated **with a ray**
+- Rendering is all about computing radiance
+
+<img src="images/Lecture14-img-11.png" alt="img-11" style="zoom:50%;" />
+
+***Definition***: The **radiance (luminance)** is the power emitted reflected, transmitted or received by a surface, **per unit solid angle**, **per projected unit area**.
+$$
+L(\text{p}, \omega) \equiv \frac{\dd[2]\Phi(\text{p}, \omega)}{\dd{\omega} \dd{A} \cos{\theta}}
+\quad
+\text{
+$\left[\frac{\text{W}}{\text{sr m}^2} \right] $ 
+$\left[\frac{\text{cd}}{\text{m}^2} = \frac{\text{lm}}{\text{sr m}^2} = \text{nit} \right] $
+}
+$$
+*where $\cos{\theta}$ accounts for projected surface area.*
+
+- Irradiance per solid angle
+- Intensity per **projected** unit area
+
+
+
+#### Incident Radiance
+
+**Incident radiance** is the irradiance per unit solid angle arriving at the surface. 
+$$
+L(\text{p}, \omega) = \dv{E(\text{p})}{\omega \cos{\theta}}
+$$
+The light arriving at the surface along a given ray.
+
+
+
+#### Exiting Radiance
+
+**Exiting surface** radiance is the intensity per unit projected area leaving the surface.
+$$
+L(\text{p}, \omega) \equiv \dv{I(\text{p}, \omega)}{A \cos{\theta}}
+$$
+*Hint: For the two formulas for incident/exiting radiance, considering taking them has differentials and multiply $L(\text{p}, \omega)$ by the denominator.*
+
+
+
+#### Irradiance vs. Radiance
+
+![img-12](images/Lecture14-img-12.png)
+
+- **Irradiance**: Total power received by area $\dd{A}$
+- **Radiance**: Power received by area $\dd{A}$ from **direction** $\dd{\omega}$
+
+$$
+\dd{E(\text{p}, \omega)} = L_i (\text{p}, \omega) \cos{\theta} \dd{\omega}
+$$
+
+$$
+E(p) = \int_{H^2} L_i (\text{p}, \omega) \cos{\theta} \dd{\omega}
+$$
+
+*Unit hemisphere*: $H^2$
+

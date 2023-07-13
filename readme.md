@@ -1,8 +1,8 @@
-# Collection of Implementations of Assignments and Projects from Various Open CG Courses
+# Collection of Notes and Implementations of Assignments and Projects from Various CG Courses
 Author: IskXCr
 
 ## Introduction
-This repository contains the author's implementations of assignments and projects from various open courses in computer graphics.
+This repository contains the author's notes (in English) and implementations of assignments and projects from various courses in computer graphics.
 
 The current list is as follows. 
 
