@@ -23,8 +23,6 @@ Radiance from direction $\omega_i$ turns into the power $E$ that $\dd{A}$ receiv
   $$
   \dd{L_r (\omega_r)}
   $$
-  
-- 
 
 ### BRDF
 

@@ -25,7 +25,10 @@ and we list it here as a reference.
 ***Definition***: The **Monte Carlo estimator** for the definite integral $\int_{a}^{b} f(x) \dd{x}$ of given function $f(x)$ is
 $$
 \begin{equation} \label{mcest} \tag{2}
-F_N = \frac{1}{N} \sum_{i = 1}^{N} \frac{f(X_i)}{p(X_i)}
+\int f(x) \dd{x}
+=
+F_N
+= \frac{1}{N} \sum_{i = 1}^{N} \frac{f(X_i)}{p(X_i)}
 \end{equation}
 $$
 where $X_i \sim p(x)$ is a random variable.
@@ -41,12 +44,13 @@ Later on we will be using the Monte Carlo estimator to estimate the result of re
 
 
 
-***Definition***: The **Basic Monte Carlo estimator** for the definite integral of given function $f(x)$ is
+***Definition***: The **Basic Monte Carlo estimator** $\int_{a}^{b} f(x) \dd{x}$ is
 $$
 \begin{equation} \label{bmcest} \tag{3}
 F_N = \frac{b - a}{N} \sum_{i = 1}^{n} f(X_i)
 \end{equation}
 $$
+
 
 
 ## II. Path Tracing
@@ -57,8 +61,10 @@ In summary, Whitted-style ray tracing:
 
 - Always perform **specular** reflections/refractions
   - *Where should the ray be reflected for glossy materials?*
+    - Incorrect implementation for **glossy** reflections, since the reflections in this case doesn't strictly follow the directions for specular reflections.
 - Stop bouncing at **diffuse** surfaces
-  - *No reflections between diffuse materials*
+  - *No reflections between diffuse materials*.
+    - **Color-bleeding** from global illumination.
 
 Overall, **physically wrong**.
 
@@ -79,23 +85,25 @@ L_o (\text{p}, \omega_o) =
 \int_{\Omega_+}
 Li (\text{p}, \omega_i) f_r (\text{p}, \omega_i, \omega_o) (\textbf{n} \cdot \omega_i) \dd{\omega_i}
 $$
-Assume we are sampling uniformly on the entire hemisphere, by applying equation $\ref{mcest}$ we have
+Fancy as it is, it's still just an integration over directions. 
+
+We are sampling on the entire hemisphere, by applying equation $\ref{mcest}$ we have
 $$
-\begin{align} \label{pt} \tag{4}
+\begin{align}
 L_o (x, \omega_o) &= 
 \int_{\Omega_+}
 Li (x, \omega_i) f_r (x, \omega_i, \omega_o) (\textbf{n} \cdot \omega_i) \dd{\omega_i} \\
 
-&\approx
+&\approx \label{pt} \tag{4}
 \frac{1}{N} \sum_{i = 1}^{N}
-\frac{Li (x, \omega_i) f_r (x, \omega_i, \omega_o) (\textbf{n} \cdot \omega_i)}{p(\omega_i)}
+\frac{Li (x, \omega_i) f_r (x, \omega_i, \omega_o) (\textbf{n} \cdot \omega_i)}{p(\omega_i)} \\
 \end{align}
 $$
 Note that here we have changed the notation to avoid confusion. Here:
 
 - $x$ is the point the shading is being computed at,
 - $p(\omega_i)$ represents the probability the direction $\omega_i$ is chosen, and
-- and the **PDF** is $(1/2\pi)$, as the sample is taken on the entire hemisphere with equal probability.
+- and the PDF is $(1/2\pi)$, if the sample is taken on the entire hemisphere with equal probability.
 
 
 
@@ -116,12 +124,18 @@ shade(p, wo)
 
 
 
-This creates a **seemingly correct** shading algorithm. However, it is **not computationally feasible**, and **wrong** in most cases.
+This creates a **correct** shading algorithm. However, it is **not computationally feasible**, and **incomputable** in most cases.
 
 - If $N > 1$, it will result in **ray explosion**, i.e., as the recursion goes deeper the number of rays exponentially increases.
-- In most cases, it will **recurse forever**.
 
-As this is not the ideal solution, we will offer a solution hereafter.
+- In most cases, it will **recurse forever**.
+  $$
+  \#\text{rays} = N^{\text{\#bounces}}
+  $$
+
+- 
+
+As this is not the solution for computing the result, we will offer a computable solution hereafter.
 
 
 
@@ -135,13 +149,15 @@ Multiple samples will be made when computing for each pixel to estimate the corr
 
 #### Distributed Ray Tracing
 
-***Definition***: If $N > 1$ in equation $\ref{pt}$, then it is called the **distributed ray tracing**.
+***Definition***: If $N > 1$ in equation $\ref{pt}$, then it is called **distributed ray tracing**.
 
 
 
 #### Ray Generation
 
 In path tracing, **multiple paths** will be traced through each pixel, and the result will be the average radiance.
+
+- Otherwise the result will be noisy
 
 ```pseudocode
 ray_generation(camPos, pixel)
@@ -154,6 +170,8 @@ ray_generation(camPos, pixel)
 	return pixel_radiance
 ```
 
+![img-3](images/Lecture16-img-3.png)
+
 
 
 #### Stop Recursing Forever - Russian Roulette
@@ -162,9 +180,11 @@ The shading algorithm previously mentioned will *recurse forever* in some cases.
 
 ```pseudocode
 shade(p, wo)
+    //=================================
 	Manually specify a probability P_RR
 	Randomly select ksi in a uniform distribution in [0, 1]
 	If (ksi > P_RR) return 0.0;
+	//=================================
 	
 	Randomly choose ONE direction wi~pdf(w)
 	Trace a ray r(p, wi)
@@ -178,17 +198,27 @@ shade(p, wo)
 
 - By introducing the probability $P_{RR}$ to shade, where a uniform random variable is sampled at each iteration and compared to this threshold value $P_{RR}$, we introduce an exponential probability distribution that renders it increasingly improbable for the recursion to extend beyond a certain depth as it increases.
 
-- Introducing the probability to shade doesn't affect the estimation, as the **expected value** remains the same:
+- **Unbiased estimator**: Introducing the probability to shade doesn't affect the estimation much, as the **expected value** remains the same:
   $$
   E = P_{RR} * \text{shade}(p, wo) + (1 - P_{RR}) * \vec{0} = L_o
   $$
   
+  However, the **variance** is large.
+  
+- Since the recursion follows the geometric distribution, the **expected** number of recursion is
+  $$
+  E[N] = \frac{1}{1 - p}
+  $$
+
+- In contrast, if you **directly cutoff the bounce after certain number of recursions**, the result is wrong, since the law of energy conservation isn't satisfied.
 
 This version of path tracing is
 
 - **correct**, but
 - **inefficient:**
   - A lot of rays are *wasted* if we uniformly sample the hemisphere at the shading point.
+
+![img-4](images/Lecture16-img-4.png)
 
 
 
@@ -214,12 +244,21 @@ L_o (x, \omega_o) &=
 \frac{\cos{\theta} \cos{\theta'}}{\lVert x' - x \rVert^2} \dd{A} \\
 \end{align}
 $$
-where the interval for integration covers all light sources instead, and the **PDF** is $1/A$. 
+where the interval for integration covers all light sources instead, and $p = 1/A$. 
 
-Each light source can be either
 
-- **direct** light source, or
-- other **reflectors** (indirect).
+
+
+
+### The Final Version
+
+Now we consider the radiance coming from two parts:
+
+1. light source (direct, no **RR**)
+
+2. other **reflectors** (indirect, **RR**).
+
+*RR: Russian Roulette*.
 
 
 
@@ -243,7 +282,7 @@ The **final** version:
 >
 > ​	$ L_{\text{indirect}} = 0.0 $
 >
-> ​	Test Russian Roulette with probability $P_{RR}$
+> ​	*Test Russian Roulette with probability* $P_{RR}$
 >
 > ​	**Uniformly** sample the hemisphere toward $\omega_i$, $p_{\text{hemi}} = 1 / 2\pi$
 >
@@ -279,16 +318,15 @@ The final version is almost $100\%$ correct, a.k.a. **PHOTO-REALISTIC**.
     - **Metropolis Light Transport**
       - A global illumination algorithm that uses a Markov Chain Monte Carlo (MCMC) method to sample light paths. It applies a random mutation process to generate new light paths, and a selection process based on the Metropolis-Hastings algorithm to accept or reject these paths. MLT is particularly useful for solving difficult light transport problems with complex lighting scenarios and is known for its ability to converge to accurate solutions.
     - **VCM/UPBP**
-      - Vertex Connection and Merging/Unified Path Sampling, is an algorithm that combines path tracing and bidirectional path tracing techniques to improve the efficiency and quality of rendering. It uses both path tracing and bidirectional path tracing strategies to estimate direct and indirect lighting contributions. By connecting and merging light paths from these two strategies, VCM/UPBP aims to reduce noise and improve convergence in the final rendered image.
 
 
 
 ### Things we haven't covered
 
 - **Uniformly sampling the hemisphere**
-  - Sampling
-- **Monte Carl integration allows arbitrary pdfs**
-  - Importance sampling
+  - How? Sampling
+- **Monte Carlo integration allows arbitrary pdfs**
+  - What's the best choice? Importance sampling
 - **Do random numbers matter**?
   - Low discrepancy sequences
 - **Multiple Importance Sampling**
@@ -296,5 +334,5 @@ The final version is almost $100\%$ correct, a.k.a. **PHOTO-REALISTIC**.
 - **The radiance of a pixel is the average of radiance on all paths passing through it**
   - Why? (Pixel reconstruction filter)
 - **Is the radiance of a pixel the color of a pixel**?
-  - **No.** Gamma correction, curves, color space
+  - **No.** **Gamma correction**, curves, color space
 
