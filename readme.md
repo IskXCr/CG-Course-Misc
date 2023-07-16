@@ -12,7 +12,7 @@ In each course, if there is a course project, the project constitutes 50% of the
 
 | Course Code | Course Name                                     | Starting Date | Progress |
 | ----------- | ----------------------------------------------- | ------------- | -------- |
-| GAMES-101   | Introduction to Computer Graphics               | 3/4/2023      | 18.75%   |
+| GAMES-101   | Introduction to Computer Graphics               | 3/4/2023      | 37.50%   |
 | GAMES-102   | Foundations of Geometry Modeling and Processing | 7/17/2023     | 0%       |
 | GAMES-202   | Real-Time High Quality Rendering                | 7/17/2023     | 0%       |
 

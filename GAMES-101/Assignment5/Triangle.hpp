@@ -22,7 +22,7 @@ bool rayTriangleIntersect(const Vector3f& v0, const Vector3f& v1, const Vector3f
     // origin is *orig* and direction is *dir*)
     // Also don't forget to update tnear, u and v.
     Vector3f e1 = v1 - v0;
-    Vector3f e2 = v2- v0;
+    Vector3f e2 = v2 - v0;
     Vector3f s = orig - v0;
     Vector3f s1 = crossProduct(dir, e2);
     Vector3f s2 = crossProduct(s, e1);

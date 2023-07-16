@@ -25,7 +25,7 @@
 
 ### Tree-Shaped Partitions
 
-![img-1](images/Lecture14-img-1.png)
+<img src="images/Lecture14-img-1.png" alt="img-1" style="zoom:33%;" />
 
 #### Oct-Tree
 
@@ -44,7 +44,7 @@
 
 #### KD-Tree
 
-![img-2](images/Lecture14-img-2.png)
+<img src="images/Lecture14-img-2.png" alt="img-2" style="zoom: 33%;" />
 
 *Recursively divide the space along **alternating** axes ($x \to y \to z$ loop) using a hyperplane, creating a binary tree structure.*
 
@@ -97,7 +97,7 @@
 **How to subdivide a node**? *Make the split as separated and evenly-sized as possible.*
 
 - Choose a dimension to split
-- **Heuristic #1**: Always choose the **longest** axis in node
+- **Heuristic #1**: Always choose the **longest** axis in the current node
   - To make the partitions more evenly-spaced
 - **Heuristic #2**: Split node at location of **median** object
   - To make the tree **balanced**, resulting in less depth of the hierarchy
@@ -238,7 +238,7 @@ A sphere has $4\pi$ **steradians**.
 
 ### Differential Solid Angle
 
-<img src="images/Lecture14-img-6.png" alt="img-6" style="zoom:50%;" />
+<img src="images/Lecture14-img-6.png" alt="img-6" style="zoom: 33%;" />
 $$
 \begin{align}
 \dd{A} &= (r \dd{\theta}) (r \sin{\theta} \dd{\phi}) \\
@@ -254,7 +254,7 @@ $$
 
 ### Isotropic Point Source
 
-<img src="images/Lecture14-img-7.png" alt="img-7" style="zoom:50%;" />
+<img src="images/Lecture14-img-7.png" alt="img-7" style="zoom: 33%;" />
 
 An **isotropic point source** has an uniform intensity.
 $$
@@ -290,7 +290,7 @@ where $\theta$ is the angle of incidence following **Lambert's Cosine Law**.
 
 #### Correction: Irradiance Falloff
 
-![img-9](images/Lecture14-img-9.png)
+<img src="images/Lecture14-img-9.png" alt="img-9" style="zoom:33%;" />
 
 
 
@@ -303,7 +303,7 @@ Radiance is the fundamental field quantity that describes the distribution of li
 - Radiance is the quantity associated **with a ray**
 - Rendering is all about computing radiance
 
-<img src="images/Lecture14-img-11.png" alt="img-11" style="zoom:50%;" />
+<img src="images/Lecture14-img-11.png" alt="img-11" style="zoom: 33%;" />
 
 ***Definition***: The **radiance (luminance)** is the power emitted reflected, transmitted or received by a surface, **per unit solid angle**, **per projected unit area**.
 $$
@@ -343,7 +343,7 @@ $$
 
 #### Irradiance vs. Radiance
 
-![img-12](images/Lecture14-img-12.png)
+<img src="images/Lecture14-img-12.png" alt="img-12" style="zoom:33%;" />
 
 - **Irradiance**: Total power received by area $\dd{A}$
 - **Radiance**: Power received by area $\dd{A}$ from **direction** $\dd{\omega}$
@@ -358,3 +358,93 @@ $$
 
 *Unit hemisphere*: $H^2$
 
+
+
+## Appendix A: Surface Area Heuristics (SAH)
+
+*Reference:* [Bounding Volume Hierarchies (pbr-book.org)](https://pbr-book.org/3ed-2018/Primitives_and_Intersection_Acceleration/Bounding_Volume_Hierarchies#sec:sah)
+
+The two primitive partitioning approaches described in the BVH section can work well for some distributions of primitives, but they often choose partitions that perform poorly in practice, leading to more nodes of the tree being visited by rays and hence unnecessary inefficient ray-primitive intersection computations at rendering time.
+
+Most of the best algorithms (as of 2018) for building acceleration structures for ray-tracing are based on the "surface area heuristic" (SAH), which provides a **well-grounded cost model** for answer questions like
+
+- "which of a number of partitions of primitives will lead to a better BVH for ray-primitive intersection tests?", or
+- "which of a number of possible positions to split space in a spatial subdivision scheme will lead to a better acceleration structure?"
+
+
+
+### Idea behind the SAH Cost Model
+
+The SAH model estimates the **computational cost** of performing ray intersection tests, including the time spent on:
+
+- **Traversing** nodes of the tree
+- Ray-primitive **intersection tests** for a particular partitioning of primitives
+
+If the current node, assuming it is a leaf node regardless of the number of primitives it contains, then any ray that passes through this node will be tested against all of the overlapping primitives and will incur a cost of 
+$$
+\sum_{i = 1}^N t_\text{isect} (i)
+$$
+where 
+
+- $N$ is the number of objects
+- $t_\text{isect}$ is the time to compute a ray-object intersection with the $i$th primitive
+  - We here assume that $t_\text{isect}$ is the same for all primitives
+    - The error introduced doesn't *seem* to affect the performance very much
+
+If we **split the region**, rays will incur the cost
+$$
+c(A, B) = t_\text{trav} + p_A \sum_{i = 1}^{N_A} t_\text{isect} (a_i) + p_B \sum_{i = 1}^{N_B} t_\text{isect} (b_i)
+$$
+where
+
+- $t_\text{trav}$ is the time it takes to traverse the interior node and determine which of the children the ray passes through
+
+- $p_A$ and $p_B$ are the probabilities that the ray passes through each of the child nodes (assuming binary subdivision)
+
+  - They can be computed using ideas from geometric probability.
+
+    For a convex volume $A$ contained in another convex volume $B$, the conditional probability that a **uniformly distributed random ray** passing through $B$ will also pass through $A$ is the ratio of their surface areas, $s_A$ and $s_B$:
+    $$
+    p(A|B) = \frac{s_A}{s_B}
+    $$
+
+- $a_i$ and $b_i$ are the indices of primitives in the two children nodes
+
+- $N_A$ and $N_B$ are the number of primitives contained in two child nodes
+
+
+
+
+
+The algorithm then optimize the partitioning with the goal of minimizing the total cost.
+
+- Typically, a **greedy** algorithm is used that minimizes the cost for each single node of the hiearchy.
+
+
+
+### The Bucket Algorithm
+
+The bucket algorithm follows a very simple pattern.
+
+- If the number of primitives in the current node is less than a threshold, do nothing
+- Else:
+  - Choose the axis to split. *May split the longest axis.*
+  - Split the range on that axis into $N$ equally-sized regions.
+  - Compute the cost if we split the node at those $N-1$ planes.
+  - Which plane is the best to patition? Choose that and recursively build BVH.
+
+In the book, $N=12$.
+
+
+
+### Pros
+
+- Probably the **most efficient** BVH split method
+
+
+
+### Cons
+
+- Many passes are taken over the scene primitives to compute the SAH costs at all of the levels of the tree
+
+- Hard to **parallelize**

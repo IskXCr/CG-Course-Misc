@@ -15,7 +15,7 @@
 
 
 
-## II. Basic Ray-Tracing Algorithm
+## II. Basic Ray-Tracing Algorithms
 
 Three assumptions:
 
@@ -57,7 +57,7 @@ Simulates the recursive bouncing of light rays.
 
 
 
-#### Ray-Surface Intersection
+### Ray-Surface Intersection
 
 - **Ray Equation**: A ray is defined by its origin $\textbf{o}$ and a direction vector $\textbf{d}$:
   
@@ -136,9 +136,9 @@ Simulates the recursive bouncing of light rays.
 
 
 
-#### Accelerating Ray-Surface Intersection
+### Accelerating Ray-Surface Intersection
 
-##### Performance Challenges
+#### Performance Challenges
 
 Simple ray-scene intersection
 
@@ -147,7 +147,7 @@ Simple ray-scene intersection
 
 
 
-##### Bounding Volumes
+#### Bounding Volumes
 
 Build a larger volume for testing the potential intersection quickly.
 
@@ -163,7 +163,7 @@ Build a larger volume for testing the potential intersection quickly.
 
 
 
-##### Ray-Intersection With Box
+#### Ray-Intersection With Box
 
 - **Axis-Aligned Bounding Box (AABB)**
 

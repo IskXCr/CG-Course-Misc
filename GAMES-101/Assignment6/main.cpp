@@ -1,6 +1,7 @@
 #include "Renderer.hpp"
 #include "Scene.hpp"
 #include "Triangle.hpp"
+#include "Sphere.hpp"
 #include "Vector.hpp"
 #include "global.hpp"
 #include <chrono>
@@ -18,7 +19,10 @@ int main(int argc, char** argv)
     scene.Add(&bunny);
     scene.Add(std::make_unique<Light>(Vector3f(-20, 70, 20), 1));
     scene.Add(std::make_unique<Light>(Vector3f(20, 70, 20), 1));
+    // Sphere sphere(Vector3f(0.f, 0.f, -10.f), 3.f);
+    // scene.Add(&sphere);
     scene.buildBVH();
+
 
     Renderer r;
 
@@ -27,9 +31,10 @@ int main(int argc, char** argv)
     auto stop = std::chrono::system_clock::now();
 
     std::cout << "Render complete: \n";
-    std::cout << "Time taken: " << std::chrono::duration_cast<std::chrono::hours>(stop - start).count() << " hours\n";
-    std::cout << "          : " << std::chrono::duration_cast<std::chrono::minutes>(stop - start).count() << " minutes\n";
+    std::cout << "Time taken: " << std::chrono::duration_cast<std::chrono::milliseconds>(stop - start).count() << " milliseconds\n";
     std::cout << "          : " << std::chrono::duration_cast<std::chrono::seconds>(stop - start).count() << " seconds\n";
+    std::cout << "          : " << std::chrono::duration_cast<std::chrono::minutes>(stop - start).count() << " minutes\n";
+    std::cout << "          : " << std::chrono::duration_cast<std::chrono::hours>(stop - start).count() << " hours\n";
 
     return 0;
 }

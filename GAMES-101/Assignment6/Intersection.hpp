@@ -19,11 +19,12 @@ struct Intersection
         obj =nullptr;
         m=nullptr;
     }
-    bool happened;
-    Vector3f coords;
-    Vector3f normal;
-    double distance;
-    Object* obj;
-    Material* m;
+    bool happened;   // Whether the intersection has happened
+    Vector3f coords; // The coordinate where the intersection occurred
+    Vector3f normal; // The surface normal at the point of intersection
+    double distance; // Records t, where the actual coord = ori + dir * t. Default to std::numeric_limits<double>::max()
+    Object* obj;     // The target object with which the ray intersected
+    Material* m;     // The material of target object
 };
+
 #endif //RAYTRACING_INTERSECTION_H

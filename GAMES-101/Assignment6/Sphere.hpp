@@ -28,6 +28,7 @@ public:
         if (t0 < 0) return false;
         return true;
     }
+
     bool intersect(const Ray& ray, float &tnear, uint32_t &index) const
     {
         // analytic solution
@@ -44,6 +45,7 @@ public:
 
         return true;
     }
+
     Intersection getIntersection(Ray ray){
         Intersection result;
         result.happened = false;
@@ -65,6 +67,7 @@ public:
         return result;
 
     }
+    
     void getSurfaceProperties(const Vector3f &P, const Vector3f &I, const uint32_t &index, const Vector2f &uv, Vector3f &N, Vector2f &st) const
     { N = normalize(P - center); }
 
