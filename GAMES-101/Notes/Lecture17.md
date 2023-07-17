@@ -454,3 +454,7 @@ Store regularly-spaced samples in $(\theta_i, \theta_o, \abs{\phi_i - \phi_o})$
 - Generally need to resample measured values to table
 - **Very high** storage requirements
 
+
+
+## Appendix A: Microfacet Models
+

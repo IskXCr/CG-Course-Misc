@@ -21,52 +21,70 @@ struct BVHPrimitiveInfo;
 
 // BVHAccel Declarations
 inline int leafNodes, totalLeafNodes, totalPrimitives, interiorNodes;
-class BVHAccel {
+class BVHAccel
+{
 
 public:
     // BVHAccel Public Types
-    enum class SplitMethod { NAIVE, SAH };
+    enum class SplitMethod
+    {
+        NAIVE,
+        SAH
+    };
 
     // BVHAccel Public Methods
-    BVHAccel(std::vector<Object*> p, int maxPrimsInNode = 1, SplitMethod splitMethod = SplitMethod::NAIVE);
+    BVHAccel(std::vector<Object *> p, int maxPrimsInNode = 1, SplitMethod splitMethod = SplitMethod::SAH);
     Bounds3 WorldBound() const;
     ~BVHAccel();
 
     Intersection Intersect(const Ray &ray) const;
-    Intersection getIntersection(BVHBuildNode* node, const Ray& ray)const;
+    Intersection getIntersection(BVHBuildNode *node, const Ray &ray) const;
     bool IntersectP(const Ray &ray) const;
-    BVHBuildNode* root;
+    BVHBuildNode *root;
 
     // BVHAccel Private Methods
-    BVHBuildNode* recursiveBuild(std::vector<Object*>objects);
+    BVHBuildNode *recursiveBuild(std::vector<Object *> objects);
+    BVHBuildNode *recursiveBuildSAH(std::vector<Object *> objects);
 
     // BVHAccel Private Data
     const int maxPrimsInNode;
     const SplitMethod splitMethod;
-    std::vector<Object*> primitives;
+    std::vector<Object *> primitives;
 
-    void getSample(BVHBuildNode* node, float p, Intersection &pos, float &pdf);
+    void getSample(BVHBuildNode *node, float p, Intersection &pos, float &pdf);
     void Sample(Intersection &pos, float &pdf);
 };
 
-struct BVHBuildNode {
+struct BVHBuildNode
+{
     Bounds3 bounds;
     BVHBuildNode *left;
     BVHBuildNode *right;
-    Object* object;
+    Object *object; // Only leaf nodes contain objects
     float area;
 
-public:
-    int splitAxis=0, firstPrimOffset=0, nPrimitives=0;
+    int splitAxis = 0;       // Axis split. 0 - x, 1 - y, 2 - z
+    int firstPrimOffset = 0; //
+    int nPrimitives = 0;     // Number of primitives contained in this node
     // BVHBuildNode Public Methods
-    BVHBuildNode(){
+    BVHBuildNode()
+    {
         bounds = Bounds3();
-        left = nullptr;right = nullptr;
+        left = nullptr;
+        right = nullptr;
         object = nullptr;
     }
 };
 
+constexpr int nBuckets = 12;
+struct BucketInfo
+{
+    int count = 0;
+    Bounds3 bounds;
+};
 
+extern BucketInfo buckets[nBuckets];
 
+void resetAllBuckets();
 
-#endif //RAYTRACING_BVH_H
+#endif // RAYTRACING_BVH_H

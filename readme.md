@@ -18,15 +18,20 @@ In each course, if there is a course project, the project constitutes 50% of the
 
 *GAMES: Graphics and Mixed Environment Symposium*.
 
+For detailed information about a specific course listed above, please read the `readme.md` file contained in corresponding repository.
 
+For copyright information, please also consult the readme document.
 
 ## Course Repositories
 
-At the root level, you will find the repositories associated with each specific course. For each assignment/project within a given course, a corresponding `readme.md` file in the assignment folder provides a brief description of the author's implementation, along with a few accompanying images for demonstration purposes.
+### Courses
 
+At the root level, you will find the folders associated with each specific course. Within each folder a `readme.md` file provides an introduction to that course, related information (such as copyright disclaimer) and selected demos made by us.
 
+### Assignments
+
+For each assignment/project within a given course, a corresponding `readme.md` file in the assignment folder provides a brief description of the author's implementation, along with a few accompanying images for demonstration purposes. For some topics, we provide references on which the implementation is based and link to the note where we have written a compact introduction on this particular topic.
 
 ## Selected Demos
 
 Currently there is none :(
-

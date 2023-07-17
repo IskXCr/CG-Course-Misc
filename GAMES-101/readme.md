@@ -2,7 +2,11 @@
 
 ## Introduction to This Course
 
-GAMES101 (2020-02) is an introductory course that explores the fundamentals of Computer Graphics. This comprehensive offering provides students with a solid foundation in essential principles and techniques used in CG, including rendering (both rasterization and modern ray-tracing), geometry, and animation. Additionally, the course showcases the captivating nature of the field and highlights cutting-edge research conducted by leading experts. Students are expected to gain a deeper understanding of visually stunning virtual environments and stay informed about the latest advancements in CG.
+GAMES101 (2020-02), or **Introduction to Computer Graphics**, conducted by Prof. Lingqi Yan, is an introductory course that explores the fundamentals of Computer Graphics. This comprehensive offering provides students with a solid foundation in essential principles and techniques used in CG, including rendering (both rasterization and modern ray-tracing), geometry, and animation. Additionally, the course showcases the captivating nature of the field and highlights cutting-edge research conducted by leading experts. Students are expected to gain a deeper understanding of visually stunning virtual environments and stay informed about the latest advancements in CG.
+
+[Course Website - GAMES101](https://sites.cs.ucsb.edu/~lingqi/teaching/games101.html)
+
+The corresponding English version can be found at [Course Website - CS180/CS280 - Introduction to Computer Graphics](https://sites.cs.ucsb.edu/~lingqi/teaching/cs180.html).
 
 ## About This Repository
 
@@ -10,7 +14,7 @@ This repository contains my notes, assignments and projects for GAMES101 conduct
 
 The purpose of this repository is to track personal progress.
 
-According to the policy listed in the slide of the first week, this public repository is only uploaded for educational/referential usages and discussions.
+According to the policy listed in the slide of the first week, this public repository is uploaded only for educational/referential usages and discussions.
 
 It is VIOLATING THE POLICY specified in GAMES101 to directly copy these referential materials and use as a student's own solution without having them walked through by itself first. 
 

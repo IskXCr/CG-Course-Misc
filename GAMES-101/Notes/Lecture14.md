@@ -380,7 +380,7 @@ The SAH model estimates the **computational cost** of performing ray intersectio
 - **Traversing** nodes of the tree
 - Ray-primitive **intersection tests** for a particular partitioning of primitives
 
-If the current node, assuming it is a leaf node regardless of the number of primitives it contains, then any ray that passes through this node will be tested against all of the overlapping primitives and will incur a cost of 
+By assuming the current working node is a leaf node regardless of the number of primitives it contains, we know that any ray that passes through this node will be tested against all of the overlapping primitives and will incur a cost of 
 $$
 \sum_{i = 1}^N t_\text{isect} (i)
 $$

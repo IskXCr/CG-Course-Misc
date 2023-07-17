@@ -88,15 +88,35 @@ class Bounds3
                            const std::array<int, 3>& dirisNeg) const;
 };
 
-
+inline std::tuple<float, float> IntersectAxis(const float pMin, const float pMax, const float invDir, const float orig, const int dirIsNeg)
+{
+    float tMin = invDir * (pMin - orig);
+    float tMax = invDir * (pMax - orig);
+    if (dirIsNeg)
+        return {tMax, tMin};
+    else
+        return {tMin, tMax};
+}
 
 inline bool Bounds3::IntersectP(const Ray& ray, const Vector3f& invDir,
                                 const std::array<int, 3>& dirIsNeg) const
 {
-    // invDir: ray direction(x,y,z), invDir=(1.0/x,1.0/y,1.0/z), use this because Multiply is faster that Division
-    // dirIsNeg: ray direction(x,y,z), dirIsNeg=[int(x>0),int(y>0),int(z>0)], use this to simplify your logic
+    // invDir: ray direction(x,y,z), invDir=(1.0/x,1.0/y,1.0/z), use this because Multiplication is faster than Division
+    // dirIsNeg: ray direction(x,y,z), dirIsNeg=[int(x<0),int(y<0),int(z<0)], use this to simplify your logic
     // TODO test if ray bound intersects
+    float tEnter, tExit, tMin, tMax;
 
+    std::tie(tMin, tMax) = IntersectAxis(pMin.x, pMax.x, invDir.x, ray.origin.x, dirIsNeg[0]);
+    tEnter = tMin;
+    tExit = tMax;
+    std::tie(tMin, tMax) = IntersectAxis(pMin.y, pMax.y, invDir.y, ray.origin.y, dirIsNeg[1]);
+    tEnter = std::fmax(tEnter, tMin);
+    tExit = std::fmin(tExit, tMax);
+    std::tie(tMin, tMax) = IntersectAxis(pMin.z, pMax.z, invDir.z, ray.origin.z, dirIsNeg[2]);
+    tEnter = std::fmax(tEnter, tMin);
+    tExit = std::fmin(tExit, tMax);
+
+    return tEnter < tExit && tExit > 0;
 }
 
 inline Bounds3 Union(const Bounds3& b1, const Bounds3& b2)
