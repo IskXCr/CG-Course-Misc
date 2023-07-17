@@ -11,20 +11,21 @@ class Sphere;
 
 struct Intersection
 {
-    Intersection(){
-        happened=false;
-        coords=Vector3f();
-        normal=Vector3f();
-        distance= std::numeric_limits<double>::max();
-        obj =nullptr;
-        m=nullptr;
+    Intersection()
+    {
+        happened = false;
+        coords = Vector3f();
+        normal = Vector3f();
+        distance = std::numeric_limits<double>::max();
+        obj = nullptr;
+        m = nullptr;
     }
     bool happened;   // Whether the intersection has happened
     Vector3f coords; // The coordinate where the intersection occurred
     Vector3f normal; // The surface normal at the point of intersection
     double distance; // Records t, where the actual coord = ori + dir * t. Default to std::numeric_limits<double>::max()
-    Object* obj;     // The target object with which the ray intersected
-    Material* m;     // The material of target object
+    Object *obj;     // The target object with which the ray intersected
+    Material *m;     // The material of target object
 };
 
-#endif //RAYTRACING_INTERSECTION_H
+#endif // RAYTRACING_INTERSECTION_H

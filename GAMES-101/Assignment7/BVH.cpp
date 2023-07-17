@@ -56,30 +56,14 @@ BVHBuildNode* BVHAccel::recursiveBuild(std::vector<Object*> objects)
             centroidBounds =
                 Union(centroidBounds, objects[i]->getBounds().Centroid());
         int dim = centroidBounds.maxExtent();
-        switch (dim) {
-        case 0:
-            std::sort(objects.begin(), objects.end(), [](auto f1, auto f2) {
-                return f1->getBounds().Centroid().x <
-                       f2->getBounds().Centroid().x;
-            });
-            break;
-        case 1:
-            std::sort(objects.begin(), objects.end(), [](auto f1, auto f2) {
-                return f1->getBounds().Centroid().y <
-                       f2->getBounds().Centroid().y;
-            });
-            break;
-        case 2:
-            std::sort(objects.begin(), objects.end(), [](auto f1, auto f2) {
-                return f1->getBounds().Centroid().z <
-                       f2->getBounds().Centroid().z;
-            });
-            break;
-        }
-
         auto beginning = objects.begin();
         auto middling = objects.begin() + (objects.size() / 2);
         auto ending = objects.end();
+        
+        std::nth_element(beginning, middling, ending, [=](auto f1, auto f2)
+                         { return f1->getBounds().Centroid()[dim] <
+                                  f2->getBounds().Centroid()[dim]; });
+
 
         auto leftshapes = std::vector<Object*>(beginning, middling);
         auto rightshapes = std::vector<Object*>(middling, ending);
@@ -91,6 +75,7 @@ BVHBuildNode* BVHAccel::recursiveBuild(std::vector<Object*> objects)
 
         node->bounds = Union(node->left->bounds, node->right->bounds);
         node->area = node->left->area + node->right->area;
+        node->nPrimitives = objects.size();
     }
 
     return node;
@@ -114,6 +99,7 @@ BVHBuildNode *BVHAccel::recursiveBuildSAH(std::vector<Object *> objects)
         node->object = objects[0];
         node->left = nullptr;
         node->right = nullptr;
+        node->area = objects[0]->getArea();
         node->nPrimitives = 1;
         return node;
     }
@@ -123,6 +109,7 @@ BVHBuildNode *BVHAccel::recursiveBuildSAH(std::vector<Object *> objects)
         node->right = recursiveBuildSAH(std::vector{objects[1]});
 
         node->bounds = Union(node->left->bounds, node->right->bounds);
+        node->area = node->left->area + node->right->area;
         node->nPrimitives = 2;
         return node;
     }
@@ -135,24 +122,9 @@ BVHBuildNode *BVHAccel::recursiveBuildSAH(std::vector<Object *> objects)
 
         int dim = centroidBounds.maxExtent(); // Choose the longest axis to split
 
-        switch (dim)
-        {
-        case 0:
-            std::sort(objects.begin(), objects.end(), [](auto f1, auto f2)
-                      { return f1->getBounds().Centroid().x <
-                               f2->getBounds().Centroid().x; });
-            break;
-        case 1:
-            std::sort(objects.begin(), objects.end(), [](auto f1, auto f2)
-                      { return f1->getBounds().Centroid().y <
-                               f2->getBounds().Centroid().y; });
-            break;
-        case 2:
-            std::sort(objects.begin(), objects.end(), [](auto f1, auto f2)
-                      { return f1->getBounds().Centroid().z <
-                               f2->getBounds().Centroid().z; });
-            break;
-        }
+        std::sort(objects.begin(), objects.end(), [=](auto f1, auto f2)
+                  { return f1->getBounds().Centroid()[dim] <
+                           f2->getBounds().Centroid()[dim]; });
 
         auto beginning = objects.begin();
         auto middling = objects.begin() + (objects.size() / 2);
@@ -167,6 +139,7 @@ BVHBuildNode *BVHAccel::recursiveBuildSAH(std::vector<Object *> objects)
         node->right = recursiveBuildSAH(rightshapes);
 
         node->bounds = Union(node->left->bounds, node->right->bounds);
+        node->area = node->left->area + node->right->area;
         node->nPrimitives = objects.size();
     }
     else
@@ -252,6 +225,7 @@ BVHBuildNode *BVHAccel::recursiveBuildSAH(std::vector<Object *> objects)
         node->right = recursiveBuildSAH(rightshapes);
 
         node->bounds = Union(node->left->bounds, node->right->bounds);
+        node->area = node->left->area + node->right->area;
         node->nPrimitives = objects.size();
     }
 
@@ -289,6 +263,7 @@ Intersection BVHAccel::getIntersection(BVHBuildNode* node, const Ray& ray) const
         // a leaf node, then both children must exist.
         Intersection intl = getIntersection(node->left, ray);
         Intersection intr = getIntersection(node->right, ray);
+         // because each primitive reports intersection iff t > 0, so we can directly do this
         if (!intr.happened || intl.happened && intl.distance < intr.distance)
             return intl;
         else

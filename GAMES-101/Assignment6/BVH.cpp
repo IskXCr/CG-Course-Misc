@@ -15,7 +15,7 @@ BVHAccel::BVHAccel(std::vector<Object *> p, int maxPrimsInNode,
     if (splitMethod == SplitMethod::NAIVE)
         root = recursiveBuild(primitives);
     else if (splitMethod == SplitMethod::SAH)
-        root = recursiveBuildSAH(primitives); // todo: add support for SAH
+        root = recursiveBuildSAH(primitives);
 
     auto stop = std::chrono::high_resolution_clock::now();
 
@@ -65,24 +65,9 @@ BVHBuildNode *BVHAccel::recursiveBuild(std::vector<Object *> objects)
         auto middling = objects.begin() + (objects.size() / 2);
         auto ending = objects.end();
 
-        switch (dim)
-        {
-        case 0:
-            std::nth_element(beginning, middling, ending, [](auto f1, auto f2)
-                             { return f1->getBounds().Centroid().x <
-                                      f2->getBounds().Centroid().x; });
-            break;
-        case 1:
-            std::nth_element(beginning, middling, ending, [](auto f1, auto f2)
-                             { return f1->getBounds().Centroid().y <
-                                      f2->getBounds().Centroid().y; });
-            break;
-        case 2:
-            std::nth_element(beginning, middling, ending, [](auto f1, auto f2)
-                             { return f1->getBounds().Centroid().z <
-                                      f2->getBounds().Centroid().z; });
-            break;
-        }
+        std::nth_element(beginning, middling, ending, [=](auto f1, auto f2)
+                         { return f1->getBounds().Centroid()[dim] <
+                                  f2->getBounds().Centroid()[dim]; });
 
         auto leftshapes = std::vector<Object *>(beginning, middling);
         auto rightshapes = std::vector<Object *>(middling, ending);
@@ -139,29 +124,14 @@ BVHBuildNode *BVHAccel::recursiveBuildSAH(std::vector<Object *> objects)
 
         int dim = centroidBounds.maxExtent(); // Choose the longest axis to split
 
-        switch (dim)
-        {
-        case 0:
-            std::sort(objects.begin(), objects.end(), [](auto f1, auto f2)
-                      { return f1->getBounds().Centroid().x <
-                               f2->getBounds().Centroid().x; });
-            break;
-        case 1:
-            std::sort(objects.begin(), objects.end(), [](auto f1, auto f2)
-                      { return f1->getBounds().Centroid().y <
-                               f2->getBounds().Centroid().y; });
-            break;
-        case 2:
-            std::sort(objects.begin(), objects.end(), [](auto f1, auto f2)
-                      { return f1->getBounds().Centroid().z <
-                               f2->getBounds().Centroid().z; });
-            break;
-        }
+        std::sort(objects.begin(), objects.end(), [=](auto f1, auto f2)
+                  { return f1->getBounds().Centroid()[dim] <
+                           f2->getBounds().Centroid()[dim]; });
 
         auto beginning = objects.begin();
         auto middling = objects.begin() + (objects.size() / 2);
         auto ending = objects.end();
-        
+
         auto leftshapes = std::vector<Object *>(beginning, middling);
         auto rightshapes = std::vector<Object *>(middling, ending);
 
