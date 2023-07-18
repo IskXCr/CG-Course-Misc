@@ -8,18 +8,98 @@
 | Path Tracing (SPP>8, resolution > 512x512) | 45    |
 | Multi-Threaded Rendering                   | 10    |
 | Microfacet Implementation                  | 10    |
+| Other Materials                            |       |
 
 
 
 ## Demonstration
 
+The specification of the test platform is listed as follows.
 
+| Subject | Value                                       |
+| ------- | ------------------------------------------- |
+| CPU     | AMD Ryzen 7 5800H @3.20 GHz, 8c16t          |
+| RAM     | DDR4 3200 MHz SODIMM                        |
+| OS      | Ubuntu 22.04.2 LTS on Windows 10 x86_64     |
+| Kernel  | 5.15.90.1-microsoft-standard-WSL2           |
+| g++     | g++ (Ubuntu 11.3.0-1ubuntu1~22.04.1) 11.3.0 |
+
+
+
+
+
+
+
+| Options                                                      | Time (ms) |
+| ------------------------------------------------------------ | --------- |
+| None                                                         | 1149167   |
+| With parallelization, No MSAA                                | 101064    |
+| With parallelization, MSAA 4x                                | 384347    |
+| With parallelization, No MSAA, *optimized random FP generation* | 3286      |
+| With parallelization, MSAA 4x, *optimized random FP generation* | 12313     |
+
+<p align="center">Target Solution: 784x784, SPP=16, One-Time Test</p>
+
+*Optimized random FP generation: For each thread a single random number generator is allocated, thus avoiding **repeatedly** generating random device and engine.*
+
+From now on we assume optimized random FP generation is used.
+
+
+
+| Options        | Image                                                        |
+| -------------- | ------------------------------------------------------------ |
+| 784x784        | <img src="images/784x784_16.png" alt="img1" style="zoom:50%;" /> |
+| 784x784 MSAA4x | <img src="images/784x784_16_msaa4x.png" alt="img1" style="zoom:50%;" /> |
+
+
+
+| Options             | Time (ms) |
+| ------------------- | --------- |
+| 1024x1024, SPP=16   | 5751      |
+| 1024x1024, SPP=256  | 91198     |
+| 1024x1024, SPP=1024 | 367022    |
+
+<p align="center">Parallelization, Dynamic, No MSAA, One-Time Test</p>
+
+| Options             | Image                                                     |
+| ------------------- | --------------------------------------------------------- |
+| 1024x1024, SPP=16   | <img src="images/1024x1024_16.png" style="zoom:50%;" />   |
+| 1024x1024, SPP=256  | <img src="images/1024x1024_256.png" style="zoom:50%;" />  |
+| 1024x1024, SPP=1024 | <img src="images/1024x1024_1024.png" style="zoom:50%;" /> |
 
 
 
 ## Implementation Details
 
+### General Advice (from Trials)
+
+#### FP Precision
+
+- When intersecting with bounding boxes, consider the extreme cases (bounding box deteriorates into a single plane).
+- When intersecting with triangles, reverse the direction of surface normal if necessary.
+- When shooting rays from the surface of a material, add enough tolerance to make sure **the ray doesn't fall again on the surface itself.**
+
+
+
+
+
 ### Multi-Threading
+
+#### Cautions
+
+##### Do not create random engine upon each function call
+
+Under the platform previously mentioned, the speedup can be 34x (784x784 resolution, 16 SPP, from 102 seconds to 3 seconds).
+
+##### Do not frequently update the progress bar in multiple threads
+
+As `cout` must be synchronized to produce sensible output.
+
+
+
+#### Implementation
+
+
 
 
 
@@ -27,3 +107,6 @@
 
 
 
+
+
+### Other Materials

@@ -168,7 +168,8 @@ Build a larger volume for testing the potential intersection quickly.
 - **Axis-Aligned Bounding Box (AABB)**
 
   - For the 3D box, $t_\text{enter} = \max{\{t_\text{min}\}}$, $t_{\text{exit}} = \min{\{t_{\text{max}}\}}$.
-  - If $t_{\text{enter}} < t_{\text{exit}}$ and $t_\text{exit} > 0$, then there is an intersection.
+  - If $t_{\text{enter}} <= t_{\text{exit}}$ and $t_\text{exit} > 0$, then there is an intersection.
+    - Equality for BBoxes that contains an axis-aligned plane only
 
 - **Why Axis-Aligned?**
 

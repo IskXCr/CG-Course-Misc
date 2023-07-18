@@ -5,6 +5,7 @@
 #ifndef RAYTRACING_VECTOR_H
 #define RAYTRACING_VECTOR_H
 
+#include "global.hpp"
 #include <iostream>
 #include <cmath>
 #include <algorithm>
@@ -13,17 +14,25 @@ class Vector3f
 {
 public:
     float x, y, z;
-    Vector3f() : x(0), y(0), z(0) {}
+    Vector3f() : x(0.f), y(0.f), z(0.f) {}
     Vector3f(float xx) : x(xx), y(xx), z(xx) {}
     Vector3f(float xx, float yy, float zz) : x(xx), y(yy), z(zz) {}
     Vector3f operator*(const float &r) const { return Vector3f(x * r, y * r, z * r); }
     Vector3f operator/(const float &r) const { return Vector3f(x / r, y / r, z / r); }
 
     float norm() { return std::sqrt(x * x + y * y + z * z); }
-    Vector3f normalized()
+    bool Zero() const
+    {
+        return x == 0.f && y == 0.f && z == 0.f;
+    }
+    inline Vector3f normalized()
     {
         float n = std::sqrt(x * x + y * y + z * z);
         return Vector3f(x / n, y / n, z / n);
+    }
+    inline Vector3f regularized()
+    {
+        return Vector3f(clamp(0.f, 1., x), clamp(0.f, 1., y), clamp(0.f, 1., z));
     }
 
     Vector3f operator*(const Vector3f &v) const { return Vector3f(x * v.x, y * v.y, z * v.z); }
@@ -35,6 +44,7 @@ public:
         x += v.x, y += v.y, z += v.z;
         return *this;
     }
+
     friend Vector3f operator*(const float &r, const Vector3f &v)
     {
         return Vector3f(v.x * r, v.y * r, v.z * r);
@@ -43,7 +53,7 @@ public:
     {
         return os << v.x << ", " << v.y << ", " << v.z;
     }
-    
+
     float operator[](int index) const;
     float &operator[](int index);
 

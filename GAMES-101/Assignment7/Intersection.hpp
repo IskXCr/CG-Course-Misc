@@ -24,7 +24,7 @@ struct Intersection
     Vector3f coords;  // The coordinate where the intersection occurred
     Vector3f tcoords; // Unknown
     Vector3f normal;  // The surface normal at the point of intersection
-    Vector3f emit;    // The emission of the target. Only valid after you have SAMPLED at the intersection!
+    Vector3f emit;    // The emission of the target. Only valid after intersection.
     double distance;  // Records t, where the actual coord = ori + dir * t. Default to std::numeric_limits<double>::max()
     Object *obj;      // The target object with which the ray intersected
     Material *m;      // The material of target object

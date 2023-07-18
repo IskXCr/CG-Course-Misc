@@ -14,7 +14,9 @@ int main(int argc, char **argv)
 {
 
     // Change the definition here to change resolution
-    Scene scene(784, 784);
+    Scene scene(784, 784); // DEFAULT
+    // Scene scene(1024, 1024); // RELEASE
+    // Scene scene(50, 50); // DEBUG
 
     Material *red = new Material(DIFFUSE, Vector3f(0.0f));
     red->Kd = Vector3f(0.63f, 0.065f, 0.05f);
@@ -31,6 +33,7 @@ int main(int argc, char **argv)
     MeshTriangle left("../models/cornellbox/left.obj", red);
     MeshTriangle right("../models/cornellbox/right.obj", green);
     MeshTriangle light_("../models/cornellbox/light.obj", light);
+    Sphere testSphere(Vector3f{400.f, 25.f, 100.f}, 25.f, red);
 
     scene.Add(&floor);
     scene.Add(&shortbox);
@@ -38,16 +41,22 @@ int main(int argc, char **argv)
     scene.Add(&left);
     scene.Add(&right);
     scene.Add(&light_);
+    scene.Add(&testSphere);
 
-    scene.buildBVH();
+    scene.buildBVH();\
 
     Renderer r;
+    // r.setSPP(1);
+    r.setSPP(16);
+    // r.setSPP(256);
+    // r.setSPP(1024);
+    r.setEyePos(Vector3f(278, 273, -800));
 
     auto start = std::chrono::system_clock::now();
-    r.Render(scene);
+    r.Render(scene, true, true);
     auto stop = std::chrono::system_clock::now();
 
-    std::cout << "Render complete: \n";
+    std::cout << "\nRendering complete. \n";
     std::cout << "Time taken: " << std::chrono::duration_cast<std::chrono::milliseconds>(stop - start).count() << " milliseconds\n";
     std::cout << "          : " << std::chrono::duration_cast<std::chrono::seconds>(stop - start).count() << " seconds\n";
     std::cout << "          : " << std::chrono::duration_cast<std::chrono::minutes>(stop - start).count() << " minutes\n";

@@ -53,6 +53,8 @@ public:
 
     void getSample(BVHBuildNode *node, float p, Intersection &pos, float &pdf);
     void Sample(Intersection &pos, float &pdf);
+
+    void printHiearchy();
 };
 
 struct BVHBuildNode

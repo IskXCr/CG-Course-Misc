@@ -122,7 +122,7 @@ public:
 
     // sample a ray by Material properties
     inline Vector3f sample(const Vector3f &wi, const Vector3f &N);
-    // given a ray, calculate the PdF of this ray
+    // given a ray, calculate the PDF of this ray
     inline float pdf(const Vector3f &wi, const Vector3f &wo, const Vector3f &N);
     // given a ray, calculate the contribution of this ray
     inline Vector3f eval(const Vector3f &wi, const Vector3f &wo, const Vector3f &N);
@@ -163,8 +163,6 @@ Vector3f Material::sample(const Vector3f &wi, const Vector3f &N)
         float r = std::sqrt(1.0f - z * z), phi = 2 * M_PI * x_2;
         Vector3f localRay(r * std::cos(phi), r * std::sin(phi), z);
         return toWorld(localRay, N);
-
-        break;
     }
     }
 }
@@ -185,13 +183,15 @@ float Material::pdf(const Vector3f &wi, const Vector3f &wo, const Vector3f &N)
     }
 }
 
+// As of now only support diffuse material
+// wi, wo and N must point outwards (relative to the point being evaluated)
 Vector3f Material::eval(const Vector3f &wi, const Vector3f &wo, const Vector3f &N)
 {
     switch (m_type)
     {
     case DIFFUSE:
     {
-        // calculate the contribution of diffuse   model
+        // calculate the contribution of diffuse model
         float cosalpha = dotProduct(N, wo);
         if (cosalpha > 0.0f)
         {

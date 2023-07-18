@@ -74,5 +74,4 @@ Also check the reference at [Bounding Volume Hierarchies (pbr-book.org)](https:/
 Similar implementations can be found in book *PBRT*.
 
 - The naming convention is basically the same.
-  - Well, basically copy-and-paste.
 

@@ -86,6 +86,11 @@ class Bounds3
 
     inline bool IntersectP(const Ray& ray, const Vector3f& invDir,
                            const std::array<int, 3>& dirisNeg) const;
+
+    friend std::ostream& operator<<(std::ostream& os, Bounds3 &bound)
+    {
+        return os << "Bounds3: pMin=" << bound.pMin << ", pMax=" << bound.pMax;
+    }
 };
 
 inline std::tuple<float, float> IntersectAxis(const float pMin, const float pMax, const float invDir, const float orig, const int dirIsNeg)
@@ -116,7 +121,7 @@ inline bool Bounds3::IntersectP(const Ray& ray, const Vector3f& invDir,
     tEnter = std::fmax(tEnter, tMin);
     tExit = std::fmin(tExit, tMax);
 
-    return tEnter < tExit && tExit > 0;
+    return tEnter <= tExit && tExit > EPSILON;
 }
 
 inline Bounds3 Union(const Bounds3& b1, const Bounds3& b2)

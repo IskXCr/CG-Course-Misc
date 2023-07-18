@@ -3,7 +3,7 @@
 #include <chrono>
 #include "BVH.hpp"
 
-BVHAccel::BVHAccel(std::vector<Object*> p, int maxPrimsInNode,
+BVHAccel::BVHAccel(std::vector<Object *> p, int maxPrimsInNode,
                    SplitMethod splitMethod)
     : maxPrimsInNode(std::min(255, maxPrimsInNode)), splitMethod(splitMethod),
       primitives(std::move(p))
@@ -11,6 +11,7 @@ BVHAccel::BVHAccel(std::vector<Object*> p, int maxPrimsInNode,
     if (primitives.empty())
         return;
 
+    std::cout << " - Generating BVH...\n";
     auto start = std::chrono::high_resolution_clock::now();
     if (splitMethod == SplitMethod::NAIVE)
         root = recursiveBuild(primitives);
@@ -18,39 +19,44 @@ BVHAccel::BVHAccel(std::vector<Object*> p, int maxPrimsInNode,
         root = recursiveBuildSAH(primitives);
     auto stop = std::chrono::high_resolution_clock::now();
 
-
-    std::cout << "Time taken: " << std::chrono::duration_cast<std::chrono::milliseconds>(stop - start).count() << " milliseconds\n";
-    std::cout << "          : " << std::chrono::duration_cast<std::chrono::seconds>(stop - start).count() << " seconds\n";
-    std::cout << "          : " << std::chrono::duration_cast<std::chrono::minutes>(stop - start).count() << " minutes\n";
-    std::cout << "          : " << std::chrono::duration_cast<std::chrono::hours>(stop - start).count() << " hours\n";
+    std::cout << " - Time taken: " << std::chrono::duration_cast<std::chrono::milliseconds>(stop - start).count() << " milliseconds\n";
+    // std::cout << "             : " << std::chrono::duration_cast<std::chrono::seconds>(stop - start).count() << " seconds\n";
+    // std::cout << "             : " << std::chrono::duration_cast<std::chrono::minutes>(stop - start).count() << " minutes\n";
+    // std::cout << "             : " << std::chrono::duration_cast<std::chrono::hours>(stop - start).count() << " hours\n";
+    std::cout << "\n";
 }
 
-BVHBuildNode* BVHAccel::recursiveBuild(std::vector<Object*> objects)
+BVHBuildNode *BVHAccel::recursiveBuild(std::vector<Object *> objects)
 {
-    BVHBuildNode* node = new BVHBuildNode();
+    BVHBuildNode *node = new BVHBuildNode();
 
     // Compute bounds of all primitives in BVH node
     Bounds3 bounds;
     for (int i = 0; i < objects.size(); ++i)
         bounds = Union(bounds, objects[i]->getBounds());
-    if (objects.size() == 1) {
+    if (objects.size() == 1)
+    {
         // Create leaf _BVHBuildNode_
         node->bounds = objects[0]->getBounds();
         node->object = objects[0];
         node->left = nullptr;
         node->right = nullptr;
         node->area = objects[0]->getArea();
+        node->nPrimitives = 1;
         return node;
     }
-    else if (objects.size() == 2) {
+    else if (objects.size() == 2)
+    {
         node->left = recursiveBuild(std::vector{objects[0]});
         node->right = recursiveBuild(std::vector{objects[1]});
 
         node->bounds = Union(node->left->bounds, node->right->bounds);
         node->area = node->left->area + node->right->area;
+        node->nPrimitives = 2;
         return node;
     }
-    else {
+    else
+    {
         Bounds3 centroidBounds;
         for (int i = 0; i < objects.size(); ++i)
             centroidBounds =
@@ -59,14 +65,13 @@ BVHBuildNode* BVHAccel::recursiveBuild(std::vector<Object*> objects)
         auto beginning = objects.begin();
         auto middling = objects.begin() + (objects.size() / 2);
         auto ending = objects.end();
-        
+
         std::nth_element(beginning, middling, ending, [=](auto f1, auto f2)
                          { return f1->getBounds().Centroid()[dim] <
                                   f2->getBounds().Centroid()[dim]; });
 
-
-        auto leftshapes = std::vector<Object*>(beginning, middling);
-        auto rightshapes = std::vector<Object*>(middling, ending);
+        auto leftshapes = std::vector<Object *>(beginning, middling);
+        auto rightshapes = std::vector<Object *>(middling, ending);
 
         assert(objects.size() == (leftshapes.size() + rightshapes.size()));
 
@@ -129,7 +134,7 @@ BVHBuildNode *BVHAccel::recursiveBuildSAH(std::vector<Object *> objects)
         auto beginning = objects.begin();
         auto middling = objects.begin() + (objects.size() / 2);
         auto ending = objects.end();
-        
+
         auto leftshapes = std::vector<Object *>(beginning, middling);
         auto rightshapes = std::vector<Object *>(middling, ending);
 
@@ -232,7 +237,7 @@ BVHBuildNode *BVHAccel::recursiveBuildSAH(std::vector<Object *> objects)
     return node;
 }
 
-Intersection BVHAccel::Intersect(const Ray& ray) const
+Intersection BVHAccel::Intersect(const Ray &ray) const
 {
     Intersection isect;
     if (!root)
@@ -241,7 +246,7 @@ Intersection BVHAccel::Intersect(const Ray& ray) const
     return isect;
 }
 
-Intersection BVHAccel::getIntersection(BVHBuildNode* node, const Ray& ray) const
+Intersection BVHAccel::getIntersection(BVHBuildNode *node, const Ray &ray) const
 {
     // TODO Traverse the BVH to find intersection
     // std::cout << "Current recursion depth: " << node->nPrimitives << std::endl;
@@ -263,7 +268,7 @@ Intersection BVHAccel::getIntersection(BVHBuildNode* node, const Ray& ray) const
         // a leaf node, then both children must exist.
         Intersection intl = getIntersection(node->left, ray);
         Intersection intr = getIntersection(node->right, ray);
-         // because each primitive reports intersection iff t > 0, so we can directly do this
+        // because each primitive reports intersection iff t > 0, so we can directly do this
         if (!intr.happened || intl.happened && intl.distance < intr.distance)
             return intl;
         else
@@ -271,17 +276,28 @@ Intersection BVHAccel::getIntersection(BVHBuildNode* node, const Ray& ray) const
     }
 }
 
-void BVHAccel::getSample(BVHBuildNode* node, float p, Intersection &pos, float &pdf){
-    if(node->left == nullptr || node->right == nullptr){
+// Sample the BVH by traversing.
+// After selected an object, the sampling is done on that object.
+// \param p determines the particular object to sample.
+void BVHAccel::getSample(BVHBuildNode *node, float p, Intersection &pos, float &pdf)
+{
+    if (node->left == nullptr || node->right == nullptr)
+    {
         node->object->Sample(pos, pdf);
         pdf *= node->area;
         return;
     }
-    if(p < node->left->area) getSample(node->left, p, pos, pdf);
-    else getSample(node->right, p - node->left->area, pos, pdf);
+    if (p < node->left->area)
+        getSample(node->left, p, pos, pdf);
+    else
+        getSample(node->right, p - node->left->area, pos, pdf);
 }
 
-void BVHAccel::Sample(Intersection &pos, float &pdf){
+// Sample the bounding box at the point.
+// \return modified Intersection object containing position information and normal information,
+//         and modified pdf for division.
+void BVHAccel::Sample(Intersection &pos, float &pdf)
+{
     float p = std::sqrt(get_random_float()) * root->area;
     getSample(root, p, pos, pdf);
     pdf /= root->area;
@@ -294,4 +310,19 @@ void resetAllBuckets()
         buckets[i].count = 0;
         buckets[i].bounds = Bounds3();
     }
+}
+
+void traverse(BVHBuildNode *node)
+{
+    std::cout << "Node with " << node->nPrimitives << " primitives\n";
+    if (node->object == nullptr)
+    {
+        traverse(node->left);
+        traverse(node->right);
+    }
+}
+
+void BVHAccel::printHiearchy()
+{
+    traverse(root);
 }
