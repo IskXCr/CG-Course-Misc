@@ -14,6 +14,9 @@ thread_local std::random_device dev;
 thread_local std::mt19937 rng(dev());
 thread_local std::uniform_real_distribution<float> dist(0.f, 1.f); // distribution in range [0, 1]
 
+// The main render function. This where we iterate over all pixels in the image,
+// generate primary rays and cast these rays into the scene. The content of the
+// framebuffer is saved to a file.
 std::vector<Vector3f> Renderer::OnePass(const Scene &scene, int id, bool msaaEnabled)
 {
     std::vector<Vector3f> framebuffer(scene.width * scene.height);
@@ -71,9 +74,7 @@ std::vector<Vector3f> Renderer::OnePass(const Scene &scene, int id, bool msaaEna
     return framebuffer;
 }
 
-// The main render function. This where we iterate over all pixels in the image,
-// generate primary rays and cast these rays into the scene. The content of the
-// framebuffer is saved to a file.
+// Use multi-threading to render the scene. Repeatedly call OnePass() in parallel
 void Renderer::Render(const Scene &scene, bool useMultiThread, bool msaaEnabled)
 {
     int numThread = std::thread::hardware_concurrency();
@@ -214,14 +215,14 @@ void Renderer::updateThreadProgress(int slot, float progress)
                       { return coutAvail; });
     }
     coutAvail = false;
-    int threshold = std::max(1, cliHeight - 2);
+    int threshold = std::min(nSlot - currentMin, cliHeight - 2);
 
     if (currentMin == previousMin)
         resetCliScreen(threshold);
     else
         previousMin = currentMin;
 
-    for (int i = currentMin; i < std::min(currentMin + threshold, nSlot); ++i)
+    for (int i = currentMin; i < currentMin + threshold; ++i)
     {
         UpdateProgress(progresses[i]);
         std::cout << " - Pass [" << i << "] " << (progresses[i] >= 1.f ? "[Done]     " : "[Rendering]") << "\n";

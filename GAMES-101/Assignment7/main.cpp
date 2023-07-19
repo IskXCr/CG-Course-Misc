@@ -14,9 +14,9 @@ int main(int argc, char **argv)
 {
 
     // Change the definition here to change resolution
-    Scene scene(784, 784); // DEFAULT
+    // Scene scene(784, 784); // DEFAULT
     // Scene scene(1024, 1024); // RELEASE
-    // Scene scene(50, 50); // DEBUG
+    Scene scene(512, 512); // DEBUG
 
     Material *red = new Material(DIFFUSE, Vector3f(0.0f));
     red->Kd = Vector3f(0.63f, 0.065f, 0.05f);
@@ -47,13 +47,14 @@ int main(int argc, char **argv)
 
     Renderer r;
     // r.setSPP(1);
+    // r.setSPP(4);
     r.setSPP(16);
     // r.setSPP(256);
     // r.setSPP(1024);
     r.setEyePos(Vector3f(278, 273, -800));
 
     auto start = std::chrono::system_clock::now();
-    r.Render(scene, true, true);
+    r.Render(scene, true, false);
     auto stop = std::chrono::system_clock::now();
 
     std::cout << "\nRendering complete. \n";

@@ -46,10 +46,11 @@ From now on we assume optimized random FP generation is used.
 
 
 
-| Options        | Image                                                        |
-| -------------- | ------------------------------------------------------------ |
-| 784x784        | <img src="images/784x784_16.png" alt="img1" style="zoom:50%;" /> |
-| 784x784 MSAA4x | <img src="images/784x784_16_msaa4x.png" alt="img1" style="zoom:50%;" /> |
+| Options                   | Image                                                        |
+| ------------------------- | ------------------------------------------------------------ |
+| 784x784                   | <img src="images/784x784_16.png" alt="img1" style="zoom:50%;" /> |
+| 784x784 MSAA4x            | <img src="images/784x784_16_msaa4x.png" alt="img1" style="zoom:50%;" /> |
+| 784x784 SPP=1024, No MSAA | <img src="images/784x784_1024.png" alt="img1" style="zoom:50%;" /> |
 
 
 
@@ -76,8 +77,18 @@ From now on we assume optimized random FP generation is used.
 #### FP Precision
 
 - When intersecting with bounding boxes, consider the extreme cases (bounding box deteriorates into a single plane).
+  - *Phenomenon: Planes may disappear*
 - When intersecting with triangles, reverse the direction of surface normal if necessary.
-- When shooting rays from the surface of a material, add enough tolerance to make sure **the ray doesn't fall again on the surface itself.**
+  - *Phenomenon: Triangles may disappear*
+  - *Why: Triangles defined in the framework have one normal only*
+- When shooting rays from the surface of a material, add enough tolerance on intersection test.
+  - *Phenomenon: Surfaces may appear in total black or partial black*
+  - *Why: Rays may intersect with the differential plane its origin resides on*
+
+#### `castRay`
+
+- Truncate `hitColor` if it is too large.
+  - *Phenomenon: White noise*
 
 
 

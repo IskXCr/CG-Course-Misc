@@ -30,6 +30,7 @@ public:
         float n = std::sqrt(x * x + y * y + z * z);
         return Vector3f(x / n, y / n, z / n);
     }
+    // Regularize the vector such that all components reside in [0, 1]
     inline Vector3f regularized()
     {
         return Vector3f(clamp(0.f, 1., x), clamp(0.f, 1., y), clamp(0.f, 1., z));

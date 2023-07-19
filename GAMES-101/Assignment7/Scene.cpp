@@ -96,7 +96,7 @@ Vector3f Scene::castRay(const Ray &ray, int depth) const
         if (dotProduct(wLightOut, hitNormal) > EPSILON) // Must face the light
         {
             if (Intersection isect0 = intersect(lightOut);
-                isect0.happened && isect0.obj == lightPos.obj) // and has no blocking in between, or there is another light source
+                isect0.happened && isect0.obj == lightPos.obj) // and has no blocking in between
             {
                 Vector3f &lightNormal = isect0.normal;
                 Vector3f &lightEmit = isect0.emit;
@@ -106,9 +106,6 @@ Vector3f Scene::castRay(const Ray &ray, int depth) const
                 float ctheta = dotProduct(wLightOut, hitNormal);
                 float cthetap = dotProduct(Vector3f() - wLightOut, lightNormal);
                 hitColor += lightEmit * fr * (ctheta * cthetap / frac);
-                // hitColor += Vector3f{1.0} / frac;
-                // hitColor += Vector3f{0.5};
-                // fprintf(stderr, "frac0=%f, frac=%f\n", frac0, frac);
             }
         }
 
@@ -122,7 +119,7 @@ Vector3f Scene::castRay(const Ray &ray, int depth) const
                 isect0.happened && !isect0.m->hasEmission())
             {
                 float frac = pdfMaterial * RussianRoulette;
-                Vector3f shade = castRay(outRay, depth + 1).regularized();
+                Vector3f shade = castRay(outRay, depth + 1);
                 Vector3f f_r = hitMaterial->eval(wIn, wOut, hitNormal);
                 float ctheta = dotProduct(wOut, hitNormal);
                 hitColor +=  shade * f_r * ctheta / frac;
@@ -135,5 +132,5 @@ Vector3f Scene::castRay(const Ray &ray, int depth) const
         }
     }
 
-    return hitColor;
+    return hitColor.regularized();
 }
