@@ -12,11 +12,32 @@
 // function().
 int main(int argc, char **argv)
 {
+    int width, height, spp;
+    bool msaaEnable;
+
+    // width = 1024, height = 1024;
+    width = 784, height = 784;
+    // width = 512, height = 512;
+
+    // spp = 1;
+    spp = 16;
+    // spp = 256;
+    // spp = 512;
+    // spp = 1024;
+
+    msaaEnable = false;
+    // msaaEnable = true;
+
+    if (argc == 5)
+    {
+        width = std::atoi(argv[1]);
+        height = std::atoi(argv[2]);
+        spp = std::atoi(argv[3]);
+        msaaEnable = std::atoi(argv[4]) == 1;
+    }
 
     // Change the definition here to change resolution
-    // Scene scene(784, 784); // DEFAULT
-    // Scene scene(1024, 1024); // RELEASE
-    Scene scene(512, 512); // DEBUG
+    Scene scene(width, height);
 
     Material *red = new Material(DIFFUSE, Vector3f(0.0f));
     red->Kd = Vector3f(0.63f, 0.065f, 0.05f);
@@ -33,7 +54,19 @@ int main(int argc, char **argv)
     MeshTriangle left("../models/cornellbox/left.obj", red);
     MeshTriangle right("../models/cornellbox/right.obj", green);
     MeshTriangle light_("../models/cornellbox/light.obj", light);
-    Sphere testSphere(Vector3f{400.f, 25.f, 100.f}, 25.f, red);
+
+    // ================= Begin Test =================== //
+    // Tests Microfacet
+    Material *purple = new Material(DIFFUSE, Vector3f(0.0f));
+    purple->Kd = Vector3f(0.137f, 0.0f, 0.4509f);
+
+    float alpha = MicrofacetDistribution::roughtnessToAlpha(1.0);
+    BeckmannDistribution *bd = new BeckmannDistribution(alpha, alpha);
+    Material *mf = new Material(MICROFACET, Vector3f(0.f), bd);
+    mf->ior = 100.f;
+    Sphere testSphere(Vector3f{400.f, 75.f, 100.f}, 75.f, mf);
+    // scene.Add(&testSphere);
+    // =================  End Test  =================== //
 
     scene.Add(&floor);
     scene.Add(&shortbox);
@@ -41,20 +74,15 @@ int main(int argc, char **argv)
     scene.Add(&left);
     scene.Add(&right);
     scene.Add(&light_);
-    scene.Add(&testSphere);
 
-    scene.buildBVH();\
+    scene.buildBVH();
 
     Renderer r;
-    // r.setSPP(1);
-    // r.setSPP(4);
-    r.setSPP(16);
-    // r.setSPP(256);
-    // r.setSPP(1024);
+    r.setSPP(spp);
     r.setEyePos(Vector3f(278, 273, -800));
 
     auto start = std::chrono::system_clock::now();
-    r.Render(scene, true, false);
+    r.Render(scene, true, msaaEnable);
     auto stop = std::chrono::system_clock::now();
 
     std::cout << "\nRendering complete. \n";

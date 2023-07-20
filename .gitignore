@@ -1,2 +1,5 @@
 # Configuration Files
 .vscode
+
+# Windows Files
+*Zone.Identifier

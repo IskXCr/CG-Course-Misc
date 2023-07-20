@@ -20,20 +20,24 @@ public:
     Vector3f operator*(const float &r) const { return Vector3f(x * r, y * r, z * r); }
     Vector3f operator/(const float &r) const { return Vector3f(x / r, y / r, z / r); }
 
-    float norm() { return std::sqrt(x * x + y * y + z * z); }
+    float norm() const { return std::sqrt(x * x + y * y + z * z); }
     bool Zero() const
     {
         return x == 0.f && y == 0.f && z == 0.f;
     }
-    inline Vector3f normalized()
+    inline Vector3f normalized() const
     {
         float n = std::sqrt(x * x + y * y + z * z);
         return Vector3f(x / n, y / n, z / n);
     }
     // Regularize the vector such that all components reside in [0, 1]
-    inline Vector3f regularized()
+    inline Vector3f regularized() const
     {
         return Vector3f(clamp(0.f, 1., x), clamp(0.f, 1., y), clamp(0.f, 1., z));
+    }
+    inline Vector3f reversed() const
+    {
+        return Vector3f(-x, -y, -z);
     }
 
     Vector3f operator*(const Vector3f &v) const { return Vector3f(x * v.x, y * v.y, z * v.z); }

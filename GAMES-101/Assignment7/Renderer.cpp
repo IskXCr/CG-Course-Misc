@@ -47,7 +47,7 @@ std::vector<Vector3f> Renderer::OnePass(const Scene &scene, int id, bool msaaEna
 
                         Vector3f dir = normalize(Vector3f(-x, y, 1));
                         Ray ray(eyePos, dir);
-                        msaa4x_buffer += scene.castRay(ray, 0) / 4.f;
+                        msaa4x_buffer += scene.castRay(ray, 0).regularized() / 4.f;
                     }
                 }
             }
@@ -60,7 +60,7 @@ std::vector<Vector3f> Renderer::OnePass(const Scene &scene, int id, bool msaaEna
 
                 Vector3f dir = normalize(Vector3f(-x, y, 1));
                 Ray ray(eyePos, dir);
-                msaa4x_buffer += scene.castRay(ray, 0);
+                msaa4x_buffer += scene.castRay(ray, 0).regularized();
             }
 
             framebuffer[m] = msaa4x_buffer;

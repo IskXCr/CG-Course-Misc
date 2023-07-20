@@ -247,10 +247,6 @@ inline Bounds3 Triangle::getBounds() { return Union(Bounds3(v0, v1), v2); }
 inline Intersection Triangle::getIntersection(Ray ray)
 {
     Intersection isect;
-    Vector3f hitNormal = this->normal;
-
-    if (dotProduct(ray.direction, normal) > 0.f)
-        hitNormal = Vector3f() - hitNormal;
 
     double u, v, t_tmp = 0;
     Vector3f pvec = crossProduct(ray.direction, e2);
@@ -275,7 +271,7 @@ inline Intersection Triangle::getIntersection(Ray ray)
 
     isect.happened = true;
     isect.coords = ray.origin + t_tmp * ray.direction;
-    isect.normal = hitNormal;
+    isect.normal = this->normal;
     isect.emit = this->m->getEmission();
     isect.distance = t_tmp;
     isect.obj = this;

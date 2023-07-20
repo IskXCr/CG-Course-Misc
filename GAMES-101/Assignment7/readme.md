@@ -110,14 +110,29 @@ As `cout` must be synchronized to produce sensible output.
 
 #### Implementation
 
+- The entire scene is sampled multiple times, one time in each thread using `std::async`.
+  - Multiple concurrent sampling task are issued simultaneously. The number equals to the result from `std::thread::hardware_concurrency()`. Issuing stops when the number of fired tasks reaches SPP.
+  - When returned, these results will be moved to a temporary buffer for storage.
+  - Upon completion of all sampling tasks, a single task is issued to combine the results.
 
+- `std::mutex` to create a global lock for updating progress.
+- `std::condition_variable` to send signals to blocked threads (that are waiting to update the progress and write to console).
+
+<img src="images/parallel_demo.png" alt="parallel_demo" style="zoom: 50%;" />
 
 
 
 ### Microfacet Model
 
+#### Theory
 
+View `Lecture17.md`, Appendix A: Microfacet Models, which provides a brief summary about how it is done in PBR Book.
 
 
 
 ### Other Materials
+
+
+
+#### Translucent
+

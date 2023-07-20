@@ -31,15 +31,15 @@ The term **material** is equivalent to **BSDF**.
 
 ### Diffuse/Lambertian Material
 
-<img src="images/Lecture17-img-2.png" alt="img-2" style="zoom: 33%;" />
+<img src="images/Lecture17-img-2.png" alt="img-2" style="zoom: 25%;" />
 
-![img-3](images/Lecture17-img-3.png)
+<img src="images/Lecture17-img-3.png" alt="img-3" style="zoom: 33%;" />
 
 <p align="center">From [Mitsuba render, Wenzel Jakob, 2010</p>
 
 Light is **equally** reflected in each output direction.
 
-![img-28](images/Lecture17-img-28.png)
+<img src="images/Lecture17-img-28.png" alt="img-28" style="zoom:50%;" />
 
 Suppose the incident lighting is **uniform in radiance**, and without self-emission we have:
 $$
@@ -67,9 +67,9 @@ in which $\rho$ is called **albedo**, or color.
 
 ### Glossy Material
 
-<img src="images/Lecture17-img-4.png" alt="img-4" style="zoom:33%;" />
+<img src="images/Lecture17-img-4.png" alt="img-4" style="zoom: 25%;" />
 
-![img-5](images/Lecture17-img-5.png)
+<img src="images/Lecture17-img-5.png" alt="img-5" style="zoom:25%;" />
 
 <p align="center">From [Mitsuba render, Wenzel Jakob, 2010</p>
 
@@ -77,9 +77,9 @@ in which $\rho$ is called **albedo**, or color.
 
 ### Ideal Reflective/Refractive Material
 
-<img src="images/Lecture17-img-6.png" alt="img-6" style="zoom:33%;" />
+<img src="images/Lecture17-img-6.png" alt="img-6" style="zoom: 25%;" />
 
-![img-17](images/Lecture17-img-7.png)
+<img src="images/Lecture17-img-7.png" alt="img-17" style="zoom:25%;" />
 
 <p align="center">From [Mitsuba render, Wenzel Jakob, 2010</p>
 
@@ -318,11 +318,11 @@ In which:
 
 **Key**: **Directionality** of the underlying surface.
 
-![img-22](images/Lecture17-img-22.png)
+<img src="images/Lecture17-img-22.png" alt="img-22" style="zoom:50%;" />
 
 
 
-![img-23](images/Lecture17-img-23.png)
+<img src="images/Lecture17-img-23.png" alt="img-23" style="zoom:50%;" />
 
 **Anisotropic**: Reflection depends on **azimuthal angle** $\phi$
 $$
@@ -457,4 +457,259 @@ Store regularly-spaced samples in $(\theta_i, \theta_o, \abs{\phi_i - \phi_o})$
 
 
 ## Appendix A: Microfacet Models
+
+Reference: [Microfacet Models (pbr-book.org)](https://www.pbr-book.org/3ed-2018/Reflection_Models/Microfacet_Models)
+
+### Introduction
+
+Many geometric-optics-based approaches to modeling surface reflection and transmission are based on the idea that rough surfaces can be modeled as a collection of small *microfacets*. They are often modeled as heightfields, where the **distribution** of facet orientations is described statistically.
+
+<img src="images/Lecture17-img-33.png" alt="img-33" style="zoom: 67%;" />
+
+- **Microsurface** is used to describe microfacet surfaces
+- **Macrosurface** is used to describe the underlying smooth surface (as represented by a `Shape`, or other `Object` in our framework for homework).
+
+
+
+The microfacet-based BRDF models work by statistically modeling the scattering of light from a large collection of microfacets.
+
+- If we assume that the differential area $\dd{A}$ is relatively large compared to the size of individual microfacets, then a large number of microfacets are illuminated, 
+- and it is the **aggregate behavior** of these microfacets that determines the observed scattering.
+
+
+
+The two main components of microfacet models are:
+
+- A representation of the **distribution** of facets, and
+- A **BRDF** for **individual microfacets**.
+  - *Perfect Mirror Reflection*
+    - most commonly used
+  - *Specular Transmission*
+    - useful for modeling many translucent materials
+  - *The Oren-Nayar Model*
+    - treats microfacets as Lambertian reflectors
+
+
+
+Three important geometric effects to consider with Microfacet Reflection Models:
+
+<img src="images/Lecture17-img-34.png" alt="img-34" style="zoom:50%;" />
+
+- **Masking**
+  - Microfacet is occluded by another facet
+
+- **Shadowing**
+  - Microfacet may lie in the shadow of a neighboring microfacet
+
+- **Interreflection**
+  - Cause a microfacet to reflect more light than predicted by the amount of direct illumination and the low-level microfacet BRDF
+
+
+
+
+### Oren-Nayar Diffuse Reflection
+
+**Idea:** Real-world objects do not exhibit perfect Lambertian reflection.
+
+- Rough surfaces generally appear brighter as the illumination direction approaches the viewing direction.
+
+- Describe rough surfaces by **V-shaped** microfacets, which is
+
+  - Described by a spherical Gaussian distribution with a single parameter $\sigma$, the standard deviation of the microfacet orientation angle
+
+  - **Interreflections**: Only consider the neighboring microfacet
+
+
+
+**Approximation:**
+$$
+f_r (\omega_i, \omega_o) = \frac{R}{\pi} (A + B \max(0, \cos(\phi_i, \phi_o)) \sin \alpha \tan \beta)
+$$
+where if $\sigma$ is in radians,
+$$
+A = 1 - \frac{\sigma^2}{2(\sigma^2 + 0.33)}
+$$
+
+$$
+B = \frac{0.45 \sigma^2}{\sigma^2 + 0.09}
+$$
+
+$$
+\alpha = \max(\theta_i, \theta_o)
+$$
+
+$$
+\beta = \min(\theta_i, \theta_o)
+$$
+
+
+
+### Microfacet Distribution Functions
+
+One important characteristics of a microfacet surface is represented by the distribution function $D(\omega_h)$, which gives the differential area of microfacets with the surface normal $\omega_h$. In `pbrt`, microfacet distribution functions are defined in the same BSDF coordinate system as BxDFs. As such, 
+
+- a perfectly smooth surface could be describe by a delta distribution that was non-zero only when $\omega_h$ was equal to the surface normal: $D(\omega_h) = \delta (\omega_h - (0, 0, 1))$
+
+Microfacet distribution functions must be
+
+- **Normalized**: Given a differential area of the microsurface, $\dd{A}$, then the projected area of the microfacet faces above that area must be equal to $\dd{A}$.
+  $$
+  \int_{H^2 (\textbf{n})} D(\omega_h) \cos \theta_h \dd{\omega_h} = 1
+  $$
+  <img src="images/Lecture17-img-35.png" alt="image-20230719171037939" style="zoom:50%;" />
+
+#### Beckmann Distribution
+
+A widely used microfacet distribution function based on a Gaussian distribution of microfacet slops is due to Beckmann and Spizzichino.
+
+The traditional definition of the Beckmann-Spizzichino model is 
+$$
+D(\omega_h) = \frac{e^{-\tan^2\theta_h / \alpha^2}}{\pi \alpha^2 \cos^4 \theta_h}
+$$
+where if $\sigma$ is the RMS slope of the microfacets, then $\alpha = \sqrt{2}\sigma$.
+
+- RMS: Root Mean Square
+
+The **anisotropic** microfacet distribution function is
+$$
+D(\omega_h) = 
+\frac{e^{-\tan^2\theta_h (\cos^2 \phi_h / \alpha_x^2 + \sin^2\phi_h / \alpha_y^2)}}
+{\pi \alpha_x \alpha_y \cos^4 \theta_h}
+$$
+
+- Note that the original isotropic variant falls out when $\alpha_x = \alpha_y$
+
+
+
+When programming, the algorithm directly translates the above equation, but pay special attention to the following issues:
+
+- Infinity value of $\tan\theta$ corresponds to **viewing at perfectly grazing directions**, and is thus valid. Zero should be explicitly returned.
+
+
+
+#### Trowbridge-Reitz Distribution
+
+Anisotropic variant given by
+$$
+D(\omega_h)
+=
+\frac{1}
+{
+	\pi \alpha_x \alpha_y \cos^4\theta_h (1 + \tan^2\theta_h(\cos^2 \phi_h /\alpha_x^2 + \sin^2\phi_h / \alpha_y^2))^2
+}
+$$
+In comparison to the Beckmann-Spizzichino model, 
+
+- It has higher tails - it falls off to zero more slowly for directions far from the surface normal.
+  - This characteristic matches the properties of many real-world surfaces well
+
+<img src="images/Lecture17-img-36.png" alt="img-36" style="zoom:50%;" />
+
+Usually, we specify $\alpha_x$ and $\alpha_y$ by **roughness**, which is between $[0, 1]$, and value close to zero correspond to near-perfect specular reflection.
+
+
+
+### Masking and Shadowing
+
+**Smith's Masking-Shadowing Function**: Some microfacets will be *invisible* from a given viewing or illumination direction because,
+
+1. They are back-facing
+2. Some of the forward-facing microfacet area will be hidden due to being shadowed by back-facing microfacets.
+
+This is described by
+$$
+G_1(\omega, \omega_h)
+$$
+which gives the fraction of microfacets with normal $\omega_h$ that are visible from direction $\omega$.
+
+- Note that $0 \leq G_1(\omega, \omega_h) \leq 1$.
+
+
+
+**Normalization Constraint**: A differential area $\dd{A}$, as shown in Figure 8.17, has area $\dd{A} \cos\theta$ when viewed from a direction $\omega$ that makes an angle $\theta$ with the surface normal. The area of visible microfacets seen from this direction must also be equal to $\dd{A} \cos\theta$, which leads to a normalization constraint for $G_1$:
+$$
+\cos \theta = \int_{H^2(\textbf{n})} G_1 (\omega, \omega_h) \max(0, \omega \cdot \omega_h) D(\omega_h) \dd{\omega_h}
+$$
+<img src="images/Lecture17-img-37.png" alt="img-37" style="zoom:50%;" />
+
+
+
+**Compute $G_1$ using $\Lambda(\omega)$**: Because the microfacets form a heightfield, every back-facing microfacet shadows a forward-facing microfacet of equal projected area in the direction $\omega$. If $A^+(\omega)$ is the projected area of forward-facing microfacets as seen from the direction $\omega$ and $A^-(\omega)$ is the projected area of backward-facing microfacets, then $\cos\theta = A^+(\omega) - A^-(\omega)$.
+
+We can thus alternatively write the masking-shadowing function as the **ratio** of visible microfacets area to total forward-facing microfacet area:
+$$
+G_1(\omega) = \frac{A^+(\omega) - A^-(\omega)}{A^+(\omega)}.
+$$
+Shadowing-masking functions are traditionally expressed in terms of an auxiliary function $\Lambda(\omega)$, which measures invisible masked microfacet area **per visible microfacet area**.
+$$
+\Lambda (\omega) = \frac{A^-(\omega)}{A^+(\omega) - A^-(\omega)}
+= \frac{A^-(\omega)}{\cos\theta}
+$$
+After some algebra we have
+$$
+G_1(\omega) = \frac{1}{1 + \Lambda(\omega)}.
+$$
+
+
+**Specifying $\Lambda(\omega)$**: The microfacet distribution alone doesn't impose enough conditions to imply a specific $\Lambda(\omega)$ function.
+
+- If we assume that there is no correlation between the heights of nearby points on the microsurface, then it's possible to find a unique $\Lambda(\omega)$ given $D(\omega_h)$.
+
+  - For many microfacet models, a closed-form expression can be found.
+  - Although this isn't true in reality, the resulting $\Lambda(\omega)$ functions turned out to be fairly accurate when compared to measure reflection from actual surfaces.
+
+  - **Beckmann-Spizzichino**: Under the assumption of no such correlation, we have
+    $$
+    \Lambda(\omega) = \frac{1}{2} \left( \erf(a) - 1 + \frac{e^{-a^2}}{a\sqrt{\pi}} \right)
+    $$
+    where $\alpha = 1/(\alpha \tan\theta)$ and $\erf$ is the error function, $\erf(x) = 2/\sqrt{\pi}\int_{0}^{x}e^{-u^2}\dd{u}$.
+
+    In `pbrt`, a rational polynomial approximation is used, to avoid calling `std::erf()` and `std::exp()` which are fairly expensive to evaluate.
+
+
+
+**Computing the interpolated $\alpha$ for anisotropic distributions**: It is the easiest to compute $\Lambda(\omega)$ by taking their corresponding isotropic function and stretching the underlying surface according to the $\alpha_x$ and $\alpha_y$ values. Equivalently, one can compute an interpolated $\alpha$ value for the **direction of interest** and use that with the isotropic function.
+$$
+\alpha = \sqrt{\cos^2 \phi_h * \alpha_x^2 + \sin^2\phi_h * \alpha_y^2}
+$$
+
+
+<img src="images/Lecture17-img-38.png" alt="img-38" style="zoom:50%;" />
+
+- The function is close to one over much of the domain, but *falls to zero at **grazing angles***.
+- Increasing surface roughness causes the function to fall off more quickly.
+
+
+
+**Computing $G(\omega_o, \omega_i)$**: This function gives the fraction of microfacets in a differential area that are visible from both directions $\omega_o$ and $\omega_i$. Defining $G$ requires some additional assumptions. For starters, 
+
+-  If we **assume** that the probability of a microfacet being visible from both directions is the probability that it is visible from each direction independently, then we have
+  $$
+  G(\omega_o, \omega_i) = G_1(\omega_o)G_1(\omega_i).
+  $$
+  In practice, 
+
+  - This often **underestimates** $G$.
+  - The closer together the $\omega_o$ and $\omega_i$ are, the more correlation there is between $G_1(\omega_o)$ and $G_1(\omega_i)$.
+
+- A **more accurate** model can be derived, **assuming** that microfacet visibility is more likely the higher up a given point on a microfacet is. This assumption leads to the model
+  $$
+  G(\omega_o, \omega_i) = \frac{1}{1 + \Lambda(\omega_o) + \Lambda(\omega_i)}.
+  $$
+
+
+
+### The Torrance-Sparrow Model
+
+$$
+f_r(\omega_o, \omega_i) = \frac{D(\omega_h) G(\omega_o, \omega_i) F_r(\omega_o)}{4 \cos\theta_o \cos\theta_i}
+$$
+
+For very detailed derivation, refer to the PBR book. Basically, we assume that individual microfacets are perfectly specular, and therefore only those that have the direction of their normals matched with the orientation of $\omega_h$ will reflect light.
+
+
+
+## Appendix B: Specular Reflection and Transmission
+
+### Fresnel Reflectance
 
