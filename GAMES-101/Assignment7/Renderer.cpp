@@ -75,16 +75,16 @@ std::vector<Vector3f> Renderer::OnePass(const Scene &scene, int id, bool msaaEna
 }
 
 // Use multi-threading to render the scene. Repeatedly call OnePass() in parallel
-void Renderer::Render(const Scene &scene, bool useMultiThread, bool msaaEnabled)
+void Renderer::render(const Scene &scene, bool useMultiThread, bool msaaEnabled)
 {
     int numThread = std::thread::hardware_concurrency();
     std::cout << "\n";
-    std::cout << " - Renderer::Render() - invoked\n";
-    std::cout << " - Renderer::Render() - resolution = " << scene.width << "x" << scene.height << "\n";
-    std::cout << " - Renderer::Render() - SPP = " << spp << "\n";
-    std::cout << " - Renderer::Render() - MSAA Enabled = " << msaaEnabled << "\n";
-    std::cout << " - Renderer::Render() - using #thread = " << numThread << "\n";
-    std::cout << " - Renderer::Render() - #pass = " << spp << "\n";
+    std::cout << " - Renderer::render() - invoked\n";
+    std::cout << " - Renderer::render() - resolution = " << scene.width << "x" << scene.height << "\n";
+    std::cout << " - Renderer::render() - SPP = " << spp << "\n";
+    std::cout << " - Renderer::render() - MSAA Enabled = " << msaaEnabled << "\n";
+    std::cout << " - Renderer::render() - using #thread = " << numThread << "\n";
+    std::cout << " - Renderer::render() - #pass = " << spp << "\n";
     initializeProgress(scene);
     std::vector<std::future<std::vector<Vector3f>>> futures;
     std::vector<std::vector<Vector3f>> samples;
@@ -250,6 +250,6 @@ void Renderer::updateCombineProgress(float progress)
         resetCliScreen(1);
 
     UpdateProgress(progress);
-    std::cout << " - Combining 0 " << (progress >= 1.f ? "[Done]     " : "[Combining]") << "\n";
+    std::cout << " - Combining " << (progress >= 1.f ? "[Done]     " : "[Combining]") << "\n";
     std::cout.flush();
 }

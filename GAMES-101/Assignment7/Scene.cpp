@@ -37,7 +37,7 @@ void Scene::sampleLight(Intersection &pos, float &pdf) const
             emit_area_sum += objects[k]->getArea();
             if (p <= emit_area_sum)
             {
-                objects[k]->Sample(pos, pdf);
+                objects[k]->sample(pos, pdf);
                 break;
             }
         }
@@ -77,7 +77,7 @@ Vector3f Scene::castRay(const Ray &ray, int depth) const
     Intersection isect = intersect(ray); // The intersection between argument ray and this Scene
     if (isect.happened)
     {
-        // hitColor = Vector3f(166.f / isect.distance);
+        // hitColor = isect.normal / 2.0f + 0.5f;
         // return hitColor;
 
         Vector3f wOut = ray.direction.reversed();
@@ -93,7 +93,7 @@ Vector3f Scene::castRay(const Ray &ray, int depth) const
         Ray lightIn = Ray(hitPos, normalize(lightCoords - hitPos));
         Vector3f &wLightIn = lightIn.direction;
 
-        if (pdfLight > 0.0f) // If nonzero pdf
+        if (!wLightIn.isZero() && pdfLight > 0.0f) // If nonzero vector and nonzero pdf
         {
             if (Intersection isect0 = intersect(lightIn);
                 isect0.happened && isect0.obj == lightPos.obj) // and has no blocking in between
@@ -117,7 +117,7 @@ Vector3f Scene::castRay(const Ray &ray, int depth) const
             Ray outRay(hitPos, wIn.normalized());
             float pdfMaterial = hitMaterial->pdf(wOut, wIn, hitNormal);
 
-            if (pdfMaterial > 0.0f)
+            if (!wIn.isZero() && pdfMaterial > 0.0f) // If nonzero vector and nonzero pdf
             {
                 if (Intersection isect0 = intersect(outRay);
                     isect0.happened && !isect0.m->hasEmission())

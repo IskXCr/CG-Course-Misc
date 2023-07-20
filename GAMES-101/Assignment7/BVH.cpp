@@ -283,7 +283,7 @@ void BVHAccel::getSample(BVHBuildNode *node, float p, Intersection &pos, float &
 {
     if (node->left == nullptr || node->right == nullptr)
     {
-        node->object->Sample(pos, pdf);
+        node->object->sample(pos, pdf);
         pdf *= node->area;
         return;
     }
@@ -296,7 +296,7 @@ void BVHAccel::getSample(BVHBuildNode *node, float p, Intersection &pos, float &
 // Sample the bounding box at the point.
 // \return modified Intersection object containing position information and normal information,
 //         and modified pdf for division.
-void BVHAccel::Sample(Intersection &pos, float &pdf)
+void BVHAccel::sample(Intersection &pos, float &pdf)
 {
     float p = std::sqrt(get_random_float()) * root->area;
     getSample(root, p, pos, pdf);

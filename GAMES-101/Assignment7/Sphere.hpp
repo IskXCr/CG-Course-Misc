@@ -88,18 +88,13 @@ public:
         N = normalize(P - center);
     }
 
-    Vector3f evalDiffuseColor(const Vector2f &st) const
-    {
-        // return m->getColor();
-    }
-
     Bounds3 getBounds()
     {
         return Bounds3(Vector3f(center.x - radius, center.y - radius, center.z - radius),
                        Vector3f(center.x + radius, center.y + radius, center.z + radius));
     }
 
-    void Sample(Intersection &pos, float &pdf)
+    void sample(Intersection &pos, float &pdf)
     {
         float theta = 2.0 * M_PI * get_random_float(), phi = M_PI * get_random_float();
         Vector3f dir(std::cos(phi), std::sin(phi) * std::cos(theta), std::sin(phi) * std::sin(theta));

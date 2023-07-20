@@ -69,9 +69,8 @@ public:
         //        throw std::runtime_error("triangle::getSurfaceProperties not
         //        implemented.");
     }
-    Vector3f evalDiffuseColor(const Vector2f &) const override;
     Bounds3 getBounds() override;
-    void Sample(Intersection &pos, float &pdf)
+    void sample(Intersection &pos, float &pdf)
     {
         float x = std::sqrt(get_random_float()), y = get_random_float();
         pos.coords = v0 * (1.0f - x) + v1 * (x * (1.0f - y)) + v2 * (x * y);
@@ -184,15 +183,6 @@ public:
         st = st0 * (1 - uv.x - uv.y) + st1 * uv.x + st2 * uv.y;
     }
 
-    Vector3f evalDiffuseColor(const Vector2f &st) const
-    {
-        float scale = 5;
-        float pattern =
-            (fmodf(st.x * scale, 1) > 0.5) ^ (fmodf(st.y * scale, 1) > 0.5);
-        return lerp(Vector3f(0.815, 0.235, 0.031),
-                    Vector3f(0.937, 0.937, 0.231), pattern);
-    }
-
     Intersection getIntersection(Ray ray)
     {
         Intersection intersec;
@@ -207,9 +197,9 @@ public:
         return intersec;
     }
 
-    void Sample(Intersection &pos, float &pdf)
+    void sample(Intersection &pos, float &pdf)
     {
-        bvh->Sample(pos, pdf);
+        bvh->sample(pos, pdf);
         pos.emit = m->getEmission();
     }
     float getArea()
@@ -278,9 +268,4 @@ inline Intersection Triangle::getIntersection(Ray ray)
     isect.m = this->m;
 
     return isect;
-}
-
-inline Vector3f Triangle::evalDiffuseColor(const Vector2f &) const
-{
-    return Vector3f(0.5, 0.5, 0.5);
 }

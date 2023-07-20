@@ -21,7 +21,7 @@ public:
     Vector3f operator/(const float &r) const { return Vector3f(x / r, y / r, z / r); }
 
     float norm() const { return std::sqrt(x * x + y * y + z * z); }
-    bool Zero() const
+    bool isZero() const
     {
         return x == 0.f && y == 0.f && z == 0.f;
     }
@@ -43,6 +43,7 @@ public:
     Vector3f operator*(const Vector3f &v) const { return Vector3f(x * v.x, y * v.y, z * v.z); }
     Vector3f operator-(const Vector3f &v) const { return Vector3f(x - v.x, y - v.y, z - v.z); }
     Vector3f operator+(const Vector3f &v) const { return Vector3f(x + v.x, y + v.y, z + v.z); }
+    Vector3f operator/(const Vector3f &v) const { return Vector3f(x / v.x, y / v.y, z / v.z); }
     Vector3f operator-() const { return Vector3f(-x, -y, -z); }
     Vector3f &operator+=(const Vector3f &v)
     {
@@ -54,6 +55,7 @@ public:
     {
         return Vector3f(v.x * r, v.y * r, v.z * r);
     }
+
     friend std::ostream &operator<<(std::ostream &os, const Vector3f &v)
     {
         return os << v.x << ", " << v.y << ", " << v.z;
@@ -62,16 +64,26 @@ public:
     float operator[](int index) const;
     float &operator[](int index);
 
-    static Vector3f Min(const Vector3f &p1, const Vector3f &p2)
+    static inline Vector3f minVector(const Vector3f &p1, const Vector3f &p2)
     {
         return Vector3f(std::min(p1.x, p2.x), std::min(p1.y, p2.y),
                         std::min(p1.z, p2.z));
     }
 
-    static Vector3f Max(const Vector3f &p1, const Vector3f &p2)
+    static inline Vector3f maxVector(const Vector3f &p1, const Vector3f &p2)
     {
         return Vector3f(std::max(p1.x, p2.x), std::max(p1.y, p2.y),
                         std::max(p1.z, p2.z));
+    }
+
+    static inline Vector3f zero()
+    {
+        return Vector3f(0.0f);
+    }
+
+    static inline bool isZero(Vector3f v)
+    {
+        return v.isZero();
     }
 };
 

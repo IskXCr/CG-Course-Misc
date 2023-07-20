@@ -7,71 +7,21 @@
 
 #include "Vector.hpp"
 
-// Functions for geometric computations
+// Utility functions
 
-// Compute reflection direction
-static inline Vector3f reflect(const Vector3f &wo, const Vector3f &N)
+// Compute the square root of each component
+static inline Vector3f sqrt(const Vector3f &v)
 {
-    return wo - 2 * dotProduct(wo, N) * N;
+    float x, y, z;
+    x = std::sqrt(v.x);
+    y = std::sqrt(v.y);
+    z = std::sqrt(v.z);
+    if (std::isnan(x) || std::isnan(y) || std::isnan(z))
+        throw std::runtime_error("Invalid sqrt on vector v");
+    return Vector3f(x, y, z);
 }
 
-// Compute refraction direction using Snell's law
-// We need to handle with care the two possible situations:
-//    - When the ray is inside the object
-//    - When the ray is outside.
-// If the ray is outside, you need to make cosi positive cosi = -N.I
-// If the ray is inside, you need to invert the refractive indices and negate the normal N
-static inline Vector3f refract(const Vector3f &wo, const Vector3f &N, const float &ior)
-{
-    float cosi = clamp(-1, 1, dotProduct(wo, N));
-    float etai = 1, etat = ior;
-    Vector3f n = N;
-    if (cosi < 0)
-    {
-        cosi = -cosi;
-    }
-    else
-    {
-        std::swap(etai, etat);
-        n = -N;
-    }
-    float eta = etai / etat;
-    float k = 1 - eta * eta * (1 - cosi * cosi);
-    return k < 0 ? 0 : eta * wo + (eta * cosi - sqrtf(k)) * n;
-}
-
-// Compute Fresnel equation
-// \param I is the incident view direction
-// \param N is the normal at the intersection point
-// \param ior is the material refractive index
-// \param[out] kr is the amount of light reflected
-static inline void fresnel(const Vector3f &wo, const Vector3f &N, const float &ior, float &kr)
-{
-    float cosi = clamp(-1, 1, dotProduct(wo, N));
-    float etai = 1, etat = ior;
-    if (cosi > 0)
-    {
-        std::swap(etai, etat);
-    }
-    // Compute sini using Snell's law
-    float sint = etai / etat * sqrtf(std::max(0.f, 1 - cosi * cosi));
-    // Total internal reflection
-    if (sint >= 1)
-    {
-        kr = 1;
-    }
-    else
-    {
-        float cost = sqrtf(std::max(0.f, 1 - sint * sint));
-        cosi = fabsf(cosi);
-        float Rs = ((etat * cosi) - (etai * cost)) / ((etat * cosi) + (etai * cost));
-        float Rp = ((etai * cosi) - (etat * cost)) / ((etai * cosi) + (etat * cost));
-        kr = (Rs * Rs + Rp * Rp) / 2;
-    }
-    // As a consequence of the conservation of energy, transmittance is given by:
-    // kt = 1 - kr;
-}
-
+// Convert to world coordinate
 static inline Vector3f toWorld(const Vector3f &a, const Vector3f &N)
 {
     Vector3f B, C;
@@ -89,6 +39,7 @@ static inline Vector3f toWorld(const Vector3f &a, const Vector3f &N)
     return a.x * B + a.y * C + a.z * N;
 }
 
+// Convert to local coordinate around N
 static inline Vector3f toLocal(const Vector3f &a, const Vector3f &N)
 {
     // TODO: Verify the correctness of this function
@@ -96,6 +47,92 @@ static inline Vector3f toLocal(const Vector3f &a, const Vector3f &N)
     return toWorld(a, Np);
 }
 
+// Compute reflection direction. The result points outwards on the hemisphere.
+static inline Vector3f reflect(const Vector3f &wo, const Vector3f &N)
+{
+    return 2 * dotProduct(wo, N) * N - wo;
+}
+
+// Compute refraction direction using Snell's law. The result points outwards on the sphere.
+// \param eta the relative (to the air) index of refraction of the object
+// \param N the normal of the surface. By default, the normal points toward outside of the object.
+static inline Vector3f refract(const Vector3f &wo, const Vector3f &N, float eta)
+{
+    float cosi = clamp(-1.0f, 1.0f, dotProduct(wo, N));
+    Vector3f n = N;
+    if (cosi < 0.0f)
+    {
+        cosi = -cosi;
+    }
+    else
+    {
+        eta = 1. / eta;
+        n = -N;
+    }
+    float k = 1 - eta * eta * (1 - cosi * cosi); // test total internal reflection
+    return k < 0.0f ? Vector3f(0.0f) : -eta * wo + (std::sqrt(k) - eta * cosi) * n;
+}
+
+// Compute Fresnel equation for dielectrics. Return the portion of spectrum reflected.
+// \param cosThetaI the cosine of the incident angle. May be negative if N and wi is not on the same side
+// \param eta is the relative refractive index of the incident material
+static inline float frDielectric(const float cosThetaI, const float &eta)
+{
+    float kr;
+    float cosi = clamp(-1, 1, cosThetaI);
+    float etai = 1.0f, etat = eta;
+    if (cosi > 0.0f)
+    {
+        std::swap(etai, etat);
+    }
+    // Compute sini using Snell's law
+    float sint = etai / etat * std::sqrt(std::max(0.f, 1.0f - cosi * cosi));
+    // Total internal reflection
+    if (sint >= 1.0f)
+    {
+        kr = 1.0f;
+    }
+    else
+    {
+        float cost = std::sqrt(std::max(0.f, 1.0f - sint * sint));
+        cosi = std::abs(cosi);
+        float Rs = ((etat * cosi) - (etai * cost)) / ((etat * cosi) + (etai * cost));
+        float Rp = ((etai * cosi) - (etat * cost)) / ((etai * cosi) + (etat * cost));
+        kr = (Rs * Rs + Rp * Rp) / 2.0f;
+    }
+    // As a consequence of the conservation of energy, transmittance is given by:
+    // kt = 1 - kr;
+    return kr;
+}
+
+// Compute Fresnel equation for conductors. Return the portion of spectrum reflected.
+// \param cosThetaI the cosine of the incident angle. May be negative if N and wi is not on the same side
+// \param eta is the relative refractive index of the material, for each rgb channel
+// \param k is the absorption coefficient, for each rgb channel
+static inline Vector3f frConductor(float cosThetaI, Vector3f eta, Vector3f k)
+{
+    cosThetaI = std::abs(cosThetaI);
+    cosThetaI = clamp(-1, 1, cosThetaI);
+    Vector3f etak = k;
+
+    float cosThetaI2 = cosThetaI * cosThetaI;
+    float sinThetaI2 = 1. - cosThetaI2;
+    Vector3f eta2 = eta * eta;
+    Vector3f etak2 = etak * etak;
+
+    Vector3f t0 = eta2 - etak2 - sinThetaI2;
+    Vector3f a2plusb2 = sqrt(t0 * t0 + 4 * eta2 * etak2);
+    Vector3f t1 = a2plusb2 + cosThetaI2;
+    Vector3f a = sqrt(0.5f * (a2plusb2 + t0));
+    Vector3f t2 = (float)2 * cosThetaI * a;
+    Vector3f Rs = (t1 - t2) / (t1 + t2);
+
+    Vector3f t3 = cosThetaI2 * a2plusb2 + sinThetaI2 * sinThetaI2;
+    Vector3f t4 = t2 * sinThetaI2;
+    Vector3f Rp = Rs * (t3 - t4) / (t3 + t4);
+
+    return 0.5 * (Rp + Rs);
+}
 
 // Materials
 
@@ -161,12 +198,51 @@ private:
     const float alphax, alphay;
 };
 
+class Fresnel
+{
+public:
+    // Given the cosine of the angle made by the incoming direction and the surface normal,
+    // return the amount of light reflected by the surface.
+    virtual Vector3f eval(float cosThetaI) const = 0;
+};
+
+class FresnelConductor : public Fresnel
+{
+public:
+    virtual Vector3f eval(float cosThetaI) const override;
+    FresnelConductor(const Vector3f &eta, const Vector3f &k) : eta(eta), k(k) {}
+
+private:
+    Vector3f eta, k;
+};
+
+class FresnelDielectric : public Fresnel
+{
+public:
+    virtual Vector3f eval(float cosThetaI) const override;
+    FresnelDielectric(const Vector3f &eta) : eta(eta) {}
+
+private:
+    Vector3f eta;
+};
+
+class FresnelNoOp : public Fresnel
+{
+public:
+    virtual Vector3f eval(float cosThetaI) const override { return Vector3f(1.0f); }
+
+private:
+};
+
 enum MaterialType
 {
-    DIFFUSE,
-    SPECULAR,
-    TRANSLUCENT,
-    MICROFACET,
+    DIFFUSE = (1 << 0),              // Lambertian diffuse
+    SPECULAR_TEST = (1 << 1),        // Perfect specular (FP precision problem still exist)
+    DIELETRIC_TEST = (1 << 2),       // Dielectric simulation
+    FRESNEL_REFLECTION = (1 << 4),   // Specular fresnel materials
+    FRESNEL_TRANSMISSION = (1 << 5), // Fresnel transmission
+    FRESNEL_SPECULAR = (1 << 6),     // Fresnel specular
+    MICROFACET = (1 << 8)            // Microfacet simulation
 };
 
 class Material
@@ -174,16 +250,18 @@ class Material
 public:
     MaterialType m_type; // Type of the material
     // Vector3f m_color;
-    Vector3f m_emission;            // Emission
-    float ior;                      // index of refraction
+    Vector3f m_emission;            // Emission for light sources
     Vector3f Kd;                    // K-Diffuse
+    Vector3f eta;                   // FRESNEL & Other materials - Index of refraction
+    Vector3f Krefl;                 // REFLECTION - Scale the spectrum for fresnel reflection
+    Vector3f Ktrans;                // TRANSMISSION - Scale the spectrum for fresnel transmission
+    Fresnel *fresnel;               // FRESNEL - For fresnel materials
     MicrofacetDistribution *mfDist; // MicrofacetDistribution
-    // Fresnel fresnel;
 
     // Texture tex;
     friend class MicrofacetDistribution;
 
-    inline Material(MaterialType t = DIFFUSE, Vector3f e = Vector3f(0, 0, 0), MicrofacetDistribution *m = nullptr);
+    inline Material(MaterialType t = DIFFUSE, Vector3f e = Vector3f(0, 0, 0));
     inline MaterialType getType();
     // inline Vector3f getColor();
     inline Vector3f getColorAt(double u, double v);
@@ -198,12 +276,16 @@ public:
     inline Vector3f eval(const Vector3f &wo, const Vector3f &wi, const Vector3f &N);
 };
 
-Material::Material(MaterialType t, Vector3f e, MicrofacetDistribution *m)
+Material::Material(MaterialType t, Vector3f e)
 {
     m_type = t;
     // m_color = c;
+    Kd = Vector3f(1.0f, 1.0f, 1.0f);
+    Krefl = Vector3f(1.0f, 1.0f, 1.0f);
+    Ktrans = Vector3f(1.0f, 1.0f, 1.0f);
     m_emission = e;
-    mfDist = m;
+    fresnel = new FresnelNoOp();
+    mfDist = nullptr;
 }
 
 MaterialType Material::getType() { return m_type; }
@@ -226,6 +308,8 @@ Vector3f Material::getColorAt(double u, double v)
 
 Vector3f Material::sample(const Vector3f &wo, const Vector3f &N)
 {
+    if (wo.isZero())
+        return {0, 0, 0};
     switch (m_type)
     {
     case DIFFUSE:
@@ -238,21 +322,58 @@ Vector3f Material::sample(const Vector3f &wo, const Vector3f &N)
         return toWorld(localRay, N);
         break;
     }
-    case SPECULAR:
+    case SPECULAR_TEST:
     {
+        return reflect(wo, N);
+        break;
+    }
+    case DIELETRIC_TEST:
+    {
+        if (get_random_float() <= frDielectric(dotProduct(wo, N), eta[0])) // reflect
+        {
+            return reflect(wo, N);
+        }
+        else // refract
+        {
+            return refract(wo, N, eta[0]);
+        }
+        break;
+    }
+    case FRESNEL_REFLECTION:
+    {
+        return reflect(wo, N);
+        break;
+    }
+    case FRESNEL_TRANSMISSION:
+    {
+        return refract(wo, N, eta[0]);
+        break;
+    }
+    case FRESNEL_SPECULAR:
+    {
+        Vector3f reflected = reflect(wo, N);
+        Vector3f refracted = refract(wo, N, eta[0]);
+        float F = frDielectric(dotProduct(wo, N), eta[0]);
+        if (get_random_float() < F)
+            return reflected;
+        else 
+            return refracted;
+        break;
     }
     case MICROFACET:
     {
         if (mfDist == nullptr)
             throw std::runtime_error("Invalid Microfacet BRDF: No specified distribution.");
-        return toWorld(mfDist->sample(toLocal(wo, N)), N);
         break;
     }
     }
+    return 0.0f;
 }
 
 float Material::pdf(const Vector3f &wo, const Vector3f &wi, const Vector3f &N)
 {
+    if (wo.isZero())
+        return 0;
     switch (m_type)
     {
     case DIFFUSE:
@@ -264,26 +385,80 @@ float Material::pdf(const Vector3f &wo, const Vector3f &wi, const Vector3f &N)
             return 0.0f;
         break;
     }
-    case SPECULAR:
+    case SPECULAR_TEST:
     {
+        if (dotProduct(wo, reflect(wi, N)) > 1.0f - EPSILON)
+            return 1.0f;
+        else
+            return 0.0f;
+    }
+    case DIELETRIC_TEST:
+    {
+        float prob = frDielectric(dotProduct(wi, N), eta[0]);
+        Vector3f reflected = reflect(wo, N);
+        Vector3f refracted = refract(wo, N, eta[0]);
+        if (dotProduct(reflected, wi) > 1.0f - EPSILON)
+        {
+            return prob;
+        }
+        else if (dotProduct(refracted, wi) > 1.0f - EPSILON)
+        {
+            return std::max(0.0f, 1.0f - prob);
+        }
+        else
+        {
+            return 0.0f;
+        }
+
+        break;
+    }
+    case FRESNEL_REFLECTION:
+    {
+        Vector3f reflected = reflect(wo, N);
+        if (dotProduct(reflected, wi) > 1.0f - EPSILON)
+            return 1;
+        else
+            return 0;
+        break;
+    }
+    case FRESNEL_TRANSMISSION:
+    {
+        Vector3f refracted = refract(wo, N, eta[0]);
+        if (dotProduct(refracted, wi) > 1.0f - EPSILON)
+            return 1;
+        else
+            return 0;
+        break;
+    }
+    case FRESNEL_SPECULAR:
+    {
+        Vector3f reflected = reflect(wo, N);
+        Vector3f refracted = refract(wo, N, eta[0]);
+        float F = frDielectric(dotProduct(wo, N), eta[0]);
+        if (dotProduct(reflected, wi) > 1.0f - EPSILON)
+            return F;
+        else if (dotProduct(refracted, wi) > 1.0f - EPSILON)
+            return 1 - F;
+        else
+            return 0;
+        break;
     }
     case MICROFACET:
     {
         if (mfDist == nullptr)
             throw std::runtime_error("Invalid Microfacet BRDF: No specified distribution.");
-        if (dotProduct(wi, N) > 0.0f)
-            return mfDist->getPdf(toLocal(wo, N), toLocal((wi + wo).normalized(), N));
-        else
-            return 0.0f;
         break;
     }
     }
+    return 0.0f;
 }
 
 // wi, wo and N must point outwards (relative to the point being evaluated)
 // For direct illumination, wo is the ray from camera.
 Vector3f Material::eval(const Vector3f &wo, const Vector3f &wi, const Vector3f &N)
 {
+    if (wo.isZero())
+        return {0, 0, 0};
     switch (m_type)
     {
     case DIFFUSE:
@@ -295,28 +470,83 @@ Vector3f Material::eval(const Vector3f &wo, const Vector3f &wi, const Vector3f &
             return diffuse;
         }
         else
-            return Vector3f(0.0f);
+            return Vector3f::zero();
         break;
     }
-    case SPECULAR:
+    case SPECULAR_TEST:
     {
+        if (dotProduct(wo, reflect(wi, N)) > 1.0f - EPSILON)
+            return Krefl;
+        else
+            return Vector3f::zero();
+    }
+    case DIELETRIC_TEST:
+    {
+        float prob = frDielectric(dotProduct(wi, N), eta[0]);
+        Vector3f reflected = reflect(wo, N);
+        Vector3f refracted = refract(wo, N, eta[0]);
+        if (dotProduct(reflected, wi) > 1.0f - EPSILON)
+        {
+            return Vector3f(prob);
+        }
+        else if (dotProduct(refracted, wi) > 1.0f - EPSILON)
+        {
+            return Vector3f(std::max(0.0f, 1.0f - prob));
+        }
+        else
+        {
+            return Vector3f::zero();
+        }
+    }
+    case FRESNEL_REFLECTION:
+    {
+        Vector3f reflected = reflect(wo, N);
+        if (dotProduct(reflected, wi) > 1.0f - EPSILON)
+            return fresnel->eval(dotProduct(wo, N)) / std::abs(dotProduct(wo, N));
+        else
+            return Vector3f::zero();
+        break;
+    }
+    case FRESNEL_TRANSMISSION:
+    {
+        Vector3f refracted = refract(wo, N, eta[0]);
+        if (dotProduct(refracted, wi) > 1.0f - EPSILON)
+        {
+            Vector3f ft = Ktrans * Vector3f(1.0f) - fresnel->eval(dotProduct(wo, N));
+            return ft / std::abs(dotProduct(wo, N));
+        }
+        else
+            return Vector3f::zero();
+        break;
+    }
+    case FRESNEL_SPECULAR:
+    {
+        Vector3f reflected = reflect(wo, N);
+        Vector3f refracted = refract(wo, N, eta[0]);
+        float F = frDielectric(dotProduct(wo, N), eta[0]);
+        if (dotProduct(reflected, wi) > 1.0f - EPSILON)
+        {
+            return fresnel->eval(dotProduct(wo, N)) / std::abs(dotProduct(wo, N));
+        }
+        else if (dotProduct(refracted, wi) > 1.0f - EPSILON)
+        {
+            Vector3f ft = Ktrans * Vector3f(1.0f) - fresnel->eval(dotProduct(wo, N));
+            return ft / std::abs(dotProduct(wo, N));
+        }
+        else
+        {
+            return Vector3f::zero();
+        }
+        break;
     }
     case MICROFACET:
     {
         if (mfDist == nullptr)
             throw std::runtime_error("Invalid Microfacet BRDF: No specified distribution.");
-        float cosalpha = dotProduct(N, wi);
-        if (cosalpha > 0.0f)
-        {
-            float kr;
-            fresnel(wo, N, this->ior, kr);
-            return kr * mfDist->partialFr(toLocal(wo, N), toLocal(wi, N));
-        }
-        else
-            return Vector3f(0.0f);
         break;
     }
     }
+    return Vector3f::zero();
 }
 
 #endif // RAYTRACING_MATERIAL_H

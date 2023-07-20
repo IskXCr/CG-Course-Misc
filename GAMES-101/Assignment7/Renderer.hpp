@@ -27,7 +27,7 @@ class Renderer
 public:
     Renderer() : spp(16), cliWidth(0), cliHeight(0), nSlot(1), isCombining(false), coutAvail(true) {}
     std::vector<Vector3f> OnePass(const Scene &scene, int id, bool msaaEnabled);
-    void Render(const Scene &scene, bool useMultiThread, bool msaaEnabled);
+    void render(const Scene &scene, bool useMultiThread, bool msaaEnabled);
 
     void setSPP(int _spp) { spp = _spp; }
     void setEyePos(Vector3f _eyePos) { eyePos = _eyePos; }

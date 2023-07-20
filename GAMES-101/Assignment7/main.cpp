@@ -48,32 +48,70 @@ int main(int argc, char **argv)
     Material *light = new Material(DIFFUSE, (8.0f * Vector3f(0.747f + 0.058f, 0.747f + 0.258f, 0.747f) + 15.6f * Vector3f(0.740f + 0.287f, 0.740f + 0.160f, 0.740f) + 18.4f * Vector3f(0.737f + 0.642f, 0.737f + 0.159f, 0.737f)));
     light->Kd = Vector3f(0.65f);
 
-    MeshTriangle floor("../models/cornellbox/floor.obj", white);
-    MeshTriangle shortbox("../models/cornellbox/shortbox.obj", white);
-    MeshTriangle tallbox("../models/cornellbox/tallbox.obj", white);
-    MeshTriangle left("../models/cornellbox/left.obj", red);
-    MeshTriangle right("../models/cornellbox/right.obj", green);
-    MeshTriangle light_("../models/cornellbox/light.obj", light);
-
     // ================= Begin Test =================== //
-    // Tests Microfacet
-    Material *purple = new Material(DIFFUSE, Vector3f(0.0f));
+    Material *purple = new Material(DIFFUSE, Vector3f::zero());
     purple->Kd = Vector3f(0.137f, 0.0f, 0.4509f);
 
-    float alpha = MicrofacetDistribution::roughtnessToAlpha(1.0);
-    BeckmannDistribution *bd = new BeckmannDistribution(alpha, alpha);
-    Material *mf = new Material(MICROFACET, Vector3f(0.f), bd);
-    mf->ior = 100.f;
-    Sphere testSphere(Vector3f{400.f, 75.f, 100.f}, 75.f, mf);
-    // scene.Add(&testSphere);
+    Material *orange = new Material(DIFFUSE, Vector3f::zero());
+    orange->Kd = Vector3f(1.0, 0.64f, 0.0f);
+
+    // Material *specularTest = new Material(SPECULAR_TEST, Vector3f(0.0f));
+    // specularTest->Krefl = Vector3f(1.0f);
+
+    // Material *dielectricTest = new Material(DIELETRIC_TEST, Vector3f(0.0f));
+    // dielectricTest->eta = Vector3f(1.5f);
+
+    // float alpha = MicrofacetDistribution::roughtnessToAlpha(1.0);
+    // BeckmannDistribution *bd = new BeckmannDistribution(alpha, alpha);
+    // Material *mf = new Material(MICROFACET, Vector3f(0.0f));
+    // mf->mfDist = bd;
+    // mf->eta = Vector3f(100.0f);
+
+    // float etaRefl = 1.10f, etaK = 1.00f;
+    // Material *fresnelReflection = new Material(FRESNEL_REFLECTION, Vector3f::zero());
+    // fresnelReflection->fresnel = new FresnelConductor(Vector3f{etaRefl}, Vector3f{etaK});
+    // fresnelReflection->eta = {etaRefl};
+
+    // float etaTrans = 1.55f;
+    // Material *fresnelTransmission = new Material(FRESNEL_TRANSMISSION, Vector3f::zero());
+    // fresnelTransmission->fresnel = new FresnelDielectric(Vector3f{etaTrans});
+    // fresnelTransmission->eta = {etaTrans};
+
+    float etaSpec = 2.1f;
+    Material *fresnelSpecular = new Material(FRESNEL_SPECULAR, Vector3f::zero());
+    fresnelSpecular->fresnel = new FresnelDielectric(Vector3f{etaSpec});
+    fresnelSpecular->eta = {etaSpec};
+
+    // Tests Microfacet
+
+    Sphere testSphere(Vector3f(400, 25, 140), 25, purple);
+    // Sphere testSphere2(Vector3f(400, 25, 500), 25, orange);
+    // Sphere testSphere3(Vector3f(278, 273, -400), 100, fresnelSpecular);
+
+    scene.add(&testSphere);
+    // scene.add(&testSphere2);
+    // scene.add(&testSphere3);
+
+    // Material *testLight = new Material(DIFFUSE, (120.0f * Vector3f(0.747f, 0.233f, 0.233f)));
+    // testLight->Kd = Vector3f(0.65f);
+    // Sphere testLightSource(Vector3f{278.0f, 273.0f, -1300.0f}, 200.f, testLight);
+    // scene.add(&testLightSource);
+
     // =================  End Test  =================== //
 
-    scene.Add(&floor);
-    scene.Add(&shortbox);
-    scene.Add(&tallbox);
-    scene.Add(&left);
-    scene.Add(&right);
-    scene.Add(&light_);
+    MeshTriangle floor("../models/cornellbox/floor.obj", white);               // white
+    MeshTriangle tallbox("../models/cornellbox/tallbox.obj", fresnelSpecular); // white
+    MeshTriangle shortbox("../models/cornellbox/shortbox.obj", orange);        // white
+    MeshTriangle left("../models/cornellbox/left.obj", red);                   // red
+    MeshTriangle right("../models/cornellbox/right.obj", green);               // green
+    MeshTriangle light_("../models/cornellbox/light.obj", light);              // light
+
+    scene.add(&floor);
+    scene.add(&tallbox);
+    scene.add(&shortbox);
+    scene.add(&left);
+    scene.add(&right);
+    scene.add(&light_);
 
     scene.buildBVH();
 
@@ -82,7 +120,7 @@ int main(int argc, char **argv)
     r.setEyePos(Vector3f(278, 273, -800));
 
     auto start = std::chrono::system_clock::now();
-    r.Render(scene, true, msaaEnable);
+    r.render(scene, true, msaaEnable);
     auto stop = std::chrono::system_clock::now();
 
     std::cout << "\nRendering complete. \n";
