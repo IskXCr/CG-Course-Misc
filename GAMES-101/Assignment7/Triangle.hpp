@@ -91,6 +91,7 @@ public:
 class MeshTriangle : public Object
 {
 public:
+    // InvokeTransform: for the little bunny only
     MeshTriangle(const std::string &filename, Material *mt = new Material())
     {
         objl::Loader loader;

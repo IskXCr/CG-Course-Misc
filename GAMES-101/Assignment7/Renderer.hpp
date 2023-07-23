@@ -39,8 +39,10 @@ private:
     // Update the progress for one thread
     void updateThreadProgress(int slot, float progress);
 
-    // Print the progress during combing results
-    void updateCombineProgress(float progress);
+    void resetCombineProgress();
+
+    // Print the progress during combining results
+    void updateCombineProgress(int id, float progress);
 
     int spp;
     Vector3f eyePos;
@@ -57,3 +59,5 @@ private:
     std::mutex lock_;
     std::condition_variable condVar_;
 };
+
+extern int numThread;

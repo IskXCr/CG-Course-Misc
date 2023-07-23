@@ -53,7 +53,13 @@ int main(int argc, char **argv)
     purple->Kd = Vector3f(0.137f, 0.0f, 0.4509f);
 
     Material *orange = new Material(DIFFUSE, Vector3f::zero());
-    orange->Kd = Vector3f(1.0, 0.64f, 0.0f);
+    orange->Kd = Vector3f(1.0, 0.26f, 0.0f);
+
+    Material *black = new Material(DIFFUSE, Vector3f::zero());
+    black->Kd = Vector3f(0.0);
+
+    Material *yellow = new Material(DIFFUSE, Vector3f::zero());
+    yellow->Kd = Vector3f(1.0, 1.0, 0);
 
     // Material *specularTest = new Material(SPECULAR_TEST, Vector3f(0.0f));
     // specularTest->Krefl = Vector3f(1.0f);
@@ -61,57 +67,89 @@ int main(int argc, char **argv)
     // Material *dielectricTest = new Material(DIELETRIC_TEST, Vector3f(0.0f));
     // dielectricTest->eta = Vector3f(1.5f);
 
-    // float alpha = MicrofacetDistribution::roughtnessToAlpha(1.0);
-    // BeckmannDistribution *bd = new BeckmannDistribution(alpha, alpha);
-    // Material *mf = new Material(MICROFACET, Vector3f(0.0f));
-    // mf->mfDist = bd;
-    // mf->eta = Vector3f(100.0f);
+    Vector3f etaRefl(1.10f), etaK(1.00f);
+    FresnelConductor fresnelConductor = FresnelConductor(etaRefl, etaK);
+    Material *fresnelReflection = new Material(FRESNEL_REFLECTION, Vector3f::zero());
+    fresnelReflection->fresnel = &fresnelConductor;
+    fresnelReflection->eta = etaRefl;
 
-    // float etaRefl = 1.10f, etaK = 1.00f;
-    // Material *fresnelReflection = new Material(FRESNEL_REFLECTION, Vector3f::zero());
-    // fresnelReflection->fresnel = new FresnelConductor(Vector3f{etaRefl}, Vector3f{etaK});
-    // fresnelReflection->eta = {etaRefl};
+    Vector3f etaTrans(1.33f);
+    FresnelDielectric fresnelDielectric = FresnelDielectric(etaTrans);
+    Material *fresnelTransmission = new Material(FRESNEL_TRANSMISSION, Vector3f::zero());
+    fresnelTransmission->fresnel = &fresnelDielectric;
+    fresnelTransmission->eta = etaTrans;
 
-    // float etaTrans = 1.55f;
-    // Material *fresnelTransmission = new Material(FRESNEL_TRANSMISSION, Vector3f::zero());
-    // fresnelTransmission->fresnel = new FresnelDielectric(Vector3f{etaTrans});
-    // fresnelTransmission->eta = {etaTrans};
-
-    float etaSpec = 2.1f;
+    Vector3f etaSpec(1.13f);
+    FresnelDielectric fresnelDielectricSpec = FresnelDielectric(etaSpec);
     Material *fresnelSpecular = new Material(FRESNEL_SPECULAR, Vector3f::zero());
-    fresnelSpecular->fresnel = new FresnelDielectric(Vector3f{etaSpec});
-    fresnelSpecular->eta = {etaSpec};
+    fresnelSpecular->fresnel = &fresnelDielectricSpec;
+    fresnelSpecular->eta = etaSpec;
+
+    FresnelNoOp fresnelNoOp;
+
+    float alpha = MicrofacetDistribution::roughnessToAlpha(0.01);
+    BeckmannDistribution *bd = new BeckmannDistribution(alpha, alpha);
+    TrowbridgeReitzDistribution *trd = new TrowbridgeReitzDistribution(alpha, alpha);
+
+    Material *microfacetReflection = new Material(MICROFACET_REFLECTION, Vector3f(0.0f));
+    microfacetReflection->mfDist = bd;
+    // microfacetReflection->mfDist = trd;
+    microfacetReflection->fresnel = &fresnelConductor;
+    microfacetReflection->eta = etaRefl;
+
+    Material *microfacetTransmission = new Material(MICROFACET_TRANSMISSION, Vector3f(0.0f));
+    microfacetTransmission->mfDist = bd;
+    // microfacetReflection->mfDist = trd;
+    microfacetTransmission->fresnel = &fresnelDielectric;
+    microfacetTransmission->eta = etaTrans;
+    
+    Material *microfacetSpecular = new Material(MICROFACET_SPECULAR, Vector3f(0.0f));
+    microfacetSpecular->mfDist = bd;
+    // microfacetReflection->mfDist = trd;
+    microfacetSpecular->fresnel = &fresnelDielectric;
+    microfacetSpecular->eta = etaSpec;
 
     // Tests Microfacet
 
-    Sphere testSphere(Vector3f(400, 25, 140), 25, purple);
-    // Sphere testSphere2(Vector3f(400, 25, 500), 25, orange);
-    // Sphere testSphere3(Vector3f(278, 273, -400), 100, fresnelSpecular);
+    // Sphere testSphere0(Vector3f(400, 50, 135), 50, purple);
+    // Sphere testSphere1(Vector3f(288, 288, 375), 10, purple);
+    Sphere testSphere2(Vector3f(400, 25, 425), 25, orange);
+    // Sphere testSphere3(Vector3f(263, 288, 375), 10, yellow);
+    // Sphere testSphere4(Vector3f(263, 263, 375), 10, black);
+    // Sphere testSphericalLen(Vector3f(278, 273, 100), 100, fresnelSpecular);
+    // Sphere testSphereMicrofacet(Vector3f(270, 200, 380), 100, microfacetReflection);
+    // Sphere testSphereMicrofacet(Vector3f(270, 200, 80), 100, microfacetTransmission);
 
-    scene.add(&testSphere);
-    // scene.add(&testSphere2);
+    // scene.add(&testSphere0);
+    // scene.add(&testSphere1);
+    scene.add(&testSphere2);
     // scene.add(&testSphere3);
+    // scene.add(&testSphere4);
+    // scene.add(&testSphericalLen);
+    // scene.add(&testSphereMicrofacet);
 
-    // Material *testLight = new Material(DIFFUSE, (120.0f * Vector3f(0.747f, 0.233f, 0.233f)));
+    // Material *testLight = new Material(DIFFUSE, (8.0f * Vector3f(0.747f + 0.058f, 0.747f + 0.258f, 0.747f) + 15.6f * Vector3f(0.740f + 0.287f, 0.740f + 0.160f, 0.740f) + 18.4f * Vector3f(0.737f + 0.642f, 0.737f + 0.159f, 0.737f)));
     // testLight->Kd = Vector3f(0.65f);
     // Sphere testLightSource(Vector3f{278.0f, 273.0f, -1300.0f}, 200.f, testLight);
     // scene.add(&testLightSource);
 
     // =================  End Test  =================== //
 
-    MeshTriangle floor("../models/cornellbox/floor.obj", white);               // white
-    MeshTriangle tallbox("../models/cornellbox/tallbox.obj", fresnelSpecular); // white
-    MeshTriangle shortbox("../models/cornellbox/shortbox.obj", orange);        // white
-    MeshTriangle left("../models/cornellbox/left.obj", red);                   // red
-    MeshTriangle right("../models/cornellbox/right.obj", green);               // green
-    MeshTriangle light_("../models/cornellbox/light.obj", light);              // light
+    MeshTriangle floor("../models/cornellbox/floor.obj", white);         // white
+    MeshTriangle tallbox("../models/cornellbox/tallbox.obj", purple);     // white
+    MeshTriangle shortbox("../models/cornellbox/shortbox.obj", white);   // white
+    MeshTriangle left("../models/cornellbox/left.obj", red);             // red
+    MeshTriangle right("../models/cornellbox/right.obj", green);         // green
+    MeshTriangle light_("../models/cornellbox/light.obj", light);        // light
+    MeshTriangle bunny("../models/bunny/bunny1.obj", microfacetTransmission); // bunny
 
     scene.add(&floor);
     scene.add(&tallbox);
-    scene.add(&shortbox);
+    // scene.add(&shortbox);
     scene.add(&left);
     scene.add(&right);
     scene.add(&light_);
+    scene.add(&bunny);
 
     scene.buildBVH();
 

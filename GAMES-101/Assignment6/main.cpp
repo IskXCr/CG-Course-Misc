@@ -22,6 +22,7 @@ int main(int argc, char** argv)
     // Sphere sphere(Vector3f(0.f, 0.f, -10.f), 3.f);
     // scene.Add(&sphere);
     scene.buildBVH();
+    std::cout << scene.bvh->root->bounds << "\n";
 
 
     Renderer r;

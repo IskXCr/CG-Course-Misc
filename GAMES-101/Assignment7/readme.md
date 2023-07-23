@@ -2,17 +2,21 @@
 
 ## Features Implemented
 
-| Name                                       | Score |
-| ------------------------------------------ | ----- |
-| Runnable Implementation                    | 5     |
-| Path Tracing (SPP>8, resolution > 512x512) | 45    |
-| Multi-Threaded Rendering                   | 10    |
-| Microfacet Implementation                  | 10    |
-| Other Materials                            |       |
+| Name                                                         | Score |
+| ------------------------------------------------------------ | ----- |
+| Runnable Implementation                                      | 5     |
+| Path Tracing (SPP>8, resolution > 512x512)                   | 45    |
+| Multi-Threaded Rendering                                     | 10    |
+| Microfacet Implementation (Reflection and Transmission, **Beckmann** and **Trowbridge-Reitz**) | 10    |
+| Other Materials: Fresnel Reflection/Transmission/Specular (**Conductor** and **Dielectric**) |       |
 
 
 
 ## Demonstration
+
+Images are stored under the `images` folder.
+
+### Basic Part & Parallelization
 
 The specification of the test platform is listed as follows.
 
@@ -23,10 +27,6 @@ The specification of the test platform is listed as follows.
 | OS      | Ubuntu 22.04.2 LTS on Windows 10 x86_64     |
 | Kernel  | 5.15.90.1-microsoft-standard-WSL2           |
 | g++     | g++ (Ubuntu 11.3.0-1ubuntu1~22.04.1) 11.3.0 |
-
-
-
-
 
 
 
@@ -67,6 +67,64 @@ From now on we assume optimized random FP generation is used.
 | 1024x1024, SPP=16   | <img src="images/1024x1024_16.png" style="zoom:50%;" />   |
 | 1024x1024, SPP=256  | <img src="images/1024x1024_256.png" style="zoom:50%;" />  |
 | 1024x1024, SPP=1024 | <img src="images/1024x1024_1024.png" style="zoom:50%;" /> |
+
+
+
+### Fresnel Reflection/Transmission/Specular
+
+| R                                                            | T                                                            | S                                                            |
+| ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| ![fresnel_reflection](images/784x784_1024_fresnel_reflection.png) | ![fresnel_transmission](images/784x784_1024_fresnel_transmission_1.png) | ![fresnel_specular](images/784x784_1024_fresnel_specular_1.png) |
+
+<p align="center">784x784, SPP=1024</p>
+
+<img src="images/4096x4096_1024_fresnel_reflection.png" alt="high_res_fresnel_refl" style="zoom:50%;" />
+
+
+
+### Microfacet Reflection
+
+#### Reflection
+
+##### Beckmann Distribution
+
+| 0.00                                         | 0.01                                            | 0.1                                           | 0.3                                           | 0.5                                           | 0.7                                           | 1.0                                           |
+| -------------------------------------------- | ----------------------------------------------- | --------------------------------------------- | --------------------------------------------- | --------------------------------------------- | --------------------------------------------- | --------------------------------------------- |
+| ![r=0](images/mf_refl_bd_roughness=0.00.png) | ![r=0.01](images/mf_refl_bd_roughness=0.01.png) | ![r=0.1](images/mf_refl_bd_roughness=0.1.png) | ![r=0.3](images/mf_refl_bd_roughness=0.3.png) | ![r=0.5](images/mf_refl_bd_roughness=0.5.png) | ![r=0.7](images/mf_refl_bd_roughness=0.7.png) | ![r=1.0](images/mf_refl_bd_roughness=1.0.png) |
+
+*Top column: Roughness $\in [0, 1]$*
+
+##### Trowbridge-Reitz Distribution
+
+| 0.00                                         | 0.01                                            | 0.1                                           | 0.3                                           | 0.5                                           | 0.7                                           | 1.0                                           |
+| -------------------------------------------- | ----------------------------------------------- | --------------------------------------------- | --------------------------------------------- | --------------------------------------------- | --------------------------------------------- | --------------------------------------------- |
+| ![r=0](images/mf_refl_trd_roughness=0.00.png) | ![r=0.01](images/mf_refl_trd_roughness=0.01.png) | ![r=0.1](images/mf_refl_trd_roughness=0.1.png) | ![r=0.3](images/mf_refl_trd_roughness=0.3.png) | ![r=0.5](images/mf_refl_trd_roughness=0.5.png) | ![r=0.7](images/mf_refl_trd_roughness=0.7.png) | ![r=1.0](images/mf_refl_trd_roughness=1.0.png) |
+
+*Top column: Roughness $\in [0, 1]$*
+
+
+
+### Bunnies: Fresnel Reflection/Specular, Microfacet Reflection/Transmission/Specular
+
+#### Fresnel Reflection/Specular
+
+![bunny_fresnel_reflection](images/bunny_fresnel_reflection.png)
+
+![bunny_fresnel_specular](images/bunny_fresnel_specular.png)
+
+
+
+#### Microfacet Reflection/Transmission/Specular
+
+*Roughness = 0.01*
+
+![bunny_microfacet_reflection](images/bunny_microfacet_reflection.png)
+
+![bunny_microfacet_transmission](images/bunny_microfacet_transmission.png)
+
+![bunny_microfacet_specular](images/bunny_microfacet_specular.png)
+
+*Specular: Some unknown bugs are present.*
 
 
 
@@ -126,13 +184,13 @@ As `cout` must be synchronized to produce sensible output.
 
 #### Theory
 
-View `Lecture17.md`, Appendix A: Microfacet Models, which provides a brief summary about how it is done in PBR Book.
+View `Lecture17.md`, Appendix A: Microfacet Models, which provides a brief summary about how it is done in PBRT book.
+
+**Beckmann** and **Trowbridge-Reitz** Distributions are used.
 
 
 
-### Other Materials
+### Fresnel Models
 
-
-
-#### Translucent
+Following tutorials on the website of PBRT book.
 

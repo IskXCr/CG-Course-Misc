@@ -11,7 +11,7 @@ BVHAccel::BVHAccel(std::vector<Object *> p, int maxPrimsInNode,
     if (primitives.empty())
         return;
 
-    std::cout << " - Generating BVH...\n";
+    std::cout << " - Generating BVH...";
     auto start = std::chrono::high_resolution_clock::now();
     if (splitMethod == SplitMethod::NAIVE)
         root = recursiveBuild(primitives);
@@ -19,11 +19,11 @@ BVHAccel::BVHAccel(std::vector<Object *> p, int maxPrimsInNode,
         root = recursiveBuildSAH(primitives);
     auto stop = std::chrono::high_resolution_clock::now();
 
-    std::cout << " - Time taken: " << std::chrono::duration_cast<std::chrono::milliseconds>(stop - start).count() << " milliseconds\n";
+    std::cout << " Time elapsed: " << std::chrono::duration_cast<std::chrono::milliseconds>(stop - start).count() << " milliseconds\n";
     // std::cout << "             : " << std::chrono::duration_cast<std::chrono::seconds>(stop - start).count() << " seconds\n";
     // std::cout << "             : " << std::chrono::duration_cast<std::chrono::minutes>(stop - start).count() << " minutes\n";
     // std::cout << "             : " << std::chrono::duration_cast<std::chrono::hours>(stop - start).count() << " hours\n";
-    std::cout << "\n";
+    // std::cout << "\n";
 }
 
 BVHBuildNode *BVHAccel::recursiveBuild(std::vector<Object *> objects)

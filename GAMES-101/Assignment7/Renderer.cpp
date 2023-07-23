@@ -8,6 +8,8 @@
 
 inline float deg2rad(const float &deg) { return deg * M_PI / 180.0; }
 
+int numThread;
+
 const float EPSILON = 1e-2;
 
 thread_local std::random_device dev;
@@ -77,7 +79,7 @@ std::vector<Vector3f> Renderer::OnePass(const Scene &scene, int id, bool msaaEna
 // Use multi-threading to render the scene. Repeatedly call OnePass() in parallel
 void Renderer::render(const Scene &scene, bool useMultiThread, bool msaaEnabled)
 {
-    int numThread = std::thread::hardware_concurrency();
+    numThread = useMultiThread ? std::thread::hardware_concurrency() : 1;
     std::cout << "\n";
     std::cout << " - Renderer::render() - invoked\n";
     std::cout << " - Renderer::render() - resolution = " << scene.width << "x" << scene.height << "\n";
@@ -89,11 +91,11 @@ void Renderer::render(const Scene &scene, bool useMultiThread, bool msaaEnabled)
     std::vector<std::future<std::vector<Vector3f>>> futures;
     std::vector<std::vector<Vector3f>> samples;
     std::vector<Vector3f> framebuffer(scene.width * scene.height);
-
+    int id = 0;
     // issue worker threads
     if (useMultiThread)
     {
-        for (int i = 0; i < spp; i += numThread, currentMin += numThread)
+        for (int i = 0; i < spp; i += numThread, currentMin += numThread, ++id)
         {
             for (int j = i; j < i + numThread && j < spp; ++j)
             {
@@ -106,36 +108,64 @@ void Renderer::render(const Scene &scene, bool useMultiThread, bool msaaEnabled)
                 futures[j].wait();
                 samples.push_back(std::move(futures[j].get()));
             }
+
+            resetCombineProgress();
+            int m = 0;
+            for (uint32_t j = 0; j < scene.height; ++j)
+            {
+                for (uint32_t i = 0; i < scene.width; ++i)
+                {
+                    for (int i = 0; i < samples.size(); ++i)
+                    {
+                        framebuffer[m] += samples[i][m] / spp;
+                    }
+                    m++;
+                }
+                updateCombineProgress(id, j / (float)scene.height);
+            }
+            updateCombineProgress(id, 1.f);
+            samples.clear();
+
+            isCombining = false;
         }
     }
     else
     {
-        for (int i = 0; i < spp; ++i)
-            samples.push_back(OnePass(scene, i, msaaEnabled));
-    }
-
-    int m = 0;
-
-    for (uint32_t j = 0; j < scene.height; ++j)
-    {
-        for (uint32_t i = 0; i < scene.width; ++i)
+        for (int i = 0; i < spp; i += numThread, currentMin += numThread, ++id)
         {
-            Vector3f sample;
-            for (int i = 0; i < spp; ++i)
+            for (int j = i; j < i + numThread && j < spp; ++j)
             {
-                sample += samples[i][m] / spp;
+                samples.push_back(std::move(OnePass(scene, j, msaaEnabled)));
             }
-            framebuffer[m] = sample;
-            m++;
+
+            resetCombineProgress();
+            int m = 0;
+            for (uint32_t j = 0; j < scene.height; ++j)
+            {
+                for (uint32_t i = 0; i < scene.width; ++i)
+                {
+                    for (int i = 0; i < samples.size(); ++i)
+                    {
+                        framebuffer[m] += samples[i][m] / spp;
+                    }
+                    m++;
+                }
+                updateCombineProgress(id, j / (float)scene.height);
+            }
+            updateCombineProgress(id, 1.f);
+            samples.clear();
+
+            isCombining = false;
         }
-        updateCombineProgress(j / (float)scene.height);
     }
-    updateCombineProgress(1.f);
+    updateThreadProgress(spp, 1.f);
 
     // save framebuffer to file
+    resetCombineProgress();
     FILE *fp = fopen("binary.ppm", "wb");
     (void)fprintf(fp, "P6\n%d %d\n255\n", scene.width, scene.height);
 
+    const float prog = scene.height * scene.width;
     for (int i = 0; i < scene.height * scene.width; ++i)
     {
         static unsigned char color[3];
@@ -143,7 +173,10 @@ void Renderer::render(const Scene &scene, bool useMultiThread, bool msaaEnabled)
         color[1] = (unsigned char)(255 * std::pow(clamp(0, 1, framebuffer[i].y), 0.6f));
         color[2] = (unsigned char)(255 * std::pow(clamp(0, 1, framebuffer[i].z), 0.6f));
         fwrite(color, 1, 3, fp);
+        if (i % 256 == 0)
+            updateCombineProgress(id, i / prog);
     }
+    updateCombineProgress(id, 1.f);
     fclose(fp);
 }
 
@@ -167,7 +200,7 @@ void Renderer::initializeProgress(const Scene &scene)
     // Gather console infos
     get_terminal_size(cliWidth, cliHeight);
     nSlot = spp;
-    previousMin = -1;
+    previousMin = 0;
     currentMin = 0;
     status = std::vector<int>(nSlot, 0);
     progresses = std::vector<float>(nSlot, 0.f);
@@ -184,9 +217,9 @@ inline void resetCliScreen(int rows)
         std::cout << "\033[F";
 }
 
-inline void UpdateProgress(float progress)
+inline void updateProgress(float progress)
 {
-    int barWidth = 70;
+    int barWidth = 60;
 
     std::cout << "[";
     int pos = barWidth * progress;
@@ -204,9 +237,12 @@ inline void UpdateProgress(float progress)
 
 void Renderer::updateThreadProgress(int slot, float progress)
 {
-    progresses[slot] = progress;
-    if (progress == 1.f)
-        status[slot] = 1;
+    if (slot < nSlot)
+    {
+        progresses[slot] = progress;
+        if (progress == 1.f)
+            status[slot] = 1;
+    }
 
     std::unique_lock<std::mutex> lock(lock_);
     if (not coutAvail)
@@ -215,16 +251,32 @@ void Renderer::updateThreadProgress(int slot, float progress)
                       { return coutAvail; });
     }
     coutAvail = false;
-    int threshold = std::min(nSlot - currentMin, cliHeight - 2);
-
-    if (currentMin == previousMin)
-        resetCliScreen(threshold);
+    int threshold = std::min(std::min(numThread, cliHeight - 1), nSlot - previousMin);
+    if (hasStartedRender)
+    {
+        if (currentMin == previousMin)
+        {
+            resetCliScreen(threshold);
+        }
+        else
+        {
+            for (int i = previousMin + threshold; i < std::min(nSlot, currentMin); ++i)
+            {
+                updateProgress(progresses[i]);
+                std::cout << " - Pass [" << i << "] " << (progresses[i] >= 1.f ? "[Done]     " : "[Rendering]") << "\n";
+            }
+            previousMin = currentMin;
+        }
+    }
     else
-        previousMin = currentMin;
+    {
+        hasStartedRender = true;
+    }
+    threshold = std::min(std::min(numThread, cliHeight - 1), nSlot - currentMin);
 
     for (int i = currentMin; i < currentMin + threshold; ++i)
     {
-        UpdateProgress(progresses[i]);
+        updateProgress(progresses[i]);
         std::cout << " - Pass [" << i << "] " << (progresses[i] >= 1.f ? "[Done]     " : "[Rendering]") << "\n";
     }
     std::cout.flush();
@@ -242,14 +294,19 @@ void Renderer::updateThreadProgress(int slot, float progress)
     condVar_.notify_one();
 }
 
-void Renderer::updateCombineProgress(float progress)
+void Renderer::resetCombineProgress()
+{
+    isCombining = false;
+}
+
+void Renderer::updateCombineProgress(int id, float progress)
 {
     if (not isCombining)
         isCombining = true;
     else
         resetCliScreen(1);
 
-    UpdateProgress(progress);
-    std::cout << " - Combining " << (progress >= 1.f ? "[Done]     " : "[Combining]") << "\n";
+    updateProgress(progress);
+    std::cout << " - Combining [" << id << "] " << (progress >= 1.f ? "[Done]     " : "[Combining]") << "\n";
     std::cout.flush();
 }
