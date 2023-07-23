@@ -92,7 +92,7 @@ From now on we assume optimized random FP generation is used.
 | -------------------------------------------- | ----------------------------------------------- | --------------------------------------------- | --------------------------------------------- | --------------------------------------------- | --------------------------------------------- | --------------------------------------------- |
 | ![r=0](images/mf_refl_bd_roughness=0.00.png) | ![r=0.01](images/mf_refl_bd_roughness=0.01.png) | ![r=0.1](images/mf_refl_bd_roughness=0.1.png) | ![r=0.3](images/mf_refl_bd_roughness=0.3.png) | ![r=0.5](images/mf_refl_bd_roughness=0.5.png) | ![r=0.7](images/mf_refl_bd_roughness=0.7.png) | ![r=1.0](images/mf_refl_bd_roughness=1.0.png) |
 
-*Top column: Roughness $\in [0, 1]$*
+*Top row: Roughness $\in [0, 1]$*
 
 ##### Trowbridge-Reitz Distribution
 
@@ -100,7 +100,7 @@ From now on we assume optimized random FP generation is used.
 | -------------------------------------------- | ----------------------------------------------- | --------------------------------------------- | --------------------------------------------- | --------------------------------------------- | --------------------------------------------- | --------------------------------------------- |
 | ![r=0](images/mf_refl_trd_roughness=0.00.png) | ![r=0.01](images/mf_refl_trd_roughness=0.01.png) | ![r=0.1](images/mf_refl_trd_roughness=0.1.png) | ![r=0.3](images/mf_refl_trd_roughness=0.3.png) | ![r=0.5](images/mf_refl_trd_roughness=0.5.png) | ![r=0.7](images/mf_refl_trd_roughness=0.7.png) | ![r=1.0](images/mf_refl_trd_roughness=1.0.png) |
 
-*Top column: Roughness $\in [0, 1]$*
+*Top row: Roughness $\in [0, 1]$*
 
 
 
