@@ -8,11 +8,11 @@ This repository contains the author's notes (in English) and implementations of 
 
 The current list is as follows. 
 
-In each course, if there is a course project, the project constitutes 50% of the entire progress.
+In each course, if there is a course project, the project constitutes 33% of the entire progress.
 
 | Course Code | Course Name                                     | Starting Date | Progress |
 | ----------- | ----------------------------------------------- | ------------- | -------- |
-| GAMES-101   | Introduction to Computer Graphics               | 3/4/2023      | 37.50%   |
+| GAMES-101   | Introduction to Computer Graphics               | 3/4/2023      | 58.30%   |
 | GAMES-102   | Foundations of Geometry Modeling and Processing | 7/17/2023     | 0%       |
 | GAMES-202   | Real-Time High Quality Rendering                | 7/17/2023     | 0%       |
 
