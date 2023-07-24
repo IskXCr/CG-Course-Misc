@@ -8,6 +8,18 @@ GAMES202 (2021-03), or **Real-Time High Quality Rendering**, is an open course i
 
 The corresponding English version can be found at [Course Website - CS292f - Real-Time High Quality Rendering](https://sites.cs.ucsb.edu/~lingqi/teaching/cs292f.html).
 
+### Notes
+
+Notes can be found under the folder `./Notes`
+
+### Assignments & Projects
+
+Prompts for assignments and projects can be found in the last section of this document.
+
+Their implementation can be found in the corresponding directory.
+
+
+
 ## About This Repository
 
 This repository contains my notes, assignments and projects for GAMES202 conducted by Prof. Lingqi Yan. 
