@@ -2,7 +2,19 @@
 
 ## Introduction to This Course
 
-GAMES202 (2021-03), or **Real-Time High Quality Rendering**, is an open course in computer graphics conducted by Prof. Lingqi Yan. The course aims to provide a comprehensive introduction to the fundamental problems appeared in the field of real-time rendering and their corresponding solutions. As real-time rendering demands high speed (>30 FPS), the course focuses on breaking the trade-off between speed and quality within stringent time constraints, while ensuring both **real-time high speed** and **photorealism**. A number of cutting-edge topics in academia and industry will be covered, including soft shadow rendering, environmental lighting, global illumination techniques (both precomputation-based and without precomputation), physically-based shading models and methods, real-time ray tracing, anti-aliasing, supersampling, and common techniques for acceleration . 
+GAMES202 (2021-03), or **Real-Time High Quality Rendering**, is an open course in computer graphics conducted by Prof. Lingqi Yan. The course aims to provide a comprehensive introduction to the fundamental problems appeared in the field of real-time rendering and their corresponding solutions. 
+
+As real-time rendering demands high speed (>30 FPS), the course focuses on breaking the trade-off between speed and quality within stringent time constraints, while ensuring both **real-time high speed** and **photorealism**. A number of cutting-edge topics in academia and industry will be covered, including:
+
+- Soft Shadow Rendering, 
+- Environmental Lighting, 
+- Global Illumination Techniques (both precomputation-based and without precomputation), 
+  - Interactive Global Illumination, ...
+- Physically-Based Shading Models and Methods, 
+- Real-time Ray Tracing, 
+- Anti-Aliasing, 
+- Supersampling, and 
+- Common Techniques for Acceleration.
 
 [Course Website - GAMES202](https://sites.cs.ucsb.edu/~lingqi/teaching/games202.html)
 
