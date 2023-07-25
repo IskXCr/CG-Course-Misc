@@ -34,7 +34,7 @@ It is VIOLATING THE POLICY specified in GAMES101 to directly copy these referent
 
 ## Notes and Copyright Disclaimer
 
-COPYRIGHT DISCLAIMER: If not otherwise specifically mentioned, all the figures inside the notes are captured/created from slides of GAMES101. If you have found a figure without reference, then either it is from the slides and made by the author, or the source has been mentioned in the slide (for some reason they are not mentioned inside the notes). **The author of these notes doesn't own the COPYRIGHT of them, and there is NO copyright infringement intended.**
+COPYRIGHT DISCLAIMER: If not otherwise specifically mentioned, all the figures inside the notes are captured/created from slides of GAMES101. If you have found a figure without reference, then either it is from the slides and made by the author, or the source has been mentioned in the slides (for some reason they are not mentioned inside the notes). **The author of these notes doesn't own the COPYRIGHT of them, and there is NO copyright infringement intended.**
 
 
 

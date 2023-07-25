@@ -2,7 +2,7 @@
 
 <p align="center">Imaging = Synthesis + Capture</p>
 
-## I. Cameras, Lenses and Light Fields
+## I. Cameras, Lenses
 
 <img src="images/Lecture19-img-1.png" alt="img-1" style="zoom: 50%;" />
 
@@ -273,5 +273,130 @@ Set the CoC as the maximum permissible blur spot on the image plane
 
 
 
-### Light Field/Lumigraph
+## II. Light Field/Lumigraph
+
+### The Plenoptic Function
+
+**Definition:** The **Plenoptic function** describes the intensity of light viewed from **any** point, to any direction, at any time:
+$$
+P(\theta, \phi, \lambda, t, \vec{x}),
+$$
+where $\theta$ and $\phi$ describes the spherical position, $\lambda$ is the wavelength of light, $t$ is the time and $\vec{x}$ is the viewing position.
+
+- **Grayscale snapshot**: $P(\theta, \phi)$
+- **Color snapshot**: $P(\theta, \phi, \lambda)$
+- **Movie**: $P(\theta, \phi, \lambda, t)$
+- **Holographic movie**: $P(\theta, \phi, \lambda, t, \vec{x})$
+
+
+
+**Definition**: A **ray** is defined by
+$$
+P(\theta, \phi, \vec{x})
+$$
+where $\theta$ and $\phi$ describes the orientation, and $\vec{x}$ describes the origin of that ray.
+
+
+
+### The Plenoptic Surface
+
+Describe the **radiance information** of an object by 4D rays, which is represented by:
+
+- a 2D **position** (surface coordinate), and
+-  a 2D **direction** ($\theta$ and $\phi$)
+
+
+
+#### View Synthesis
+
+<img src="images/Lecture19-img-23.png" alt="image-20230724191725683" style="zoom:33%;" />
+
+Place a camera at a certain direction, When looking to an object, we know all the radiance information of each ray we have casted, and thus we can **synthesize the view simply by**:
+
+- Looking up the radiance information **through the plenoptic function**.
+
+
+
+Furthermore, we may completely **ignore the shape** of the object, and solely record the light field.
+
+<img src="images/Lecture19-img-24.png" alt="image-20230724192309037" style="zoom: 33%;" />
+
+<p align="center">Outside the convex space</p>
+
+
+
+### Lumigraph
+
+#### Parameterization
+
+- 2D **Position**, 2D **Direction**:
+
+  <img src="images/Lecture19-img-25.png" alt="image-20230724193147214" style="zoom:33%;" />
+
+- **2-Plane Parameterization**: 2D **Position**, 2D **Position**: $(s, t)$ and $(u, v)$
+
+  <img src="images/Lecture19-img-26.png" alt="image-20230724193250559" style="zoom:33%;" />
+
+#### Recording the Lumigraph
+
+<img src="images/Lecture19-img-27.png" alt="image-20230724193642148" style="zoom:50%;" />
+
+*Assume we are viewing from left of the $uv$ plane.*
+
+- Fix $(u, v)$, move $(s, t)$: move the viewing position.
+- Fix $(s, t)$, move $(u, v)$: view the **same object** from **different directions**.
+
+##### Camera array
+
+<img src="images/Lecture19-img-28.png" alt="image-20230724193942414" style="zoom:50%;" />
+
+
+
+##### Integral Imaging
+
+<img src="images/Lecture19-img-29.png" alt="image-20230724194252279" style="zoom:67%;" />
+
+Flies record lumigraph of the scene, or **radiance**.
+
+- **Spatially-multiplexed** light field capture using lenslets.
+  - Trade-off between spatial and angular resolution
+
+
+
+### Light Field Camera
+
+- **Prof. Ren Ng**: Founder of the company Lytro, who makes light field cameras.
+
+- **Computational Refocusing**: virtually changing focal length, aperture, size, etc., **after** taking
+
+<img src="images/Lecture19-img-30.png" alt="image-20230724195214794" style="zoom:50%;" />
+
+<p align="center">Picture taken by a light field camera</p>
+
+<img src="images/Lecture19-img-31.png" alt="image-20230724195237553" style="zoom: 50%;" />
+
+- Each pixel (**irradiance**) is now stored as a block of pixels (**radiance**, or irradiance at different directions)
+  - If each disk of "recorded radiance "is averaged as a single pixel, then the resulting picture is the same as what a normal camera would have taken.
+
+#### Getting a Photo from the Light Field Camera
+
+<img src="images/Lecture19-img-32.png" alt="Lecture19-img-32" style="zoom:33%;" />
+
+- **Moving the camera around**: Always choose the pixel at a fixed position in each disk
+- **Computational/Digital Refocusing**: Changing focal length, and pick the refocused rays accordingly
+
+
+
+**Why does it have these functions?**
+
+- The light field contains everything
+
+
+
+**Pros & Cons**
+
+- Insufficient **spatial** resolution: Same film used for both spatial and directional information
+- High cost
+
+
 

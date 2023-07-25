@@ -708,8 +708,3 @@ $$
 For very detailed derivation, refer to the PBR book. Basically, we assume that individual microfacets are perfectly specular, and therefore only those that have the direction of their normals matched with the orientation of $\omega_h$ will reflect light.
 
 
-
-## Appendix B: Specular Reflection and Transmission
-
-### Fresnel Reflectance
-
