@@ -118,31 +118,32 @@ Simulates the recursive bouncing of light rays.
       \textbf{S}_1 \cdot \textbf{S} \\
       \textbf{S}_2 \cdot \textbf{D} \\
       \end{bmatrix}
-    $$
+      $$
+      
       where
       
     $$
       \textbf{E}_1 = \textbf{p}_1 - \textbf{p}_0
-      $$
-      
+    $$
+    
     $$
       \textbf{E}_2 = \textbf{p}_2 - \textbf{p}_0
-      $$
-      
+    $$
+    
     $$
       \textbf{S} = \textbf{o} - \textbf{p}_0
-      $$
-      
+    $$
+    
     $$
       \textbf{S}_1 = \textbf{d} \times \textbf{E}_2
-      $$
-      
+    $$
+    
     $$
       \textbf{S}_2 = \textbf{S} \times \textbf{E}_1
-      $$
-      
+    $$
+    
     *See Cramer's rule.*
-      
+    
   - *Inside/outside test: Fire a ray from a given point. Even number of intersections if the point is outside.*
 
 
