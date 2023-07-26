@@ -7,16 +7,17 @@
 #include "rope.h"
 #include "spring.h"
 
-namespace CGL {
+namespace CGL
+{
 
     Rope::Rope(Vector2D start, Vector2D end, int num_nodes, float node_mass, float k, vector<int> pinned_nodes)
     {
         // TODO (Part 1): Create a rope starting at `start`, ending at `end`, and containing `num_nodes` nodes.
 
-//        Comment-in this part when you implement the constructor
-//        for (auto &i : pinned_nodes) {
-//            masses[i]->pinned = true;
-//        }
+        //        Comment-in this part when you implement the constructor
+        //        for (auto &i : pinned_nodes) {
+        //            masses[i]->pinned = true;
+        //        }
     }
 
     void Rope::simulateEuler(float delta_t, Vector2D gravity)
@@ -53,7 +54,7 @@ namespace CGL {
             {
                 Vector2D temp_position = m->position;
                 // TODO (Part 3.1): Set the new position of the rope mass
-                
+
                 // TODO (Part 4): Add global Verlet damping
             }
         }

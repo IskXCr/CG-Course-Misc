@@ -164,11 +164,12 @@ link_directories(/usr/lib/x86_64-linux-gnu/mesa/)
 # Required packages
 find_package(OpenGL REQUIRED)
 find_package(Freetype REQUIRED)
+find_package(GLEW REQUIRED)
 
 include_directories( ${OPENGL_INCLUDE_DIRS})
 
 # Use pkg-config for GLEW & GLFW if available
-find_package(PkgConfig QUIET)
+# find_package(PkgConfig QUIET)
 
 # GLEW
 # if(PKGCONFIG_FOUND)
@@ -182,8 +183,8 @@ find_package(PkgConfig QUIET)
 #   set_property( TARGET glew APPEND_STRING PROPERTY COMPILE_FLAGS -w )
 # endif()
 
-add_subdirectory("${CGL_SOURCE_DIR}/deps/glew")
-set_property( TARGET glew APPEND_STRING PROPERTY COMPILE_FLAGS -w )
+# add_subdirectory("${CGL_SOURCE_DIR}/deps/glew")
+# set_property( TARGET glew APPEND_STRING PROPERTY COMPILE_FLAGS -w )
 
 # GLFW
 # if(PKGCONFIG_FOUND)
@@ -197,16 +198,16 @@ set_property( TARGET glew APPEND_STRING PROPERTY COMPILE_FLAGS -w )
 #   set_property( TARGET glfw APPEND_STRING PROPERTY COMPILE_FLAGS -w )
 # endif()
 
-add_subdirectory("${CGL_SOURCE_DIR}/deps/glfw")
-set_property( TARGET glfw APPEND_STRING PROPERTY COMPILE_FLAGS -w )
+# add_subdirectory("${CGL_SOURCE_DIR}/deps/glfw")
+# set_property( TARGET glfw APPEND_STRING PROPERTY COMPILE_FLAGS -w )
 
 #-------------------------------------------------------------------------------
 # Set include directories
 #-------------------------------------------------------------------------------
 include_directories(
   ${CGL_INCLUDE_DIRS}
-  ${GLEW_INCLUDE_DIRS}
-  ${GLFW_INCLUDE_DIRS}
+  # ${GLEW_INCLUDE_DIRS}
+  # ${GLFW_INCLUDE_DIRS}
   ${FREETYPE_INCLUDE_DIRS}
 )
 
@@ -214,8 +215,8 @@ include_directories(
 # Set link directories
 #-------------------------------------------------------------------------------
 link_directories(
-  ${GLEW_LIBRARY_DIRS}
-  ${GLFW_LIBRARY_DIRS}
+  # ${GLEW_LIBRARY_DIRS}
+  # ${GLFW_LIBRARY_DIRS}
   ${FREETYPE_LIBRARY_DIRS}
 )
 

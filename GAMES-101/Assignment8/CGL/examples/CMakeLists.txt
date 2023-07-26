@@ -4,7 +4,7 @@ include_directories("${PROJECT_SOURCE_DIR}/src")
 
 link_libraries(
   glfw ${GLFW_LIBRARIES}
-  glew ${GLEW_LIBRARIES}
+  GLEW ${GLEW_LIBRARIES}
   ${OPENGL_LIBRARIES}
   ${FREETYPE_LIBRARIES}
 )

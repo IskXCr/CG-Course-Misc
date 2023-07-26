@@ -34,7 +34,7 @@ add_executable(ropesim ${APPLICATION_SOURCE})
 
 target_link_libraries( ropesim
     CGL ${CGL_LIBRARIES}
-    glew ${GLEW_LIBRARIES}
+    GLEW ${GLEW_LIBRARIES}
     glfw ${GLFW_LIBRARIES}
     ${OPENGL_LIBRARIES}
     ${FREETYPE_LIBRARIES}

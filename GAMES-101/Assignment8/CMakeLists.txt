@@ -144,15 +144,14 @@ endif(WIN32)
 find_package(OpenGL REQUIRED)
 find_package(Threads REQUIRED)
 find_package(Freetype REQUIRED)
+find_package(GLEW REQUIRED)
 
 # CGL
 if(BUILD_LIBCGL)
-  add_subdirectory(CGL)
   include_directories(CGL/include)
+  add_subdirectory(CGL)
 else(BUILD_LIBCGL)
   find_package(CGL REQUIRED)
-  find_package(GLEW REQUIRED)
-  find_package(GLFW REQUIRED)
 endif(BUILD_LIBCGL)
 
 #-------------------------------------------------------------------------------
