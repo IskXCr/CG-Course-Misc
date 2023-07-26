@@ -2,6 +2,12 @@
 
 Author: [IskXCr - GitHub](https://github.com/IskXCr)
 
+## FAQ
+
+Q: Why does the repository mainly contain HTML code?
+
+A: Because some notes written in Markdown are compiled to HTML for better viewing experience on inline math.
+
 ## Introduction
 
 This repository contains author's notes (in English) and implementations of assignments and projects from various courses in computer graphics.
