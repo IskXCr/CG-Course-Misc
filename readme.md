@@ -12,7 +12,7 @@ In each course, if there is a course project, the project constitutes 33% of the
 
 | Course Code | Course Name                                          | Instructor             | Affiliation  | Starting Date | Progress |
 | ----------- | ---------------------------------------------------- | ---------------------- | ------------ | ------------- | -------- |
-| GAMES-101   | Introduction to Computer Graphics                    | Prof. Lingqi Yan       | UCSB         | 3/4/2023      | 58.30%   |
+| GAMES-101   | Introduction to Computer Graphics                    | Prof. Lingqi Yan       | UCSB         | 3/4/2023      | 67%      |
 | GAMES-102   | Foundations of Geometry Modeling and Processing      | Prof. Ligang Liu       | USTC         | TBD           | 0%       |
 | GAMES-103   | Introduction to Physics-Based Animation              | Prof. Huamin Wang      | Style3D/ OSU | TBD           | 0%       |
 | GAMES-104   | Introduction to Game Engines                         | Xi Wang                | Booming Tech | 7/24/2023     | 0%       |
