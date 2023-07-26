@@ -1,5 +1,13 @@
 # GAMES101 - Notes, Assignments and Projects
 
+## Academic Integrity (IMPORTANT)
+
+As a course requirement, code using the skeleton provided by the course **cannot and should NOT be published on GitHub**. 
+
+Uploading these assignments are solely for **educational and discussion purposes**, as the online version of this course has stopped accepting new assignment submissions.
+
+FOR ANYONE WHO IS **CURRENTLY** OR IS **TO BE ENROLLED** IN THIS COURSE (OR ITS ENGLISH VERSION), **DO NOT** VIEW OR EVEN COPY-PASTE CODE FOR ASSIGNMENTS PROVIDED INSIDE THIS COURSE REPOSITORY, AS THIS IS A **DIRECT VIOLATION OF ACADEMIC INTEGRITY**.
+
 ## Introduction to This Course
 
 GAMES101 (2020-02), or **Introduction to Computer Graphics**, conducted by Prof. Lingqi Yan, is an introductory course that explores the fundamentals of Computer Graphics. This comprehensive offering provides students with a solid foundation in essential principles and techniques used in CG, including rendering (both rasterization and modern ray-tracing), geometry, and animation. Additionally, the course showcases the captivating nature of the field and highlights cutting-edge research conducted by leading experts. Students are expected to gain a deeper understanding of visually stunning virtual environments and stay informed about the latest advancements in CG.

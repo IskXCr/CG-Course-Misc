@@ -1,5 +1,13 @@
 # GAMES202 - Notes, Assignments and Projects
 
+## Academic Integrity (IMPORTANT)
+
+As a course requirement, code using the skeleton provided by the course **cannot and should NOT be published on GitHub**. 
+
+Uploading these assignments are solely for **educational and discussion purposes**, as the online version of this course has stopped accepting new assignment submissions.
+
+FOR ANYONE WHO IS **CURRENTLY** OR IS **TO BE ENROLLED** IN THIS COURSE (OR ITS ENGLISH VERSION), **DO NOT** VIEW OR EVEN COPY-PASTE CODE FOR ASSIGNMENTS PROVIDED INSIDE THIS COURSE REPOSITORY, AS THIS IS A **DIRECT VIOLATION OF ACADEMIC INTEGRITY**.
+
 ## Introduction to This Course
 
 GAMES202 (2021-03), or **Real-Time High Quality Rendering**, is an open course in computer graphics conducted by Prof. Lingqi Yan. The course aims to provide a comprehensive introduction to the fundamental problems appeared in the field of real-time rendering and their corresponding solutions. 

@@ -7,9 +7,9 @@ Rotation by angle $\alpha$ around axis $\textbf{n}$
 $$
 R(\textbf{n}, \alpha) = \cos(\alpha)\textbf{I} + (1 - \cos(\alpha))\textbf{n}\textbf{n}^T + \sin(\alpha)
 \underbrace{\begin{bmatrix}
-0 & -n_z & n_y \\
-n_z & 0 & -n_x \\
--n_y & n_x & 0 \\
+0 & -n_z & n_y \\\\
+n_z & 0 & -n_x \\\\
+-n_y & n_x & 0 \\\\
 \end{bmatrix}}_{\textbf{N}}
 $$
 
