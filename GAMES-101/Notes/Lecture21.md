@@ -125,6 +125,7 @@ $$
 *One type of spring-mass system with damping:*
 
 <img src="images/Lecture21-img-11.png" alt="image-20230725131148290" style="zoom: 50%;" />
+
 $$
 \boldsymbol{f}_{a \to b} = k_s\frac{(\boldsymbol{b} - \boldsymbol{a})}{\norm{\boldsymbol{b} - \boldsymbol{a}}}(\norm{\boldsymbol{b} - \boldsymbol{a}} - l)
 $$
@@ -225,6 +226,7 @@ For each frame in animation
 ##### Gravitational Attraction
 
 <img src="images/Lecture21-img-15.png" alt="image-20230725154721645" style="zoom:33%;" />
+
 $$
 F_g = G \frac{m_1}{m_2}{d^2} \tag{Newton's Universal Law of Gravitation}
 $$

@@ -68,6 +68,7 @@ Simulates the recursive bouncing of light rays.
 - **Intersections**:
 
   - **Implicit Surface**: Solve for *real*, *positive* roots.
+    
     $$
     \textbf{p} : f(\textbf{p}) = 0 \quad f(\textbf{o} + t\textbf{d}) = 0
     $$
@@ -77,13 +78,17 @@ Simulates the recursive bouncing of light rays.
     - **Naïve Procedure:**
   
       1. Ray-plane intersection
+         
          $$
          (\textbf{p} - \textbf{p}') \cdot \textbf{N} = (\textbf{o} + t\textbf{d} - \textbf{p}') \cdot \textbf{N} = 0
          $$
+
          Solving the equation gives
+
          $$
-         t = \frac{(\textbf{p}' - \textbf{o}) \cdot N}{\textbf{d} \cdot \textbf{N}}
+         t = \frac{(\textbf{p}' - \textbf{o}) \cdot N}{\textbf{d} \cdot \textbf{N}}.
          $$
+
          **Remember to check whether $ 0 \leq t \le \infty$**.
   
       2. Test if the point is inside the triangle
@@ -91,10 +96,13 @@ Simulates the recursive bouncing of light rays.
          
   
     - **Möller Trumbore Algorithm:** A faster approach by examining the barycentric coordinate.
+      
       $$
       \textbf{o} + t\textbf{d} = (1 - b_1 - b_2)\textbf{p}_0 + b_1 \textbf{p}_1 + b_2 \textbf{p}_2
       $$
+
       Solving the equation gives:
+
       $$
       \begin{bmatrix}
       t \\
@@ -108,8 +116,10 @@ Simulates the recursive bouncing of light rays.
       \textbf{S}_1 \cdot \textbf{S} \\
       \textbf{S}_2 \cdot \textbf{D} \\
       \end{bmatrix}
+
       $$
       where
+
       $$
       \textbf{E}_1 = \textbf{p}_1 - \textbf{p}_0
       $$
@@ -174,13 +184,17 @@ Build a larger volume for testing the potential intersection quickly.
 - **Why Axis-Aligned?**
 
   - General Plane:
+    
     $$
     t = \frac{(\textbf{p}' - \textbf{o}) \cdot \textbf{N}}{\textbf{d} \cdot \textbf{N}}
     $$
+
     3 subtractions, 6 multiplications, 1 division
 
   - Slabs perpendicular to $x$ axis:
+
     $$
     t = \frac{\textbf{p}'_x - \textbf{o}_x}{\textbf{d}_x}
     $$
+
     1 subtraction, 1 division

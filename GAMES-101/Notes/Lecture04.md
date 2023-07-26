@@ -9,7 +9,7 @@ R(\textbf{n}, \alpha) = \cos(\alpha)\textbf{I} + (1 - \cos(\alpha))\textbf{n}\te
 \underbrace{\begin{bmatrix}
 0 & -n_z & n_y \\\\
 n_z & 0 & -n_x \\\\
--n_y & n_x & 0 \\\\
+-n_y & n_x & 0 
 \end{bmatrix}}_{\textbf{N}}
 $$
 
@@ -56,26 +56,26 @@ The purpose of this projection is to transform the selected volume such that it 
 $$
 M_{\text{ortho}}=
 \begin{bmatrix}
-\frac{2}{r - l} & 0 & 0 & 0 \\
-0 & \frac{2}{t - b} & 0 & 0 \\
-0 & 0 & \frac{2}{n - f} & 0 \\
-0 & 0 & 0 & 1 \\
+\frac{2}{r - l} & 0 & 0 & 0 \\\\
+0 & \frac{2}{t - b} & 0 & 0 \\\\
+0 & 0 & \frac{2}{n - f} & 0 \\\\
+0 & 0 & 0 & 1 
 \end{bmatrix}
 \begin{bmatrix}
-1 & 0 & 0 & -\frac{r + l}{2} \\
-0 & 1 & 0 & -\frac{t + b}{2} \\
-0 & 0 & 1 & -\frac{n + f}{2} \\
-0 & 0 & 0 & 1 \\
+1 & 0 & 0 & -\frac{r + l}{2} \\\\
+0 & 1 & 0 & -\frac{t + b}{2} \\\\
+0 & 0 & 1 & -\frac{n + f}{2} \\\\
+0 & 0 & 0 & 1 
 \end{bmatrix}
 $$
 
 $$
 M_{\text{ortho}}=
 \begin{bmatrix}
-\frac{2}{r - l} & 0 & 0 & -\frac{r + l}{r - l} \\
-0 & \frac{2}{t - b} & 0 & -\frac{t + b}{t - b} \\
-0 & 0 & \frac{2}{n - f} & -\frac{n + f}{n - f} \\
-0 & 0 & 0 & 1 \\
+\frac{2}{r - l} & 0 & 0 & -\frac{r + l}{r - l} \\\\
+0 & \frac{2}{t - b} & 0 & -\frac{t + b}{t - b} \\\\
+0 & 0 & \frac{2}{n - f} & -\frac{n + f}{n - f} \\\\
+0 & 0 & 0 & 1 
 \end{bmatrix}
 $$
 
@@ -86,10 +86,10 @@ If such an orthographic projection happens after applying a perspective projecti
 $$
 M_{\text{ortho}}=
 \begin{bmatrix}
-\frac{2}{r - l} & 0 & 0 & 0 \\
-0 & \frac{2}{t - b} & 0 & 0 \\
-0 & 0 & \frac{2}{n - f} & -\frac{n + f}{n - f} \\
-0 & 0 & 0 & 1 \\
+\frac{2}{r - l} & 0 & 0 & 0 \\\\
+0 & \frac{2}{t - b} & 0 & 0 \\\\
+0 & 0 & \frac{2}{n - f} & -\frac{n + f}{n - f} \\\\
+0 & 0 & 0 & 1 
 \end{bmatrix}
 $$
 
@@ -100,10 +100,10 @@ $$
 $$
 M_{\text{persp}} = M_{\text{ortho}}M_{\text{persp$\to$ortho}}=
 \begin{bmatrix}
-\frac{2n}{r - l} & 0 & -\frac{r + l}{r - l} & 0\\
-0 & \frac{2n}{t - b} & -\frac{t + b}{t - b} & 0\\
-0 & 0 & \frac{n + f}{n - f} & -\frac{2nf}{n - f}\\
-0 & 0 & 1 & 0\\
+\frac{2n}{r - l} & 0 & -\frac{r + l}{r - l} & 0 \\\\
+0 & \frac{2n}{t - b} & -\frac{t + b}{t - b} & 0 \\\\
+0 & 0 & \frac{n + f}{n - f} & -\frac{2nf}{n - f} \\\\
+0 & 0 & 1 & 0 
 \end{bmatrix}
 $$
 
@@ -112,9 +112,9 @@ where
 $$
 M_{\text{persp$\to$ortho}}=
 \begin{bmatrix}
-n & 0 & 0 & 0 \\
-0 & n & 0 & 0 \\
-0 & 0 & n + f & -nf \\
-0 & 0 & 1 & 0 \\
+n & 0 & 0 & 0 \\\\
+0 & n & 0 & 0 \\\\
+0 & 0 & n + f & -nf \\\\
+0 & 0 & 1 & 0 
 \end{bmatrix}
 $$

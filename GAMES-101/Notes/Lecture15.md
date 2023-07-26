@@ -15,11 +15,13 @@
 Radiance from direction $\omega_i$ turns into the power $E$ that $\dd{A}$ receives. Then the power $E$ will be come the radiance to any other direction $\omega_{o}$.
 
 - Differential radiance incoming:
+  
   $$
   \dd{E(\omega_i)} = L(\omega_i) \cos{\theta_i} \dd{\omega_i}
   $$
 
 - Differential radiance exiting due to $\dd{E(\omega_i)}$:
+  
   $$
   \dd{L_r (\omega_r)}
   $$
@@ -29,6 +31,7 @@ Radiance from direction $\omega_i$ turns into the power $E$ that $\dd{A}$ receiv
 The Bidirectional Reflectance **Distribution** Function (BRDF) describes how much light is reflected into each outgoing direction $\omega_r$ from each incoming direction $\omega_i$.
 
 <img src="images/Lecture14-img-15.png" alt="img-15" style="zoom: 50%;" />
+
 $$
 f_r (\omega_i \to \omega_r) = \dv{L_r (\omega_r)}{E_i (\omega_i)}
 = \frac{\dd{L_r (\omega_r)}}{L_i (\omega_i) \cos{\theta_i} \dd{\omega_i}}
@@ -39,12 +42,14 @@ $$
 
 
 **The Reflection Equation:**
+
 $$
 \begin{equation} \label{refleq} \tag{1}
 L_r (\text{p}, \omega_r) 
 = \int_{H^2} f_r(\text{p}, \omega_i \to \omega_r) L_i (\text{p}, \omega_i) \cos{\theta_i} \dd{\omega_i}
 \end{equation}
 $$
+
 In this equation, what we do is essentially **summing up the contributions** to this particular outgoing direction $\omega_r$ from all other directions, by doing integration on the entire hemisphere. The differential part on the right side, is acquired by multiplying BRDF with the differential of the irradiance.
 
 
@@ -60,6 +65,7 @@ In this equation, what we do is essentially **summing up the contributions** to 
 ### The Rendering Equation
 
 Adding **an emission term** on equation $\ref{refleq}$ gives the **rendering equation**:
+
 $$
 \begin{equation} \label{rendeq} \tag{2}
 L_o (\text{p}, \omega_o) = 
@@ -68,6 +74,7 @@ L_e (\text{p}, \omega_o) +
 (\textbf{n} \cdot \omega_i) \dd{\omega_i}
 \end{equation}
 $$
+
 where $p$ is the point being considered, and $\Omega_{+}$ denotes the upper hemisphere.
 
 - All directions are pointing **outwards**, e.g. $\omega_i$.
@@ -80,6 +87,7 @@ where $p$ is the point being considered, and $\Omega_{+}$ denotes the upper hemi
 #### Rendering Equation as Integral Equation
 
 Equation $\ref{ref1}$ is a **Fredhold Integral Equation** of second kind (extensively studied numerically) with **canonical form**:
+
 $$
 \begin{equation} \label{fredhold} \tag{3}
 l(u) = e(u) + \int l(v) \underbrace{K(u, v)}_{\text{Kernel of the Equation}} \dd{v}
@@ -89,9 +97,11 @@ $$
 #### Linear Operator Equation
 
 Equation $\ref{fredhold}$ can be further transformed by applying the **Light Transport Operator**.
+
 $$
 L = E + KL
 $$
+
 which can be then **discretized** to a simple matrix equation, where:
 
 - $L$, $E$ are vectors, and 
@@ -127,6 +137,7 @@ Those expanded terms has physical meanings:
 #### Ray Tracing and Rasterization
 
 **Shading in rasterization** is equivalent to solving the rendering equation using **zero** bounces.
+
 $$
 L = E + KE
 $$
@@ -155,6 +166,7 @@ $$
 - Expected Value
 
 - **Function of a Random Variable**
+  
   $$
   E[Y] = 
   E[f(x)] = 

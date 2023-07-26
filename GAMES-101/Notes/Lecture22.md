@@ -19,13 +19,17 @@
 <img src="images/Lecture22-img-1.png" alt="image-20230725191306964" style="zoom:33%;" />
 
 Assume the motion of a particle is determined by a **velocity vector field** that is a function of position and time:
+
 $$
 v(x, t)
 $$
+
 Computing the position of that particle over time requires solving a **first-order ordinary differential equation (ODE)**:
+
 $$
 \dv{x}{t} = \dot{x} = v(x, t)
 $$
+
 Solve the ODE subject to a given **initial particle position** $x_0$ by using forward numerical integration.
 
 
@@ -197,6 +201,7 @@ A family of advanced methods for solving ODEs.
 **Simple case**:
 
 - Since the rigid body has all its components fixed, simulation is similar to that of a particle, but with a bit more properties:
+  
   $$
   \dv{t}
   \begin{bmatrix}
@@ -213,6 +218,7 @@ A family of advanced methods for solving ODEs.
   \tau / I
   \end{bmatrix}
   $$
+  
   where
 
   - $x$ is the position,

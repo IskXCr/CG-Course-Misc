@@ -31,6 +31,7 @@
 <p align="center"> Pinhole imaging </p>
 
 - For a fixed sensor size $h$, decreasing the focal length increases the (vertical) field of view.
+  
   $$
   \text{FOV} = 2 \arctan \left(\frac{h}{2f}\right)
   $$
@@ -64,6 +65,7 @@
 ### Exposure
 
 ***Definition***: Exposure is the product of time and irradiance.
+
 $$
 H = T \times E
 $$
@@ -113,9 +115,11 @@ Third variable for exposure
 - Written as F**N** or F/**N**, where $N$ is the f-number.
 
 ***Definition***: The f-number of a lens is defined as
+
 $$
 N = \frac{f}{A}
 $$
+
 which is the **focal length** $f$ divided by the **diameter of the aperture**.
 
 - An f-stop of $2$ is sometimes written $f/2$, reflecting the fact that the absolute aperture diameter $A$ can be computed by dividing the focal length $f$ by the relative aperture $N$.
@@ -197,6 +201,7 @@ Real lens designs are highly complex.
 ![img-14](images/Lecture19-img-14.png)
 
 **Gaussian Thin Lens Equation**:
+
 $$
 \frac{1}{f} = \frac{1}{z_i} + \frac{1}{z_o}
 $$
@@ -216,6 +221,7 @@ $$
 **Circle of Confusion, CoC**: an optical spot caused by a cone of light rays from a lens not coming to a perfect focus when imaging a point source.
 
 - **Proportional** to the size of the **aperture**
+  
   $$
   C = A\frac{d'}{z_i} = A\frac{\abs{z_s - z_i}}{z_i} = \frac{f}{N} \frac{\abs{z_s - z_i}}{z_i}
   $$
@@ -278,9 +284,11 @@ Set the CoC as the maximum permissible blur spot on the image plane
 ### The Plenoptic Function
 
 **Definition:** The **Plenoptic function** describes the intensity of light viewed from **any** point, to any direction, at any time:
+
 $$
 P(\theta, \phi, \lambda, t, \vec{x}),
 $$
+
 where $\theta$ and $\phi$ describes the spherical position, $\lambda$ is the wavelength of light, $t$ is the time and $\vec{x}$ is the viewing position.
 
 - **Grayscale snapshot**: $P(\theta, \phi)$
@@ -291,9 +299,11 @@ where $\theta$ and $\phi$ describes the spherical position, $\lambda$ is the wav
 
 
 **Definition**: A **ray** is defined by
+
 $$
 P(\theta, \phi, \vec{x})
 $$
+
 where $\theta$ and $\phi$ describes the orientation, and $\vec{x}$ describes the origin of that ray.
 
 

@@ -182,11 +182,13 @@ Intersect(Ray ray, BVH node) {
 ### Radiant Energy and Flux (Power)
 
 ***Definition***: **Radiant energy** is the energy of electromagnetic radiation. It is measured in units of joules, and denoted by the symbol
+
 $$
 Q \quad[\text{J $=$ Joule}]
 $$
 
 ***Definition***: **Radiant flux** (power) is the energy emitted, reflected, transmitted or received, *per unit time*.
+
 $$
 \Phi \equiv \dv{Q}{t} \quad \text{[W = Watt] [lm = lumen]}
 $$
@@ -198,6 +200,7 @@ $$
 <img src="images/Lecture14-img-4.png" alt="img-4" style="zoom:50%;" />
 
 ***Definition***: The **radiant (luminous) intensity** is the power *per unit solid angle* emitted by a point light source.
+
 $$
 I(\omega) \equiv \dv{\Phi}{\omega}
 \quad
@@ -215,15 +218,19 @@ where *candela* is one of the seven SI base units.
 ### Angles, Solid Angles and Direction Vectors
 
 ***Definition***: **Angle** is the *ratio* of subtended arc length on a circle to the radius
+
 $$
 \theta = \frac{l}{r}
 $$
+
 A circle has $2\pi$ **radians**.
 
 ***Definition***: **Solid angle** is the ratio of subtended *area* on a sphere to the radius *squared*
+
 $$
 \Omega = \frac{A}{r^2}
 $$
+
 A sphere has $4\pi$ **steradians**.
 
 *The area, when calculated, must be that of a part of the shell, or that projected to the shell.*
@@ -239,6 +246,7 @@ A sphere has $4\pi$ **steradians**.
 ### Differential Solid Angle
 
 <img src="images/Lecture14-img-6.png" alt="img-6" style="zoom: 33%;" />
+
 $$
 \begin{align}
 \dd{A} &= (r \dd{\theta}) (r \sin{\theta} \dd{\phi}) \\
@@ -257,12 +265,14 @@ $$
 <img src="images/Lecture14-img-7.png" alt="img-7" style="zoom: 33%;" />
 
 An **isotropic point source** has an uniform intensity.
+
 $$
 \begin{align}
 \Phi &= \int_{S^2} I \dd{\omega} \\
 &= 4 \pi I
 \end{align}
 $$
+
 $$
 I = \frac{\Phi}{4\pi}
 $$
@@ -274,12 +284,14 @@ $$
 <img src="images/Lecture14-img-8.png" alt="img-8" style="zoom:50%;" />
 
 ***Definition***: The **irradiance** is the power per unit area **incident** on a surface point.
+
 $$
 E(\textbf{x}) \equiv \dv{\Phi(\textbf{x})}{A} \cos{\theta}
 \quad 
 \text{$\left[\frac{\text{W}}{\text{m}^2} \right]$ 
 $\left[\frac{\text{lm}}{\text{m}^2} = \text{lux}\right]$}
 $$
+
 where $\theta$ is the angle of incidence following **Lambert's Cosine Law**.
 
 <img src="images/Lecture14-img-13.png" alt="img-13" style="zoom:33%;" />
@@ -306,6 +318,7 @@ Radiance is the fundamental field quantity that describes the distribution of li
 <img src="images/Lecture14-img-11.png" alt="img-11" style="zoom: 33%;" />
 
 ***Definition***: The **radiance (luminance)** is the power emitted reflected, transmitted or received by a surface, **per unit solid angle**, **per projected unit area**.
+
 $$
 L(\text{p}, \omega) \equiv \frac{\dd[2]\Phi(\text{p}, \omega)}{\dd{\omega} \dd{A} \cos{\theta}}
 \quad
@@ -314,6 +327,7 @@ $\left[\frac{\text{W}}{\text{sr m}^2} \right] $
 $\left[\frac{\text{cd}}{\text{m}^2} = \frac{\text{lm}}{\text{sr m}^2} = \text{nit} \right] $
 }
 $$
+
 *where $\cos{\theta}$ accounts for projected surface area.*
 
 - Irradiance per solid angle
@@ -324,9 +338,11 @@ $$
 #### Incident Radiance
 
 **Incident radiance** is the irradiance per unit solid angle arriving at the surface. 
+
 $$
 L(\text{p}, \omega) = \dv{E(\text{p})}{\omega \cos{\theta}}
 $$
+
 The light arriving at the surface along a given ray.
 
 
@@ -334,9 +350,11 @@ The light arriving at the surface along a given ray.
 #### Exiting Radiance
 
 **Exiting surface** radiance is the intensity per unit projected area leaving the surface.
+
 $$
 L(\text{p}, \omega) \equiv \dv{I(\text{p}, \omega)}{A \cos{\theta}}
 $$
+
 *Hint: For the two formulas for incident/exiting radiance, considering taking them has differentials and multiply $L(\text{p}, \omega)$ by the denominator.*
 
 
@@ -381,9 +399,11 @@ The SAH model estimates the **computational cost** of performing ray intersectio
 - Ray-primitive **intersection tests** for a particular partitioning of primitives
 
 By assuming the current working node is a leaf node regardless of the number of primitives it contains, we know that any ray that passes through this node will be tested against all of the overlapping primitives and will incur a cost of 
+
 $$
 \sum_{i = 1}^N t_\text{isect} (i)
 $$
+
 where 
 
 - $N$ is the number of objects
@@ -392,9 +412,11 @@ where
     - The error introduced doesn't *seem* to affect the performance very much
 
 If we **split the region**, rays will incur the cost
+
 $$
 c(A, B) = t_\text{trav} + p_A \sum_{i = 1}^{N_A} t_\text{isect} (a_i) + p_B \sum_{i = 1}^{N_B} t_\text{isect} (b_i)
 $$
+
 where
 
 - $t_\text{trav}$ is the time it takes to traverse the interior node and determine which of the children the ray passes through
@@ -404,6 +426,7 @@ where
   - They can be computed using ideas from geometric probability.
 
     For a convex volume $A$ contained in another convex volume $B$, the conditional probability that a **uniformly distributed random ray** passing through $B$ will also pass through $A$ is the ratio of their surface areas, $s_A$ and $s_B$:
+    
     $$
     p(A|B) = \frac{s_A}{s_B}
     $$

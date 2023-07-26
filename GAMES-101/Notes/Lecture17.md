@@ -42,6 +42,7 @@ Light is **equally** reflected in each output direction.
 <img src="images/Lecture17-img-28.png" alt="img-28" style="zoom:50%;" />
 
 Suppose the incident lighting is **uniform in radiance**, and without self-emission we have:
+
 $$
 \begin{align}
 L_o (\omega_o) &=
@@ -55,12 +56,15 @@ f_r L_i \int_{H^2} \cos{\theta_i} \dd{\omega_i}
 
 \end{align}
 $$
+
 If the material absorbs no light, then $f_r = 1/\pi$.
 
 On lambertian material we have
+
 $$
 f_r = \frac{\rho}{\pi}, \quad 0 \leq \rho \leq 1
 $$
+
 in which $\rho$ is called **albedo**, or color.
 
 
@@ -94,6 +98,7 @@ in which $\rho$ is called **albedo**, or color.
 <p align="center">From PBRT</p>
 
 ![img-8](images/Lecture17-img-8.png)
+
 $$
 \omega_o + \omega_i = 2 \cos{\theta} ~ \vec{n} = 2(\omega_i \cdot \vec{n}) \vec{n}
 $$
@@ -124,6 +129,7 @@ Transmitted angle depends on
 - IOR for exiting ray
 
 ![img-10](images/Lecture17-img-10.png)
+
 $$
 \eta_i \sin{\theta_i} = \eta_t \sin{\theta_t}
 $$
@@ -154,9 +160,11 @@ $$
 $$
 
 ***Definition***: **Total internal reflection**: When light is moving from a more optically dense medium to a less optically dense medium, i.e., 
+
 $$
 \frac{\eta_i}{\eta_t} > 1
 $$
+
 then light incident on boundary from large enough angle will not exit the medium. The critical angle can be computed from equation $\ref{total_internal_reflection}$ by substituting $\theta_t = \pi / 2$ into the equation.
 
 
@@ -200,6 +208,7 @@ Reflectance depends on **incident angle** (and **polarization** of light).
 **Accurate**: **polarization** taken into consideration
 
 $n$ is related to $\eta$, the intrinsic property of the material.
+
 $$
 R_S 
 = 
@@ -289,6 +298,7 @@ Rough surface:
 <img src="images/Lecture17-img-20.png" alt="img-20" style="zoom:50%;" />
 
 **Microfacet BRDF**:
+
 $$
 f(\omega_i, \omega_o) =
 \frac{
@@ -299,6 +309,7 @@ f(\omega_i, \omega_o) =
 	4 (\textbf{n}, \omega_i) (\textbf{n}, \omega_o)
 }
 $$
+
 In which:
 
 - $\text{F}$ is the Fresnel term
@@ -325,6 +336,7 @@ In which:
 <img src="images/Lecture17-img-23.png" alt="img-23" style="zoom:50%;" />
 
 **Anisotropic**: Reflection depends on **azimuthal angle** $\phi$
+
 $$
 f_r(\theta_i, \phi_i; \theta_r, \phi_r) \neq f_r (\theta_i, \theta_r, \phi_r - \phi_i)
 $$
@@ -341,11 +353,13 @@ $$
 ### Properties of BRDFs
 
 - **Non-negativity**: On any point, $f_r$ is always non-negative.
+  
   $$
   f_r (\omega_i, \omega_r) \geq 0
   $$
 
 - **Linearity**: BRDFs can be directly summed.
+  
   $$
   L_r (\text{p}, \omega_r)
   =
@@ -353,17 +367,21 @@ $$
   \cos \theta_i
   \dd{\omega_i}
   $$
+
   The nature of integration make BRDFs addable.
   
   ![img-24](images/Lecture17-img-24.png)
   
 - **Reciprocity Principle**
+  
   $$
   f_r (\omega_r, \omega_i) = f_r (\omega_i, \omega_r)
   $$
+
   ![img-25](images/Lecture17-img-25.png)
 
 - **Energy Conservation**
+  
   $$
   \forall \omega_r,
   \quad
@@ -375,9 +393,11 @@ $$
   - If isotropic: $f_r (\theta_i, \phi_i; \theta_r, \phi_r) = f_r (\theta_i, \theta_r, \phi_r - \phi_i)$, which essentially means that **the dimension of BRDF is reduced by 1.**
 
     Then from reciprocity we have
+
     $$
     f_r (\theta_i, \theta_r, \phi_r - \phi_i) = f_r (\theta_r, \theta_i, \phi_i - \phi_r) = f_r (\theta_i, \theta_r, \abs{\phi_r - \phi_i})
     $$
+
   ![img-26](images/Lecture17-img-26.png)
 
 
@@ -522,10 +542,13 @@ Three important geometric effects to consider with Microfacet Reflection Models:
 
 
 **Approximation:**
+
 $$
 f_r (\omega_i, \omega_o) = \frac{R}{\pi} (A + B \max(0, \cos(\phi_i, \phi_o)) \sin \alpha \tan \beta)
 $$
+
 where if $\sigma$ is in radians,
+
 $$
 A = 1 - \frac{\sigma^2}{2(\sigma^2 + 0.33)}
 $$
@@ -553,9 +576,11 @@ One important characteristics of a microfacet surface is represented by the dist
 Microfacet distribution functions must be
 
 - **Normalized**: Given a differential area of the microsurface, $\dd{A}$, then the projected area of the microfacet faces above that area must be equal to $\dd{A}$.
+  
   $$
   \int_{H^2 (\textbf{n})} D(\omega_h) \cos \theta_h \dd{\omega_h} = 1
   $$
+
   <img src="images/Lecture17-img-35.png" alt="image-20230719171037939" style="zoom:50%;" />
 
 #### Beckmann Distribution
@@ -563,14 +588,17 @@ Microfacet distribution functions must be
 A widely used microfacet distribution function based on a Gaussian distribution of microfacet slops is due to Beckmann and Spizzichino.
 
 The traditional definition of the Beckmann-Spizzichino model is 
+
 $$
 D(\omega_h) = \frac{e^{-\tan^2\theta_h / \alpha^2}}{\pi \alpha^2 \cos^4 \theta_h}
 $$
+
 where if $\sigma$ is the RMS slope of the microfacets, then $\alpha = \sqrt{2}\sigma$.
 
 - RMS: Root Mean Square
 
 The **anisotropic** microfacet distribution function is
+
 $$
 D(\omega_h) = 
 \frac{e^{-\tan^2\theta_h (\cos^2 \phi_h / \alpha_x^2 + \sin^2\phi_h / \alpha_y^2)}}
@@ -590,6 +618,7 @@ When programming, the algorithm directly translates the above equation, but pay 
 #### Trowbridge-Reitz Distribution
 
 Anisotropic variant given by
+
 $$
 D(\omega_h)
 =
@@ -598,6 +627,7 @@ D(\omega_h)
 	\pi \alpha_x \alpha_y \cos^4\theta_h (1 + \tan^2\theta_h(\cos^2 \phi_h /\alpha_x^2 + \sin^2\phi_h / \alpha_y^2))^2
 }
 $$
+
 In comparison to the Beckmann-Spizzichino model, 
 
 - It has higher tails - it falls off to zero more slowly for directions far from the surface normal.
@@ -617,9 +647,11 @@ Usually, we specify $\alpha_x$ and $\alpha_y$ by **roughness**, which is between
 2. Some of the forward-facing microfacet area will be hidden due to being shadowed by back-facing microfacets.
 
 This is described by
+
 $$
 G_1(\omega, \omega_h)
 $$
+
 which gives the fraction of microfacets with normal $\omega_h$ that are visible from direction $\omega$.
 
 - Note that $0 \leq G_1(\omega, \omega_h) \leq 1$.
@@ -627,9 +659,11 @@ which gives the fraction of microfacets with normal $\omega_h$ that are visible 
 
 
 **Normalization Constraint**: A differential area $\dd{A}$, as shown in Figure 8.17, has area $\dd{A} \cos\theta$ when viewed from a direction $\omega$ that makes an angle $\theta$ with the surface normal. The area of visible microfacets seen from this direction must also be equal to $\dd{A} \cos\theta$, which leads to a normalization constraint for $G_1$:
+
 $$
 \cos \theta = \int_{H^2(\textbf{n})} G_1 (\omega, \omega_h) \max(0, \omega \cdot \omega_h) D(\omega_h) \dd{\omega_h}
 $$
+
 <img src="images/Lecture17-img-37.png" alt="img-37" style="zoom:50%;" />
 
 
@@ -637,15 +671,20 @@ $$
 **Compute $G_1$ using $\Lambda(\omega)$**: Because the microfacets form a heightfield, every back-facing microfacet shadows a forward-facing microfacet of equal projected area in the direction $\omega$. If $A^+(\omega)$ is the projected area of forward-facing microfacets as seen from the direction $\omega$ and $A^-(\omega)$ is the projected area of backward-facing microfacets, then $\cos\theta = A^+(\omega) - A^-(\omega)$.
 
 We can thus alternatively write the masking-shadowing function as the **ratio** of visible microfacets area to total forward-facing microfacet area:
+
 $$
 G_1(\omega) = \frac{A^+(\omega) - A^-(\omega)}{A^+(\omega)}.
 $$
+
 Shadowing-masking functions are traditionally expressed in terms of an auxiliary function $\Lambda(\omega)$, which measures invisible masked microfacet area **per visible microfacet area**.
+
 $$
 \Lambda (\omega) = \frac{A^-(\omega)}{A^+(\omega) - A^-(\omega)}
 = \frac{A^-(\omega)}{\cos\theta}
 $$
+
 After some algebra we have
+
 $$
 G_1(\omega) = \frac{1}{1 + \Lambda(\omega)}.
 $$
@@ -659,9 +698,11 @@ $$
   - Although this isn't true in reality, the resulting $\Lambda(\omega)$ functions turned out to be fairly accurate when compared to measure reflection from actual surfaces.
 
   - **Beckmann-Spizzichino**: Under the assumption of no such correlation, we have
+    
     $$
     \Lambda(\omega) = \frac{1}{2} \left( \erf(a) - 1 + \frac{e^{-a^2}}{a\sqrt{\pi}} \right)
     $$
+
     where $\alpha = 1/(\alpha \tan\theta)$ and $\erf$ is the error function, $\erf(x) = 2/\sqrt{\pi}\int_{0}^{x}e^{-u^2}\dd{u}$.
 
     In `pbrt`, a rational polynomial approximation is used, to avoid calling `std::erf()` and `std::exp()` which are fairly expensive to evaluate.
@@ -669,6 +710,7 @@ $$
 
 
 **Computing the interpolated $\alpha$ for anisotropic distributions**: It is the easiest to compute $\Lambda(\omega)$ by taking their corresponding isotropic function and stretching the underlying surface according to the $\alpha_x$ and $\alpha_y$ values. Equivalently, one can compute an interpolated $\alpha$ value for the **direction of interest** and use that with the isotropic function.
+
 $$
 \alpha = \sqrt{\cos^2 \phi_h * \alpha_x^2 + \sin^2\phi_h * \alpha_y^2}
 $$
@@ -684,15 +726,18 @@ $$
 **Computing $G(\omega_o, \omega_i)$**: This function gives the fraction of microfacets in a differential area that are visible from both directions $\omega_o$ and $\omega_i$. Defining $G$ requires some additional assumptions. For starters, 
 
 -  If we **assume** that the probability of a microfacet being visible from both directions is the probability that it is visible from each direction independently, then we have
+  
   $$
   G(\omega_o, \omega_i) = G_1(\omega_o)G_1(\omega_i).
   $$
+
   In practice, 
 
   - This often **underestimates** $G$.
   - The closer together the $\omega_o$ and $\omega_i$ are, the more correlation there is between $G_1(\omega_o)$ and $G_1(\omega_i)$.
 
 - A **more accurate** model can be derived, **assuming** that microfacet visibility is more likely the higher up a given point on a microfacet is. This assumption leads to the model
+  
   $$
   G(\omega_o, \omega_i) = \frac{1}{1 + \Lambda(\omega_o) + \Lambda(\omega_i)}.
   $$

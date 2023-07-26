@@ -3,6 +3,7 @@
 ## I. Monte Carlo Integration
 
 In the previous lecture we have described the light transport using **the rendering equation**:
+
 $$
 \begin{equation} \label{rendeq} \tag{1}
 L_o (\text{p}, \omega_o) = 
@@ -11,6 +12,7 @@ L_e (\text{p}, \omega_o) +
 (\textbf{n} \cdot \omega_i) \dd{\omega_i}
 \end{equation}
 $$
+
 and we list it here as a reference.
 
 
@@ -23,6 +25,7 @@ and we list it here as a reference.
 
 
 ***Definition***: The **Monte Carlo estimator** for the definite integral $\int_{a}^{b} f(x) \dd{x}$ of given function $f(x)$ is
+
 $$
 \begin{equation} \label{mcest} \tag{2}
 \int f(x) \dd{x}
@@ -31,6 +34,7 @@ F_N
 = \frac{1}{N} \sum_{i = 1}^{N} \frac{f(X_i)}{p(X_i)}
 \end{equation}
 $$
+
 where $X_i \sim p(x)$ is a random variable.
 
 - The more samples, the less variance $\text{Var}$
@@ -45,6 +49,7 @@ Later on we will be using the Monte Carlo estimator to estimate the result of re
 
 
 ***Definition***: The **Basic Monte Carlo estimator** $\int_{a}^{b} f(x) \dd{x}$ is
+
 $$
 \begin{equation} \label{bmcest} \tag{3}
 F_N = \frac{b - a}{N} \sum_{i = 1}^{n} f(X_i)
@@ -80,14 +85,17 @@ As mentioned in the previous note `Lecture15.md`, the rendering equation consist
 The **reflection** part is just an integration of differential irradiance over the entire hemisphere, hence we can solve it using Monte Carlo integration.
 
 To compute the radiance $L_o$ at point $\text{p}$ towards to camera, from equation $\ref{rendeq}$ we have (ignoring the self-emission part)
+
 $$
 L_o (\text{p}, \omega_o) = 
 \int_{\Omega_+}
 Li (\text{p}, \omega_i) f_r (\text{p}, \omega_i, \omega_o) (\textbf{n} \cdot \omega_i) \dd{\omega_i}
 $$
+
 Fancy as it is, it's still just an integration over directions. 
 
 We are sampling on the entire hemisphere, by applying equation $\ref{mcest}$ we have
+
 $$
 \begin{align}
 L_o (x, \omega_o) &= 
@@ -99,6 +107,7 @@ Li (x, \omega_i) f_r (x, \omega_i, \omega_o) (\textbf{n} \cdot \omega_i) \dd{\om
 \frac{Li (x, \omega_i) f_r (x, \omega_i, \omega_o) (\textbf{n} \cdot \omega_i)}{p(\omega_i)} \\
 \end{align}
 $$
+
 Note that here we have changed the notation to avoid confusion. Here:
 
 - $x$ is the point the shading is being computed at,
@@ -129,6 +138,7 @@ This creates a **correct** shading algorithm. However, it is **not computational
 - If $N > 1$, it will result in **ray explosion**, i.e., as the recursion goes deeper the number of rays exponentially increases.
 
 - In most cases, it will **recurse forever**.
+  
   $$
   \#\text{rays} = N^{\text{\#bounces}}
   $$
@@ -199,6 +209,7 @@ shade(p, wo)
 - By introducing the probability $P_{RR}$ to shade, where a uniform random variable is sampled at each iteration and compared to this threshold value $P_{RR}$, we introduce an exponential probability distribution that renders it increasingly improbable for the recursion to extend beyond a certain depth as it increases.
 
 - **Unbiased estimator**: Introducing the probability to shade doesn't affect the estimation much, as the **expected value** remains the same:
+  
   $$
   E = P_{RR} * \text{shade}(p, wo) + (1 - P_{RR}) * \vec{0} = L_o
   $$
@@ -206,6 +217,7 @@ shade(p, wo)
   However, the **variance** is large.
   
 - Since the recursion follows the geometric distribution, the **expected** number of recursion is
+  
   $$
   E[N] = \frac{1}{1 - p}
   $$
@@ -229,12 +241,15 @@ Since we sample on the light, can we directly do integration on the light? The a
 <img src="images/Lecture16-img-1.png" alt="img-1" style="zoom:50%;" />
 
 The target is to **make the rendering equation as an integral of** $\dd{A}$, where $\dd{A}$ is the differential area on the light source. We could convert $\dd{\omega}$ appeared in equation $\ref{rendeq}$ by the definition of solid angle - that is, the projected area on the unit sphere. Hence, we have
+
 $$
 \dd{\omega} = \frac{\dd{A} \cos{\theta'}}{\lVert x' - x\rVert^2}
 $$
+
 notice that $\theta'$ represents the angle between $\overrightarrow{xx'}$ and $\textbf{n}'$, the surface normal of the light source.
 
 Rewrite the rendering equation in this way gives
+
 $$
 \begin{align}
 L_o (x, \omega_o) &=
@@ -244,6 +259,7 @@ L_o (x, \omega_o) &=
 \frac{\cos{\theta} \cos{\theta'}}{\lVert x' - x \rVert^2} \dd{A} \\
 \end{align}
 $$
+
 where the interval for integration covers all light sources instead, and $p = 1/A$. 
 
 

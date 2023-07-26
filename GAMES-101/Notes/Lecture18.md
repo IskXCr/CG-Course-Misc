@@ -114,6 +114,7 @@
 ##### Why biased?
 
 - Local density estimation isn't correct
+  
   $$
   \dv{N}{A} \neq \frac{\Delta N}{\Delta A}
   $$
@@ -353,11 +354,13 @@ Industry often uses path-tracing.
 ##### Scattering Functions
 
 **BSSRDF (Subsurface Scattering)**: generalization of BRDF; exitant radiance at one point due to incident differential irradiance at another point:
+
 $$
 S(x_i, \omega_i, x_o, \omega_o)
 $$
 
 - Generalization of rendering equation: integrating over all points on the surface and all directions
+  
   $$
   L(x_o, \omega_o)
   =

@@ -107,11 +107,13 @@ Light arrives at the retina and stimulates nerves, causing impulses.
 ##### Additive Color
 
 - Given a set of primary lights, each with its own spectral distribution (e.g. **RGB**):
+  
   $$
   s_R(\lambda), s_G(\lambda), s_B(\lambda)
   $$
 
 - Adjust the **brightness** of these lights and add them together:
+  
   $$
   Rs_R(\lambda) + Gs_G(\lambda) + Bs_B(\lambda)
   $$
@@ -127,6 +129,7 @@ Light arrives at the retina and stimulates nerves, causing impulses.
   <p align="center">How much of each CIE RGB primary light must be combined to match a given monochromatic light?</p>
 
   Having the above **color-matching function** allows us to compute the $R, G, B$ values:
+
   $$
   R_{\text{CIE RGB}} = \int_\lambda s(\lambda)\bar{r}(\lambda) \dd{\lambda}
   $$
@@ -171,6 +174,7 @@ Designed such that:
 - Luminance: $Y$
 
 - Chromaticity: $x, y, z$, defined as
+  
   $$
   x = \frac{X}{X + Y + Z}
   $$
