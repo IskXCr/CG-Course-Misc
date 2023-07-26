@@ -3,8 +3,8 @@ link_libraries(CGL)
 include_directories("${PROJECT_SOURCE_DIR}/src")
 
 link_libraries(
-  glfw ${GLFW_LIBRARIES}
-  GLEW ${GLEW_LIBRARIES}
+  ${GLFW_LIBRARIES}
+  ${GLEW_LIBRARIES}
   ${OPENGL_LIBRARIES}
   ${FREETYPE_LIBRARIES}
 )
