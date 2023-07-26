@@ -1,5 +1,7 @@
 # GAMES101 Lecture 11 - Geometry 2 (Curves and Surfaces)
 
+[GAMES101_Lecture_11.pdf](https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_11.pdf)
+
 ## I. Explicit Representations of Geometry
 
 *Refer to* `Lecture10.md`.
@@ -17,7 +19,7 @@
     - Repeat linear interpolation on adjacent points for parameter $t \in [0, 1]$ until there is only one point left.
     - On each iteration, reduce the number of points to be evaluated by 1.
 
-    ![img-1](images/Lecture11-img-1.png)
+    ![img-1](../images/Lecture11-img-1.png)
 
   - Algebraic Formula:
 
@@ -73,7 +75,7 @@
 
 - Created by interpolating Bézier curves on two axes.
 
-  ![img-2](images/Lecture11-img-2.png)
+  ![img-2](../images/Lecture11-img-2.png)
 
 
 

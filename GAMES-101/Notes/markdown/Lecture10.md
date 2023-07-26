@@ -1,5 +1,7 @@
 # GAMES101 Lecture 10 - Geometry 1 (Introduction)
 
+[GAMES101_Lecture_10.pdf](https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_10.pdf)
+
 ## I. Application of Textures
 
 *Refer to* `Lecture09.md`.

@@ -1,5 +1,7 @@
 # GAMES101 Lecture 22 - Animation Cont.
 
+[GAMES101_Lecture_22.pdf](https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_22.pdf)
+
 ## Outline
 
 - Single Particle Simulation
@@ -16,7 +18,7 @@
 
 ### Vector Field and Ordinary Differential Equation (ODE)
 
-<img src="images/Lecture22-img-1.png" alt="image-20230725191306964" style="zoom:33%;" />
+<img src="../images/Lecture22-img-1.png" alt="image-20230725191306964" style="zoom:33%;" />
 
 Assume the motion of a particle is determined by a **velocity vector field** that is a function of position and time:
 
@@ -57,11 +59,11 @@ $$
 
 Errors accmulate as the integration goes, and euler integration is *particularly bad*.
 
-<img src="images/Lecture22-img-2.png" alt="image-20230725192011794" style="zoom:50%;" />
+<img src="../images/Lecture22-img-2.png" alt="image-20230725192011794" style="zoom:50%;" />
 
 #### Instability
 
-<img src="images/Lecture22-img-3.png" alt="image-20230725192128778" style="zoom: 50%;" />
+<img src="../images/Lecture22-img-3.png" alt="image-20230725192128778" style="zoom: 50%;" />
 
 - **Inaccuracy** increases as step $\Delta t$ increases
 - **Instability** is a **common, serious** problem that can cause simulaton to diverge.
@@ -96,7 +98,7 @@ Solving by numerical integration with finite differences leads to two problems:
 
 ### Midpoint Method/Modified Euler
 
-<img src="images/Lecture22-img-4.png" alt="image-20230725193249806" style="zoom: 50%;" />
+<img src="../images/Lecture22-img-4.png" alt="image-20230725193249806" style="zoom: 50%;" />
 
 1. Compute Euler step $(a)$
 2. Compute derivative at the midpoint of Euler step $(b)$
@@ -128,7 +130,7 @@ $$
 
 ### Adaptive Step Size
 
-<img src="images/Lecture22-img-5.png" alt="image-20230725194201691" style="zoom: 50%;" />
+<img src="../images/Lecture22-img-5.png" alt="image-20230725194201691" style="zoom: 50%;" />
 
 - Technique for choosing step size based on error estimation
 - **Practical**
@@ -179,7 +181,7 @@ A family of advanced methods for solving ODEs.
 - Especially good at dealing with **non-linearity**
 - **RK4**, or the order-four version, is the most widely used
 
-<img src="images/Lecture22-img-6.png" alt="image-20230725195211429" style="zoom: 50%;" />
+<img src="../images/Lecture22-img-6.png" alt="image-20230725195211429" style="zoom: 50%;" />
 
 
 
@@ -234,7 +236,7 @@ A family of advanced methods for solving ODEs.
 
 ### A Simple Position-Based Method
 
-![image-20230725212307412](images/Lecture22-img-8.png)
+![image-20230725212307412](../images/Lecture22-img-8.png)
 
 **Key idea**:
 
@@ -249,7 +251,7 @@ A family of advanced methods for solving ODEs.
 
 #### Eulerian vs. Lagrangian
 
-<img src="images/Lecture22-img-7.png" alt="image-20230725200415930" style="zoom:50%;" />
+<img src="../images/Lecture22-img-7.png" alt="image-20230725200415930" style="zoom:50%;" />
 
 - Lagrangian: explictly compute the position of each particles
 - Eulerian: Separate the space into a grid, compute the change happened inside the grid

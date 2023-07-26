@@ -1,5 +1,7 @@
 # GAMES101 Lecture 16 - Ray Tracing 4 (Monte Carlo Path Tracing)
 
+[GAMES101_Lecture_16.pdf](https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_16.pdf)
+
 ## I. Monte Carlo Integration
 
 In the previous lecture we have described the light transport using **the rendering equation**:
@@ -229,7 +231,7 @@ This version of path tracing is
 - **inefficient:**
   - A lot of rays are *wasted* if we uniformly sample the hemisphere at the shading point.
 
-![img-4](images/Lecture16-img-4.png)
+![img-4](../images/Lecture16-img-4.png)
 
 
 
@@ -237,7 +239,7 @@ This version of path tracing is
 
 Since we sample on the light, can we directly do integration on the light? The answer is **yes**.
 
-<img src="images/Lecture16-img-1.png" alt="img-1" style="zoom:50%;" />
+<img src="../images/Lecture16-img-1.png" alt="img-1" style="zoom:50%;" />
 
 The target is to **make the rendering equation as an integral of** $\dd{A}$, where $\dd{A}$ is the differential area on the light source. We could convert $\dd{\omega}$ appeared in equation $\ref{rendeq}$ by the definition of solid angle - that is, the projected area on the unit sphere. Hence, we have
 
@@ -317,7 +319,7 @@ The **final** version:
 
 The final version is almost $100\%$ correct, a.k.a. **PHOTO-REALISTIC**.
 
-![img-2](images/Lecture16-img-2.png)
+![img-2](../images/Lecture16-img-2.png)
 
 
 

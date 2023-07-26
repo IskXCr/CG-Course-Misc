@@ -1,5 +1,7 @@
 # GAMES101 Lecture 13 - Ray Tracing 1 (Whitted-Style Ray Tracing)
 
+[GAMES101_Lecture_13.pdf](https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_13.pdf)
+
 ## I. Why Ray Tracing?
 
 - Rasterization couldn't handle **global** effects well
@@ -27,7 +29,7 @@ Three assumptions:
 
 ### Ray Casting
 
-![img-1](images/Lecture13-img-1.png)
+![img-1](../images/Lecture13-img-1.png)
 
 - **Pinhole Camera Model**
 - **Point Light Source**
@@ -49,7 +51,7 @@ Simulates the recursive bouncing of light rays.
 
 - Different rays:
 
-  ![img-2](images/Lecture13-img-2.png)
+  ![img-2](../images/Lecture13-img-2.png)
 
   - *Primary Ray*: Starts at the eye
   - *Secondary Ray*: Generated upon collision of primary ray
@@ -116,33 +118,32 @@ Simulates the recursive bouncing of light rays.
       \textbf{S}_1 \cdot \textbf{S} \\
       \textbf{S}_2 \cdot \textbf{D} \\
       \end{bmatrix}
-
-      $$
+    $$
       where
-
-      $$
+      
+    $$
       \textbf{E}_1 = \textbf{p}_1 - \textbf{p}_0
       $$
-  
-      $$
+      
+    $$
       \textbf{E}_2 = \textbf{p}_2 - \textbf{p}_0
       $$
-  
-      $$
+      
+    $$
       \textbf{S} = \textbf{o} - \textbf{p}_0
       $$
-  
-      $$
+      
+    $$
       \textbf{S}_1 = \textbf{d} \times \textbf{E}_2
       $$
-  
-      $$
+      
+    $$
       \textbf{S}_2 = \textbf{S} \times \textbf{E}_1
       $$
-  
-      *See Cramer's rule.*
-  
-    - *Inside/outside test: Fire a ray from a given point. Even number of intersections if the point is outside.*
+      
+    *See Cramer's rule.*
+      
+  - *Inside/outside test: Fire a ray from a given point. Even number of intersections if the point is outside.*
 
 
 

@@ -1,5 +1,7 @@
 # GAMES101 Lecture 18 - Advanced Topics in Rendering
 
+[GAMES101_Lecture_18.pdf](https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_18.pdf)
+
 ## Outline
 
 - Advanced light transport and materials
@@ -32,7 +34,7 @@
 
 #### Bidirectional Path Tracing (BDPT)
 
-![img-1](images/Lecture18-img-1.png)
+![img-1](../images/Lecture18-img-1.png)
 
 - Trace **sub-paths** from **both** the camera and the light
 - Connects endpoints from both sub-paths
@@ -52,7 +54,7 @@
 
 #### Metropolis Light Transport (MLT)
 
-![img-mlt-mcmc](images/Lecture18-img-mlt-mcmc.png)
+![img-mlt-mcmc](../images/Lecture18-img-mlt-mcmc.png)
 
 - A **Markov Chain Monte Carlo** (MCMC) application
   - **Jumping** from the current sample to the next **with some PDF**
@@ -66,7 +68,7 @@
 - Works great with **difficult light paths**
   - **Specular-Diffuse-Specular** path, SDS path
 
-![img-mlt-comp](images/Lecture18-img-mlt-comp.png)
+![img-mlt-comp](../images/Lecture18-img-mlt-comp.png)
 
 ##### Cons
 
@@ -80,9 +82,9 @@
 
 #### Photon Mapping
 
-<img src="images/Lecture18-img-pm-example-1.png" alt="img-pm-example-1" style="zoom:50%;" />
+<img src="../images/Lecture18-img-pm-example-1.png" alt="img-pm-example-1" style="zoom:50%;" />
 
-<img src="images/Lecture18-img-pm-example-2.png" alt="pm-example-2" style="zoom:50%;" />
+<img src="../images/Lecture18-img-pm-example-2.png" alt="pm-example-2" style="zoom:50%;" />
 
 - A **biased** approach & A two-stage method
 - Very good at handling **Specular-Diffuse-Specular** (SDS) paths and generating **caustics**
@@ -96,7 +98,7 @@
 
 - Emitting photons from the light source, bouncing them around, then recording photons on diffuse surfaces
 
-  ![img-pm-stage-1](images/Lecture18-img-pm-stage-1.png)
+  ![img-pm-stage-1](../images/Lecture18-img-pm-stage-1.png)
 
 **Stage 2 - Photon Collection**
 
@@ -127,7 +129,7 @@
 
 - **Biased, but consistent**
 
-<img src="images/Lecture18-img-pm-biased-example.png" alt="img-pm-biased-example" style="zoom:50%;" />
+<img src="../images/Lecture18-img-pm-biased-example.png" alt="img-pm-biased-example" style="zoom:50%;" />
 
 - Understanding biases in rendering:
   - Biased == Blurry
@@ -145,7 +147,7 @@
   - Utilize those unused sub-paths in BDPT if their endpoints **cannot be connected but can be merged**
   - Use photon mapping to handle the merging of nearby "photons"
 
-<img src="images/Lecture18-img-vcm-key-1.png" alt="img-vcm-key-1" style="zoom: 50%;" />
+<img src="../images/Lecture18-img-vcm-key-1.png" alt="img-vcm-key-1" style="zoom: 50%;" />
 
 - Adapted in the movie industry
 
@@ -153,7 +155,7 @@
 
 ### Instant Radiosity (IR)
 
-![img-ir-key-1](images/Lecture18-img-ir-key-1.png)
+![img-ir-key-1](../images/Lecture18-img-ir-key-1.png)
 
 - Also called **many-light approaches**
 - **Key idea**:
@@ -167,7 +169,7 @@
   - They stop at diffuse surfaces
 - Render the scene as usual using these VPLs
 
-![img-ir-comp-1](images/Lecture18-img-ir-comp-1.png)
+![img-ir-comp-1](../images/Lecture18-img-ir-comp-1.png)
 
 #### Pros
 
@@ -209,11 +211,11 @@ Industry often uses path-tracing.
 
 ##### Examples
 
-![img-nsm-pm-example-1](images/Lecture18-img-nsm-pm-example-1.png)
+![img-nsm-pm-example-1](../images/Lecture18-img-nsm-pm-example-1.png)
 
 <p align="center">Fog</p>
 
-![img-nsm-pm-example-2](images/Lecture18-img-nsm-pm-example-2.png)
+![img-nsm-pm-example-2](../images/Lecture18-img-nsm-pm-example-2.png)
 
 
 
@@ -221,17 +223,17 @@ Industry often uses path-tracing.
 
 - At any point as ligh travels through a participating medium, it can be (partially) **absorbed** and **scattered**
 
-  ![img-nsm-pm-def-1](images/Lecture18-img-nsm-pm-def-1.png)
+  ![img-nsm-pm-def-1](../images/Lecture18-img-nsm-pm-def-1.png)
 
 - Use **Phase Function** to describe the angular distribution of light scattering at any point $x$ within participating media
 
-  ![img-nsm-pm-def-2](images/Lecture18-img-nsm-pm-def-2.png)
+  ![img-nsm-pm-def-2](../images/Lecture18-img-nsm-pm-def-2.png)
 
 
 
 ##### Rendering
 
-![img-nsm-pm-rendering](images/Lecture18-img-nsm-pm-rendering.png)
+![img-nsm-pm-rendering](../images/Lecture18-img-nsm-pm-rendering.png)
 
 - Randomly choose a direction to bounce
 - Randomly choose a distance to go straight
@@ -243,7 +245,7 @@ Industry often uses path-tracing.
 
 ##### Hair Appearance
 
-<img src="images/Lecture18-img-nsm-hff-hair-example-1.png" alt="nsm-hff-hair-example-1" style="zoom: 50%;" />
+<img src="../images/Lecture18-img-nsm-hff-hair-example-1.png" alt="nsm-hff-hair-example-1" style="zoom: 50%;" />
 
 - Colored highlights
 - Uncolored highlights
@@ -252,37 +254,37 @@ Industry often uses path-tracing.
 
 ##### Kajiya-Kay Model
 
-<img src="images/Lecture18-img-nsm-hff-hair-kkm-1.png" alt="img-nsm-hff-hair-kkm-1" style="zoom:50%;" />
+<img src="../images/Lecture18-img-nsm-hff-hair-kkm-1.png" alt="img-nsm-hff-hair-kkm-1" style="zoom:50%;" />
 
 - Model the hair as a cylinder
 - When light hits the cylinder, it is diffused
 
-<img src="images/Lecture18-img-nsm-hff-hair-kkm-2.png" alt="img-nsm-hff-hair-kkm-2" style="zoom:50%;" />
+<img src="../images/Lecture18-img-nsm-hff-hair-kkm-2.png" alt="img-nsm-hff-hair-kkm-2" style="zoom:50%;" />
 
 
 
 ##### Marschner Model
 
-<img src="images/Lecture18-img-nsm-hff-hair-mm-1.png" alt="img-nsm-hff-hair-mm-1" style="zoom: 33%;" />
+<img src="../images/Lecture18-img-nsm-hff-hair-mm-1.png" alt="img-nsm-hff-hair-mm-1" style="zoom: 33%;" />
 
 - Glass-like cylinder
 
   - Outside: **Cuticle**
   - Inside: **Cortex**, colored, partial light absorbtion
 
-  <img src="images/Lecture18-img-nsm-hff-hair-mm-2.png" alt="img-nsm-hff-hair-mm-2" style="zoom:33%;" />
+  <img src="../images/Lecture18-img-nsm-hff-hair-mm-2.png" alt="img-nsm-hff-hair-mm-2" style="zoom:33%;" />
 
 - **3** types of light interactions: $R$, $TT$, $TRT$, where $R: \text{Reflection}$, $T: \text{Transmission}$
 
-  <img src="images/Lecture18-img-nsm-hff-hair-mm-3.png" alt="img-nsm-hff-hair-mm-3" style="zoom:50%;" />
+  <img src="../images/Lecture18-img-nsm-hff-hair-mm-3.png" alt="img-nsm-hff-hair-mm-3" style="zoom:50%;" />
 
-![image-20230715054053623](images/Lecture18-img-nsm-hff-hair-mm-4.png)
+![image-20230715054053623](../images/Lecture18-img-nsm-hff-hair-mm-4.png)
 
 
 
 ##### Fur Appearance
 
-![nsm-hff-fur-comp-1](images/Lecture18-img-nsm-hff-fur-comp-1.png)
+![nsm-hff-fur-comp-1](../images/Lecture18-img-nsm-hff-fur-comp-1.png)
 
 - Cannot realize the diffusive and saturated appearance if represented as human hair
 
@@ -290,7 +292,7 @@ Industry often uses path-tracing.
 
 ##### Human Hair vs Animal Fuir
 
-![img-nsm-hff-fur-comp-2](images/Lecture18-img-nsm-hff-fur-comp-2.png)
+![img-nsm-hff-fur-comp-2](../images/Lecture18-img-nsm-hff-fur-comp-2.png)
 
 **Structural**:
 
@@ -302,27 +304,27 @@ Industry often uses path-tracing.
 
 **Importance of Medulla in Human Hair**
 
-![img-nsm-hff-fur-comp-3](images/Lecture18-img-nsm-hff-fur-comp-3.png)
+![img-nsm-hff-fur-comp-3](../images/Lecture18-img-nsm-hff-fur-comp-3.png)
 
 
 
 ##### Double Cylinder Model
 
-<img src="images/Lecture18-img-nsm-hff-fur-dcm-1.png" alt="img-nsm-hff-fur-dcm-1" style="zoom:50%;" />
+<img src="../images/Lecture18-img-nsm-hff-fur-dcm-1.png" alt="img-nsm-hff-fur-dcm-1" style="zoom:50%;" />
 
-<img src="images/Lecture18-img-nsm-hff-fur-dcm-2.png" alt="img-nsm-hff-fur-dcm-2" style="zoom:50%;" />
+<img src="../images/Lecture18-img-nsm-hff-fur-dcm-2.png" alt="img-nsm-hff-fur-dcm-2" style="zoom:50%;" />
 
 - $s$ - scattering
 
-<img src="images/Lecture18-img-nsm-hff-fur-dcm-3.png" alt="img-nsm-hff-fur-dcm-3" style="zoom:50%;" />
+<img src="../images/Lecture18-img-nsm-hff-fur-dcm-3.png" alt="img-nsm-hff-fur-dcm-3" style="zoom:50%;" />
 
 
 
 #### Granular Material
 
-![img-nsm-gm-example-1](images/Lecture18-img-nsm-gm-example-1.png)
+![img-nsm-gm-example-1](../images/Lecture18-img-nsm-gm-example-1.png)
 
-![img-nsm-gm-alg-1](images/Lecture18-img-nsm-gm-alg-1.png)
+![img-nsm-gm-alg-1](../images/Lecture18-img-nsm-gm-alg-1.png)
 
 **Procedural Definition**
 
@@ -336,8 +338,8 @@ Industry often uses path-tracing.
 
 | Material  | Example                                                      |
 | --------- | ------------------------------------------------------------ |
-| Jade      | <img src="images/Lecture18-img-sm-tm-example-1.png" alt="img-sm-tm-example-1" style="zoom:50%;" /> |
-| Jellyfish | ![img-sm-tm-example-2](images/Lecture18-img-sm-tm-example-2.png) |
+| Jade      | <img src="../images/Lecture18-img-sm-tm-example-1.png" alt="img-sm-tm-example-1" style="zoom:50%;" /> |
+| Jellyfish | ![img-sm-tm-example-2](../images/Lecture18-img-sm-tm-example-2.png) |
 
 ***Translucent***: Both scattering and absorption
 
@@ -373,7 +375,7 @@ $$
   \dd{A}
   $$
 
-![img-sm-sss-1](images/Lecture18-img-sm-sss-1.png)
+![img-sm-sss-1](../images/Lecture18-img-sm-sss-1.png)
 
 
 
@@ -381,7 +383,7 @@ $$
 
 - Apprximate light diffusion by introducting two point sources
 
-![img-sm-sss-2](images/Lecture18-img-sm-sss-2.png)
+![img-sm-sss-2](../images/Lecture18-img-sm-sss-2.png)
 
 
 
@@ -391,11 +393,11 @@ $$
 
 - Two levels of twist
 
-  <img src="images/Lecture18-img-sm-cloth-1.png" alt="img-sm-cloth-1" style="zoom: 33%;" />
+  <img src="../images/Lecture18-img-sm-cloth-1.png" alt="img-sm-cloth-1" style="zoom: 33%;" />
 
 - Woven or knitted
 
-  <img src="images/Lecture18-img-sm-cloth-2.png" alt="img-sm-cloth-2" style="zoom: 33%;" />
+  <img src="../images/Lecture18-img-sm-cloth-2.png" alt="img-sm-cloth-2" style="zoom: 33%;" />
 
 
 
@@ -446,9 +448,9 @@ Surface = **Specular** microfacets + **statistical** normals
 
 #### Recent Trend: Wave Optics
 
-<img src="images/Lecture18-img-da-img-1.png" alt="img-da-img-1" style="zoom: 33%;" />
+<img src="../images/Lecture18-img-da-img-1.png" alt="img-da-img-1" style="zoom: 33%;" />
 
-<img src="images/Lecture18-img-da-img-2.png" alt="img-da-img-2" style="zoom: 33%;" />
+<img src="../images/Lecture18-img-da-img-2.png" alt="img-da-img-2" style="zoom: 33%;" />
 
 
 

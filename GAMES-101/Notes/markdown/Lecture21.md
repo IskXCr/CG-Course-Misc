@@ -1,5 +1,7 @@
 # GAMES101 Lecture 21 - Animation
 
+[GAMES101_Lecture_21.pdf](https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_21.pdf)
+
 ## Outline
 
 - History
@@ -35,7 +37,7 @@
 
 - **Phenakistoscope** (1831): By showing part of a rotating disk:
 
-  <img src="images/Lecture21-img-1.png" alt="image-20230725111902802" style="zoom:33%;" />
+  <img src="../images/Lecture21-img-1.png" alt="image-20230725111902802" style="zoom:33%;" />
 
 - **First Film** (Edward Muybrdige, *"Sallie Gardner"*, 1878): Used as scientific tool rater than for entertainment
 
@@ -43,7 +45,7 @@
 
 - **First Digital-Computer-Generated Animation** (Ivan Sutherland, "Sketchpad", 1963): Light pen, vector display
 
-  <img src="images/Lecture21-img-2.png" alt="image-20230725112427046" style="zoom:33%;" />
+  <img src="../images/Lecture21-img-2.png" alt="image-20230725112427046" style="zoom:33%;" />
 
 - **Early Computer Animation** (Ed Catmull & Frederick Parke, "Computer Animated Faces", 1972)
 
@@ -51,18 +53,18 @@
 
 - **First CG Feature-Length Film** (Pixar, "Toy Story", 1995)
 
-  <img src="images/Lecture21-img-3.png" alt="image-20230725112848276" style="zoom:33%;" />
+  <img src="../images/Lecture21-img-3.png" alt="image-20230725112848276" style="zoom:33%;" />
 
   - *Milestone*
   - *Rasterization only*
 
 - Computer Animation - **10 Years Ago**  (Sony Pictures Animation, "Cloudy With a Chance of Meatballs")
 
-  <img src="images/Lecture21-img-4.png" alt="image-20230725112935212" style="zoom:33%;" />
+  <img src="../images/Lecture21-img-4.png" alt="image-20230725112935212" style="zoom:33%;" />
 
 - Computer Animation - **2019** (Walt Disney Animation Studios, "Frozen 2", 2019)
 
-  <img src="images/Lecture21-img-5.png" alt="image-20230725113029868" style="zoom:67%;" />
+  <img src="../images/Lecture21-img-5.png" alt="image-20230725113029868" style="zoom:67%;" />
 
   - Plants, after effects, ...
 
@@ -70,7 +72,7 @@
 
 ## II. Keyframe Animation
 
-<img src="images/Lecture21-img-6.png" alt="image-20230725113153997" style="zoom:50%;" />
+<img src="../images/Lecture21-img-6.png" alt="image-20230725113153997" style="zoom:50%;" />
 
 - **Animator** (e.g. lead animator) creates keyframes
 - **Assistant (person or computer)** creates in-between frames
@@ -80,7 +82,7 @@
 
 ### Keyframe Interpolation
 
-<img src="images/Lecture21-img-7.png" alt="image-20230725113453202" style="zoom: 50%;" />
+<img src="../images/Lecture21-img-7.png" alt="image-20230725113453202" style="zoom: 50%;" />
 
 - Each frame is seen as a **vector of parameter values**
   - Linear interpolation is usually not good enough
@@ -102,9 +104,9 @@ $$
 
 - Building the correct physical model leads to correct physical simulation.
 
-<img src="images/Lecture21-img-8.png" alt="image-20230725114233632" style="zoom:33%;" />
+<img src="../images/Lecture21-img-8.png" alt="image-20230725114233632" style="zoom:33%;" />
 
-<img src="images/Lecture21-img-9.png" alt="image-20230725114252324" style="zoom:50%;" />
+<img src="../images/Lecture21-img-9.png" alt="image-20230725114252324" style="zoom:50%;" />
 
 <p align="center">Macklin and Müller, Position Based Fluids</p>
 
@@ -118,13 +120,13 @@ $$
 
 - **Mass Spring Mesh** (Cloth)
 
-  <img src="images/Lecture21-img-10.png" alt="image-20230725114656663" style="zoom: 50%;" />
+  <img src="../images/Lecture21-img-10.png" alt="image-20230725114656663" style="zoom: 50%;" />
 
 #### Spring with Internal Damping
 
 *One type of spring-mass system with damping:*
 
-<img src="images/Lecture21-img-11.png" alt="image-20230725131148290" style="zoom: 50%;" />
+<img src="../images/Lecture21-img-11.png" alt="image-20230725131148290" style="zoom: 50%;" />
 
 $$
 \boldsymbol{f}_{a \to b} = k_s\frac{(\boldsymbol{b} - \boldsymbol{a})}{\norm{\boldsymbol{b} - \boldsymbol{a}}}(\norm{\boldsymbol{b} - \boldsymbol{a}} - l)
@@ -152,11 +154,11 @@ In this type of damping, the resistance is **proportional to the relative veloci
 
 #### Structures from Springs
 
-<img src="images/Lecture21-img-12.png" alt="image-20230725151913916" style="zoom:33%;" />
+<img src="../images/Lecture21-img-12.png" alt="image-20230725151913916" style="zoom:33%;" />
 
 - **Behavior** is determined by **structure linkages**
 
-- <img src="images/Lecture21-img-13.png" alt="image-20230725152532246" style="zoom:33%;" />
+- <img src="../images/Lecture21-img-13.png" alt="image-20230725152532246" style="zoom:33%;" />
 
   Resistance to **shearing** and **out-of-plane bending**.
 
@@ -166,7 +168,7 @@ In this type of damping, the resistance is **proportional to the relative veloci
 
 #### Finite Element Method
 
-<img src="images/Lecture21-img-14.png" alt="image-20230725153210763" style="zoom: 50%;" />
+<img src="../images/Lecture21-img-14.png" alt="image-20230725153210763" style="zoom: 50%;" />
 
 
 
@@ -225,7 +227,7 @@ For each frame in animation
 
 ##### Gravitational Attraction
 
-<img src="images/Lecture21-img-15.png" alt="image-20230725154721645" style="zoom:33%;" />
+<img src="../images/Lecture21-img-15.png" alt="image-20230725154721645" style="zoom:33%;" />
 
 $$
 F_g = G \frac{m_1}{m_2}{d^2} \tag{Newton's Universal Law of Gravitation}
@@ -238,15 +240,15 @@ $$
 
 #### Simulated Flocking as an ODE
 
-<img src="images/Lecture21-img-16.png" alt="image-20230725154923470" style="zoom:50%;" />
+<img src="../images/Lecture21-img-16.png" alt="image-20230725154923470" style="zoom:50%;" />
 
 
 
 ### Forward Kinematics
 
-<img src="images/Lecture21-img-17.png" alt="image-20230725155345443" style="zoom:33%;" />
+<img src="../images/Lecture21-img-17.png" alt="image-20230725155345443" style="zoom:33%;" />
 
-<img src="images/Lecture21-img-18.png" alt="image-20230725155826122" style="zoom:50%;" />
+<img src="../images/Lecture21-img-18.png" alt="image-20230725155826122" style="zoom:50%;" />
 
 **Forward Kinematics**: Obtain position and velocity of **end effector **$p$, given the known joint angles and angular velocities.
 
@@ -282,11 +284,11 @@ $$
 
 - **Multiple solutions** in configuration space
 
-  <img src="images/Lecture21-img-19.png" alt="image-20230725160200036" style="zoom:50%;" />
+  <img src="../images/Lecture21-img-19.png" alt="image-20230725160200036" style="zoom:50%;" />
 
 - Solutions **may not** always exist
 
-  <img src="images/Lecture21-img-20.png" alt="image-20230725160222786" style="zoom: 50%;" />
+  <img src="../images/Lecture21-img-20.png" alt="image-20230725160222786" style="zoom: 50%;" />
 
 #### Numerical Solution to general N-Link IK Problem
 
@@ -299,7 +301,7 @@ $$
 
 ### Rigging
 
-<img src="images/Lecture21-img-21.png" alt="image-20230725160720523" style="zoom:50%;" />
+<img src="../images/Lecture21-img-21.png" alt="image-20230725160720523" style="zoom:50%;" />
 
 **Rigging**: A set of higher level controls on a character that allow mroe rapid & intuitive modification of pose, deformations, expressions, etc.
 
@@ -315,7 +317,7 @@ Expensive to create
 
 ### Blend Shapes
 
-<img src="images/Lecture21-img-22.png" alt="image-20230725160845374" style="zoom:50%;" />
+<img src="../images/Lecture21-img-22.png" alt="image-20230725160845374" style="zoom:50%;" />
 
 <p align="center">Courtesy: Félix Ferrand</p>
 
@@ -328,7 +330,7 @@ Instead of skeleton, **interpolate directly between surfaces**
 
 ### Motion Capture
 
-<img src="images/Lecture21-img-23.png" alt="image-20230725161134900" style="zoom:50%;" />
+<img src="../images/Lecture21-img-23.png" alt="image-20230725161134900" style="zoom:50%;" />
 
 <p align="center">Motion capture room for ShaqFu</p>
 
@@ -348,13 +350,13 @@ Record real-world performances, extract pose as a functin of time from data coll
 - Complex and costly set-ups
 - Captrued animation may not meet artistic needs, requiring alterations
 
-<img src="images/Lecture21-img-24.png" alt="image-20230725161417391" style="zoom:50%;" />
+<img src="../images/Lecture21-img-24.png" alt="image-20230725161417391" style="zoom:50%;" />
 
 
 
 #### Facial Motion Capture
 
-<img src="images/Lecture21-img-25.png" alt="image-20230725161613484" style="zoom:50%;" />
+<img src="../images/Lecture21-img-25.png" alt="image-20230725161613484" style="zoom:50%;" />
 
 <p align="center">Discovery, "Avatar: Motion Capture Mirrors Emotions", <a>https://youtu.be/1wK1Ixr-UmM</a></p>
 
@@ -366,5 +368,5 @@ Record real-world performances, extract pose as a functin of time from data coll
 
 ### The Production Pipeline
 
-<img src="images/Lecture21-img-26.png" alt="image-20230725161747349" style="zoom:67%;" />
+<img src="../images/Lecture21-img-26.png" alt="image-20230725161747349" style="zoom:67%;" />
 

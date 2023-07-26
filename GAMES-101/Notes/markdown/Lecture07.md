@@ -1,5 +1,7 @@
 # GAMES101 Lecture 07 - Shading 1 (Illumination, Shading and Graphics Pipeline)
 
+[GAMES101_Lecture_07.pdf](https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_07.pdf)
+
 ## I. Illumination and Shading
 
 - **Shading**: In this course, *the process of **applying a material** to an object.*
@@ -32,7 +34,7 @@
 
 **Components**:
 
-![img-1](images/Lecture07-img-1.png)
+![img-1](../images/Lecture07-img-1.png)
 
 - **Diffuse Reflection**: Light is scattered uniformly in all directions.
 
@@ -62,7 +64,7 @@
 
   - $p$ is used control the width of the reflection lobe.
 
-    ![img-2](images/Lecture07-img-2.png)
+    ![img-2](../images/Lecture07-img-2.png)
 
 - **Ambient Reflection**: Constant color to account for disregarded illumination and fill in black shadows. **This is only an approximation.**
 

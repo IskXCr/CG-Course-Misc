@@ -1,18 +1,20 @@
 # GAMES101 Lecture 09 - Shading 3 (Texture Mapping and Shadow Mapping)
 
+[GAMES101_Lecture_09.pdf](https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_09.pdf)
+
 *Shadow mapping is from Lecture 12. For convenience it is integrated into this lecture note.*
 
 ## I. Texture Mapping
 
 - Parameterization
 
-  ![img-1](images/Lecture09-img-1.png)
+  ![img-1](../images/Lecture09-img-1.png)
 
-  ![img-2](images/Lecture09-img-2.png)
+  ![img-2](../images/Lecture09-img-2.png)
 
 - **Tile-able Texture**
 
-  ![img-3](images/Lecture09-img-3.png)
+  ![img-3](../images/Lecture09-img-3.png)
 
 
 
@@ -39,7 +41,7 @@ Assume the origin $O$. Inside the plane where a triangle $ABC$ resides, for any 
 
 - **Geometric Viewpoint**: Proportional Areas
 
-  ![img-4](images/Lecture09-img-4.png)
+  ![img-4](../images/Lecture09-img-4.png)
 
   Then: 
 
@@ -85,7 +87,7 @@ For each rasterized screen sample, determine its $(u, v)$ coordinate by (possibl
 
 ### Texture Magnification
 
-![img-5](images/Lecture09-img-5.png)
+![img-5](../images/Lecture09-img-5.png)
 
 - **Texel**: A pixel on a texture.
 
@@ -117,25 +119,25 @@ For each rasterized screen sample, determine its $(u, v)$ coordinate by (possibl
     L = \max\left(\sqrt{\left(\frac{du}{dx}\right)^2 + \left(\frac{dv}{dx}\right)^2}, \sqrt{\left(\frac{du}{dy}\right)^2 + \left(\frac{dv}{dy}\right)^2} \right)
     $$
 
-    ![img-6](images/Lecture09-img-6.png)
+    ![img-6](../images/Lecture09-img-6.png)
 
   - Visualization: $D$ rounded to nearest integer level:
 
-    ![img-7](images/Lecture09-img-7.png)
+    ![img-7](../images/Lecture09-img-7.png)
 
     *Trilinear Filtering*:
 
     - Do two bilinear interpolation on two adjacent Mipmap levels. Then one linear interpolation to get result on a non-integer level.
 
-    ![img-8](images/Lecture09-img-8.png)
+    ![img-8](../images/Lecture09-img-8.png)
 
-  - **Overblur**: <img src="images/Lecture09-img-9.png" alt="img-9" style="zoom:33%;" />
+  - **Overblur**: <img src="../images/Lecture09-img-9.png" alt="img-9" style="zoom:33%;" />
 
 - **Anisotropic Filtering**
 
   - *Ripmaps and summed area tables*: 
 
-    <img src="images/Lecture09-img-10.png" alt="img-10" style="zoom:50%;" />
+    <img src="../images/Lecture09-img-10.png" alt="img-10" style="zoom:50%;" />
 
     Can look up **axis-aligned rectangular zones**.
 
@@ -169,7 +171,7 @@ Applications:
 
     - **Cube** Map
 
-      ![img-11](images/Lecture09-img-11.png)
+      ![img-11](../images/Lecture09-img-11.png)
 
 - **Store Microgeometry**
 
@@ -254,11 +256,11 @@ Applications:
 
   - ***Visible Sample:***
 
-    ![img-7](images/Lecture12-img-7.png)
+    ![img-7](../images/Lecture12-img-7.png)
 
   - ***Invisible Sample***:
 
-    ![img-8](images/Lecture12-img-8.png)
+    ![img-8](../images/Lecture12-img-8.png)
 
 
 
@@ -294,7 +296,7 @@ Normal vectors in a normal map are expressed in tangent space where normals alwa
 
 -  **TBN Matrix**: Tangent, Bitangent and Normal Vector.
 
-  ![img-12](images/Lecture09-img-12.png)
+  ![img-12](../images/Lecture09-img-12.png)
 
   - *The tangent vector and the bitangent vector align with the direction in which we define a surface's texture coordinates.*
   - *Multiply the acquired normal vector from the normal map, by the TBN matrix, transforms the vector into the global coordinates.*

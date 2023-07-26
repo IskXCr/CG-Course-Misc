@@ -1,5 +1,7 @@
 # GAMES101 Lecture 12 - Geometry 3
 
+[GAMES101_Lecture_12.pdf](https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_12.pdf)
+
 ## Turing Award Winners (in CG)
 
 ~~Make Computer Graphics great again~~
@@ -9,7 +11,7 @@
 
 ### I. Mesh Operations: Geometry Processing
 
-![img-1](images/Lecture12-img-1.png)
+![img-1](../images/Lecture12-img-1.png)
 
 - **Mesh Subdivision** (Upsampling): Increase resolution.
 
@@ -19,7 +21,7 @@
 
       - **1. Insert new vertices**: Split each triangle into four.
 
-        ![img-2](images/Lecture12-img-2.png)
+        ![img-2](../images/Lecture12-img-2.png)
 
       - **2. Update positions of vertices**
 
@@ -31,7 +33,7 @@
           \frac{3}{8} (A + B) + \frac{1}{8} (C + D)
           $$
     
-          <img src="images/Lecture12-img-3.png" alt="img-3" style="zoom: 33%;" />
+          <img src="../images/Lecture12-img-3.png" alt="img-3" style="zoom: 33%;" />
     
         - For old vertices:
     
@@ -41,7 +43,7 @@
           (1 - nu)p_0 + \sum_{i > 0} up_i, \text{where $u = 3/16$ if $n=3$, and $3/(8n)$ otherwise}
           $$
           
-          <img src="images/Lecture12-img-4.png" alt="img-4" style="zoom: 33%;" />
+          <img src="../images/Lecture12-img-4.png" alt="img-4" style="zoom: 33%;" />
     
     
     
@@ -63,18 +65,18 @@
 
         - face point, edge point, vertex point...
 
-          ![img-5](images/Lecture12-img-5.png)
+          ![img-5](../images/Lecture12-img-5.png)
 
           
 
 
-  
+
 
 - **Mesh Simplification** (Downsampling): Decrease resolution; Try to preserve shape/appearance.
 
   - **Edge Collapsing**: Contract two vertices into one.
 
-    ![img-6](images/Lecture12-img-6.png)
+    ![img-6](../images/Lecture12-img-6.png)
 
   - **Quadric Error Metrics**: New vertex should minimize its **sum of square distance** (L2 distance) to previously related triangle planes. 
 
@@ -84,7 +86,7 @@
     - Iteratively collapse edge **with smallest score**
 
 
-  
+
 
 - **Mesh Regularization**: Improve the quality of the mesh; Try to make the shape of each triangle regularized.
 

@@ -1,10 +1,12 @@
 # GAMES101 Lecture 19 - Cameras, Lenses and Light Fields
 
+[GAMES101_Lecture_19.pdf](https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_19.pdf)
+
 <p align="center">Imaging = Synthesis + Capture</p>
 
 ## I. Cameras, Lenses
 
-<img src="images/Lecture19-img-1.png" alt="img-1" style="zoom: 50%;" />
+<img src="../images/Lecture19-img-1.png" alt="img-1" style="zoom: 50%;" />
 
 <p align="center">Cross-section of Nikon D3, 14-24mm F2.8 lens</p>
 
@@ -26,7 +28,7 @@
 
 #### Field of View
 
-![img-2](images/Lecture19-img-2.png)
+![img-2](../images/Lecture19-img-2.png)
 
 <p align="center"> Pinhole imaging </p>
 
@@ -48,7 +50,7 @@
   - $50\text{mm} \to 47 \degree$, normal lens
   - $200\text{mm} \to 12 \degree$, telephoto lens
 
-![img-3](images/Lecture19-img-3.png)
+![img-3](../images/Lecture19-img-3.png)
 
 *Normally we fix the size of sensor for convenience, but in fact they should all be taken into consideration.*
 
@@ -56,7 +58,7 @@
 
 #### Sensor Sizes
 
-![img-4](images/Lecture19-img-4.png)
+![img-4](../images/Lecture19-img-4.png)
 
 <p align="center"> Credit: <a>lensvid.com </a> </p>
 
@@ -87,7 +89,7 @@ $$
 - **ISO gain**
   - Change the amplification (analog and/or digital) between sensor values and digital image values
 
-![img-5](images/Lecture19-img-5.png)
+![img-5](../images/Lecture19-img-5.png)
 
 - From top to bottom: aperture size, shutter speed, ISO gain
 
@@ -104,13 +106,13 @@ Third variable for exposure
 - Multiply signal before analog-to-digital conversion
 - Linear effect (ISO 200 needs half the light as ISO 100)
 
-<img src="images/Lecture19-img-6.png" alt="img-6" style="zoom:67%;" />
+<img src="../images/Lecture19-img-6.png" alt="img-6" style="zoom:67%;" />
 
 
 
 #### F-Number (F-Stop): Exposure Levels
 
-![img-7](images/Lecture19-img-7.png)
+![img-7](../images/Lecture19-img-7.png)
 
 - Written as F**N** or F/**N**, where $N$ is the f-number.
 
@@ -124,13 +126,13 @@ which is the **focal length** $f$ divided by the **diameter of the aperture**.
 
 - An f-stop of $2$ is sometimes written $f/2$, reflecting the fact that the absolute aperture diameter $A$ can be computed by dividing the focal length $f$ by the relative aperture $N$.
 
-![img-18](images/Lecture19-img-18.png)
+![img-18](../images/Lecture19-img-18.png)
 
 
 
 #### Shutter Speed
 
-![img-8](images/Lecture19-img-8.png)
+![img-8](../images/Lecture19-img-8.png)
 
 - **Motion Blur**: handshake, subject movement
   - Doubling shutter time doubles motion blur
@@ -139,7 +141,7 @@ which is the **focal length** $f$ divided by the **diameter of the aperture**.
 
   - May also be caused during the imaging process, where the CMOS stores data linearly (doesn't capture every pixel simultaneously)
 
-  ![img-9](images/Lecture19-img-9.png)
+  ![img-9](../images/Lecture19-img-9.png)
 
 
 
@@ -166,13 +168,13 @@ Normal exposure =
 - extremely fast shutter speed, times
 - large aperture and/or high ISO
 
-<img src="images/Lecture19-img-10.png" alt="img-10" style="zoom:33%;" />
+<img src="../images/Lecture19-img-10.png" alt="img-10" style="zoom:33%;" />
 
 
 
 ##### Long-Exposure Photography
 
-![img-11](images/Lecture19-img-11.png)
+![img-11](../images/Lecture19-img-11.png)
 
 
 
@@ -182,13 +184,13 @@ Real lens designs are highly complex.
 
 #### Real Lens - Aberrations
 
-<img src="images/Lecture19-img-12.png" alt="img-12" style="zoom:33%;" />
+<img src="../images/Lecture19-img-12.png" alt="img-12" style="zoom:33%;" />
 
 
 
 #### Ideal Thin Lens
 
-<img src="images/Lecture19-img-13.png" alt="img-13" style="zoom: 50%;" />
+<img src="../images/Lecture19-img-13.png" alt="img-13" style="zoom: 50%;" />
 
 - All parallel rays entering a lens pass through the focal point of that lens
 - All rays through a focal point will be in parallel after passing the lens
@@ -198,7 +200,7 @@ Real lens designs are highly complex.
 
 ##### The Thin Lens Equation
 
-![img-14](images/Lecture19-img-14.png)
+![img-14](../images/Lecture19-img-14.png)
 
 **Gaussian Thin Lens Equation**:
 
@@ -212,7 +214,7 @@ $$
 
 *For ideal lens only.*
 
-![img-15](images/Lecture19-img-15.png)
+![img-15](../images/Lecture19-img-15.png)
 
 
 
@@ -227,9 +229,9 @@ $$
   $$
   
 
-![img-16](images/Lecture19-img-16.png)
+![img-16](../images/Lecture19-img-16.png)
 
-<img src="images/Lecture19-img-17.png" alt="img-17" style="zoom: 50%;" />
+<img src="../images/Lecture19-img-17.png" alt="img-17" style="zoom: 50%;" />
 
 
 
@@ -249,7 +251,7 @@ View the **Exposure** section.
 
 
 
-![img-19](images/Lecture19-img-19.png)
+![img-19](../images/Lecture19-img-19.png)
 
 ##### Rendering
 
@@ -263,17 +265,17 @@ View the **Exposure** section.
 
 #### Depth of Field
 
-![img-20](images/Lecture19-img-20.png)
+![img-20](../images/Lecture19-img-20.png)
 
 Set the CoC as the maximum permissible blur spot on the image plane
 
 - Such that they will appear as a single pixel finally
 
-![img-21](images/Lecture19-img-21.png)
+![img-21](../images/Lecture19-img-21.png)
 
 **Depth of Field**: Depth range in a scene where the corresponding CoC is considered **small enough**
 
-![img-22](images/Lecture19-img-22.png)
+![img-22](../images/Lecture19-img-22.png)
 
 <p align="center"><a>http://graphics.stanford.edu/courses/cs178/applets/dof.html</a></p>
 
@@ -319,7 +321,7 @@ Describe the **radiance information** of an object by 4D rays, which is represen
 
 #### View Synthesis
 
-<img src="images/Lecture19-img-23.png" alt="image-20230724191725683" style="zoom:33%;" />
+<img src="../images/Lecture19-img-23.png" alt="image-20230724191725683" style="zoom:33%;" />
 
 Place a camera at a certain direction, When looking to an object, we know all the radiance information of each ray we have casted, and thus we can **synthesize the view simply by**:
 
@@ -329,7 +331,7 @@ Place a camera at a certain direction, When looking to an object, we know all th
 
 Furthermore, we may completely **ignore the shape** of the object, and solely record the light field.
 
-<img src="images/Lecture19-img-24.png" alt="image-20230724192309037" style="zoom: 33%;" />
+<img src="../images/Lecture19-img-24.png" alt="image-20230724192309037" style="zoom: 33%;" />
 
 <p align="center">Outside the convex space</p>
 
@@ -341,15 +343,15 @@ Furthermore, we may completely **ignore the shape** of the object, and solely re
 
 - 2D **Position**, 2D **Direction**:
 
-  <img src="images/Lecture19-img-25.png" alt="image-20230724193147214" style="zoom:33%;" />
+  <img src="../images/Lecture19-img-25.png" alt="image-20230724193147214" style="zoom:33%;" />
 
 - **2-Plane Parameterization**: 2D **Position**, 2D **Position**: $(s, t)$ and $(u, v)$
 
-  <img src="images/Lecture19-img-26.png" alt="image-20230724193250559" style="zoom:33%;" />
+  <img src="../images/Lecture19-img-26.png" alt="image-20230724193250559" style="zoom:33%;" />
 
 #### Recording the Lumigraph
 
-<img src="images/Lecture19-img-27.png" alt="image-20230724193642148" style="zoom:50%;" />
+<img src="../images/Lecture19-img-27.png" alt="image-20230724193642148" style="zoom:50%;" />
 
 *Assume we are viewing from left of the $uv$ plane.*
 
@@ -358,13 +360,13 @@ Furthermore, we may completely **ignore the shape** of the object, and solely re
 
 ##### Camera array
 
-<img src="images/Lecture19-img-28.png" alt="image-20230724193942414" style="zoom:50%;" />
+<img src="../images/Lecture19-img-28.png" alt="image-20230724193942414" style="zoom:50%;" />
 
 
 
 ##### Integral Imaging
 
-<img src="images/Lecture19-img-29.png" alt="image-20230724194252279" style="zoom:67%;" />
+<img src="../images/Lecture19-img-29.png" alt="image-20230724194252279" style="zoom:67%;" />
 
 Flies record lumigraph of the scene, or **radiance**.
 
@@ -379,18 +381,18 @@ Flies record lumigraph of the scene, or **radiance**.
 
 - **Computational Refocusing**: virtually changing focal length, aperture, size, etc., **after** taking
 
-<img src="images/Lecture19-img-30.png" alt="image-20230724195214794" style="zoom:50%;" />
+<img src="../images/Lecture19-img-30.png" alt="image-20230724195214794" style="zoom:50%;" />
 
 <p align="center">Picture taken by a light field camera</p>
 
-<img src="images/Lecture19-img-31.png" alt="image-20230724195237553" style="zoom: 50%;" />
+<img src="../images/Lecture19-img-31.png" alt="image-20230724195237553" style="zoom: 50%;" />
 
 - Each pixel (**irradiance**) is now stored as a block of pixels (**radiance**, or irradiance at different directions)
   - If each disk of "recorded radiance "is averaged as a single pixel, then the resulting picture is the same as what a normal camera would have taken.
 
 #### Getting a Photo from the Light Field Camera
 
-<img src="images/Lecture19-img-32.png" alt="Lecture19-img-32" style="zoom:33%;" />
+<img src="../images/Lecture19-img-32.png" alt="Lecture19-img-32" style="zoom:33%;" />
 
 - **Moving the camera around**: Always choose the pixel at a fixed position in each disk
 - **Computational/Digital Refocusing**: Changing focal length, and pick the refocused rays accordingly

@@ -1,5 +1,7 @@
 # GAMES101 Lecture 20 - Color and Perception
 
+[GAMES101_Lecture_20.pdf](https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_20.pdf)
+
 ## I. Light Field/Lumigraph
 
 *Refer to* `Lecture19.md`.
@@ -20,7 +22,7 @@ Sunlight can be **subdivided** into a rainbow with a prism.
 
 #### The Spectrum
 
-![spectrum](images/Lecture20_EM_spectrum.svg)
+![spectrum](../images/Lecture20_EM_spectrum.svg)
 
 <p align="center"><a>https://commons.wikimedia.org/wiki/File:EM_spectrum.svg#/media/File:EM_spectrum.svg</a> under CC BY-SA 3.0 via Commons</p>
 
@@ -32,11 +34,11 @@ Sunlight can be **subdivided** into a rainbow with a prism.
   - Or unitless
 - Often use **relative units** scaled to maximum wavelength for comparison (when absolute magnitude is not important)
 
-<img src="images/Lecture20-img-1.png" alt="image-20230724213837745" style="zoom:50%;" />
+<img src="../images/Lecture20-img-1.png" alt="image-20230724213837745" style="zoom:50%;" />
 
 - **Linearity of Spectral Power Distributions**: They can be directly added.
 
-  <img src="images/Lecture20-img-2.png" alt="image-20230724214030225" style="zoom:50%;" />
+  <img src="../images/Lecture20-img-2.png" alt="image-20230724214030225" style="zoom:50%;" />
 
 
 
@@ -46,7 +48,7 @@ Color is a phenomenon of **human perception**, not a property of light.
 
 #### Anatomy of Human Eye
 
-![human-eye-anatomy](images/Lecture20_Schematic_diagram_of_the_human_eye_en.svg)
+![human-eye-anatomy](../images/Lecture20_Schematic_diagram_of_the_human_eye_en.svg)
 
 <p align="center"><a>https://en.wikipedia.org/wiki/Human_eye#/media/File:Schematic_diagram_of_the_human_eye_en.svg</a> under CC BY-SA 3.0</p>
 
@@ -54,7 +56,7 @@ Light arrives at the retina and stimulates nerves, causing impulses.
 
 - **Retinal Photoreceptor Cells: Rods and Cones**
 
-  <img src="images/Lecture20-img-3.png" alt="image-20230724214921970" style="zoom:50%;" />
+  <img src="../images/Lecture20-img-3.png" alt="image-20230724214921970" style="zoom:50%;" />
 
   - **Rod Cells**: Primary receptors in very low light (**scotopic** conditions), perceive only shades of gray, **no color**
 
@@ -68,11 +70,11 @@ Light arrives at the retina and stimulates nerves, causing impulses.
 
       - **S, M and L** type, corresponding to peak response at **short**, **medium** and **long** wavelengths
 
-        <img src="images/Lecture20-img-4.png" alt="image-20230724215202529" style="zoom:33%;" />
+        <img src="../images/Lecture20-img-4.png" alt="image-20230724215202529" style="zoom:33%;" />
 
       - Distributions **vary significantly** among individuals:
 
-        <img src="images/Lecture20-img-5.png" alt="image-20230724215627169" style="zoom:50%;" />
+        <img src="../images/Lecture20-img-5.png" alt="image-20230724215627169" style="zoom:50%;" />
 
         <p align="center">Distribution of cone cells at edge of fovea in 12 different humans with normal color vision</p>
 
@@ -82,7 +84,7 @@ Light arrives at the retina and stimulates nerves, causing impulses.
 
 ##### Spectral Response of Human Cone Cells
 
-<img src="images/Lecture20-img-6.png" alt="image-20230724215948192" style="zoom:50%;" />
+<img src="../images/Lecture20-img-6.png" alt="image-20230724215948192" style="zoom:50%;" />
 
 <p align="center">Integrate with respect to lambda on SPD</p>
 
@@ -98,7 +100,7 @@ Light arrives at the retina and stimulates nerves, causing impulses.
 
 - **Critical to color reproduction**: No need to reproduce the full spectrum of a real-world scene in order to reproduce color
 
-<img src="images/Lecture20-img-7.png" alt="image-20230724220520566" style="zoom:50%;" />
+<img src="../images/Lecture20-img-7.png" alt="image-20230724220520566" style="zoom:50%;" />
 
 
 
@@ -120,11 +122,11 @@ Light arrives at the retina and stimulates nerves, causing impulses.
 
 ##### CIE RGB Color Matching Experiment
 
-<img src="images/Lecture20-img-8.png" alt="image-20230724221248819" style="zoom:50%;" />
+<img src="../images/Lecture20-img-8.png" alt="image-20230724221248819" style="zoom:50%;" />
 
 - The target is to find out $R, G, B$ values to reproduce light at a specific wavelength for human perceptors.
 
-  <img src="images/Lecture20-img-9.png" alt="image-20230724221437590" style="zoom: 50%;" />
+  <img src="../images/Lecture20-img-9.png" alt="image-20230724221437590" style="zoom: 50%;" />
 
   <p align="center">How much of each CIE RGB primary light must be combined to match a given monochromatic light?</p>
 
@@ -155,7 +157,7 @@ Light arrives at the retina and stimulates nerves, causing impulses.
 
 #### CIE XYZ - A Universal Color Space
 
-<img src="images/Lecture20-img-10.png" alt="image-20230724222149351" style="zoom:50%;" />
+<img src="../images/Lecture20-img-10.png" alt="image-20230724222149351" style="zoom:50%;" />
 
 Imaginary set of standard color primaries $X, Y, Z$
 
@@ -187,7 +189,7 @@ Designed such that:
   z = \frac{Z}{X + Y + Z}
   $$
 
-  <img src="images/Lecture20-img-11.png" alt="image-20230724222440454" style="zoom: 67%;" />
+  <img src="../images/Lecture20-img-11.png" alt="image-20230724222440454" style="zoom: 67%;" />
 
   <p align="center">CIE Chromaticity Diagram</p>
 
@@ -198,13 +200,13 @@ Designed such that:
 
     - Corresponds to monochromatic light (each point represents a pure color of a single wavelength)
 
-    <img src="images/Lecture20-img-12.png" alt="image-20230724223632604" style="zoom: 50%;" />
+    <img src="../images/Lecture20-img-12.png" alt="image-20230724223632604" style="zoom: 50%;" />
 
     
 
 #### Gamut
 
-<img src="images/Lecture20-img-13.png" alt="image-20230724224401793" style="zoom: 50%;" />
+<img src="../images/Lecture20-img-13.png" alt="image-20230724224401793" style="zoom: 50%;" />
 
 
 
@@ -212,7 +214,7 @@ Designed such that:
 
 ##### HSV Color Space (Hue-Saturation-Value)
 
-<img src="images/Lecture20-img-14.png" alt="image-20230724224755621" style="zoom: 50%;" />
+<img src="../images/Lecture20-img-14.png" alt="image-20230724224755621" style="zoom: 50%;" />
 
 - **Hue**
   - The kind of color, regardless of attributes
@@ -231,7 +233,7 @@ Designed such that:
 
 ##### CIELAB Space (A.K.A $L^\ast a^\ast b^\ast$) & Opponent Color Theory
 
-<img src="images/Lecture20-img-15.png" alt="image-20230724225236247" style="zoom:33%;" />
+<img src="../images/Lecture20-img-15.png" alt="image-20230724225236247" style="zoom:33%;" />
 
 - $L^\ast$: lightness, or brightness
 - $a^\ast$ and $b^\ast$ are color-opponent pairs
@@ -258,7 +260,7 @@ Designed such that:
 
 ###### Everything is Relative
 
-<img src="images/Lecture20-img-16.png" alt="image-20230724230101781" style="zoom:33%;" />
+<img src="../images/Lecture20-img-16.png" alt="image-20230724230101781" style="zoom:33%;" />
 
 - **A** and **B** has the same color.
 
@@ -270,7 +272,7 @@ Designed such that:
 
 - **Cyan, Magenta, Yellow and Key**
 
-  <img src="images/Lecture20-img-17.png" alt="image-20230724230240547" style="zoom: 50%;" />
+  <img src="../images/Lecture20-img-17.png" alt="image-20230724230240547" style="zoom: 50%;" />
 
 - Separate **black for cost-saving purposes**
 

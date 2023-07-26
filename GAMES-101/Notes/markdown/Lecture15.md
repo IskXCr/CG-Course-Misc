@@ -1,5 +1,7 @@
 # GAMES101 Lecture 15 - Ray Tracing 3 (Light Transport and Global Illumination, with Review on Probability)
 
+[GAMES101_Lecture_15.pdf](https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_15.pdf)
+
 ## I. Radiometry Cont.
 
 *Please refer to* `Lecture14.md`.
@@ -10,7 +12,7 @@
 
 ### Reflection at a Point
 
-<img src="images/Lecture14-img-14.png" alt="img-14" style="zoom:50%;" />
+<img src="../images/Lecture14-img-14.png" alt="img-14" style="zoom:50%;" />
 
 Radiance from direction $\omega_i$ turns into the power $E$ that $\dd{A}$ receives. Then the power $E$ will be come the radiance to any other direction $\omega_{o}$.
 
@@ -30,7 +32,7 @@ Radiance from direction $\omega_i$ turns into the power $E$ that $\dd{A}$ receiv
 
 The Bidirectional Reflectance **Distribution** Function (BRDF) describes how much light is reflected into each outgoing direction $\omega_r$ from each incoming direction $\omega_i$.
 
-<img src="images/Lecture14-img-15.png" alt="img-15" style="zoom: 50%;" />
+<img src="../images/Lecture14-img-15.png" alt="img-15" style="zoom: 50%;" />
 
 $$
 f_r (\omega_i \to \omega_r) = \dv{L_r (\omega_r)}{E_i (\omega_i)}
@@ -144,12 +146,12 @@ $$
 
 | Type                               | Effect                               |
 | ---------------------------------- | ------------------------------------ |
-| Direct Illumination                | ![img-1](images/Lecture15-img-1.png) |
-| One-bounce global illumination     | ![img-2](images/Lecture15-img-2.png) |
-| Two-bounce global illumination     | ![img-3](images/Lecture15-img-3.png) |
-| Four-bounce global illumination    | ![img-4](images/Lecture15-img-4.png) |
-| Eight-bounce global illumination   | ![img-5](images/Lecture15-img-5.png) |
-| Sixteen-bounce global illumination | ![img-6](images/Lecture15-img-6.png) |
+| Direct Illumination                | ![img-1](../images/Lecture15-img-1.png) |
+| One-bounce global illumination     | ![img-2](../images/Lecture15-img-2.png) |
+| Two-bounce global illumination     | ![img-3](../images/Lecture15-img-3.png) |
+| Four-bounce global illumination    | ![img-4](../images/Lecture15-img-4.png) |
+| Eight-bounce global illumination   | ![img-5](../images/Lecture15-img-5.png) |
+| Sixteen-bounce global illumination | ![img-6](../images/Lecture15-img-6.png) |
 
 - Why the lantern is light/dark in some rendered results?
   - Light cannot escape the lantern only after several bounces (so that it reaches an illuminated surface)

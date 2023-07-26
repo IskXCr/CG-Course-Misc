@@ -1,12 +1,14 @@
 # GAMES101 Lecture 08 - Shading 2 (Shading, Pipeline and Texture Mapping)
 
+[GAMES101_Lecture_08.pdf](https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_08.pdf)
+
 ## I. Shading
 
 *For the Blinn-Phong Reflectance Model, refer to* `Lecture07.md`.
 
 ### Shading Frequencies
 
-![img-1](images/Lecture08-img-1.png)
+![img-1](../images/Lecture08-img-1.png)
 
 - **Flat Shading**: Triangle face is flat.
   - One normal vector for each triangle
@@ -35,7 +37,7 @@
 
 ## II. Graphics Pipeline
 
-![img-2](images/Lecture08-img-2.png)
+![img-2](../images/Lecture08-img-2.png)
 
 
 

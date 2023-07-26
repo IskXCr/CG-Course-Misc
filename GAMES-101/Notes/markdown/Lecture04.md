@@ -1,5 +1,7 @@
 # GAMES101 Lecture 04 - Transformation Cont.
 
+[GAMES101_Lecture_04.pdf](https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_04.pdf)
+
 ## I. Rodrigues' Rotation Formula
 
 Rotation by angle $\alpha$ around axis $\textbf{n}$

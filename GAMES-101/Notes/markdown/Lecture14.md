@@ -1,5 +1,7 @@
 # GAMES101 Lecture 14 - Ray Tracing 2 (Acceleration and Radiometry)
 
+[GAMES101_Lecture_14.pdf](https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_14.pdf)
+
 ## I. Spatial Partitions
 
 ### Trivial Partitions
@@ -25,7 +27,7 @@
 
 ### Tree-Shaped Partitions
 
-<img src="images/Lecture14-img-1.png" alt="img-1" style="zoom:33%;" />
+<img src="../images/Lecture14-img-1.png" alt="img-1" style="zoom:33%;" />
 
 #### Oct-Tree
 
@@ -44,7 +46,7 @@
 
 #### KD-Tree
 
-<img src="images/Lecture14-img-2.png" alt="img-2" style="zoom: 33%;" />
+<img src="../images/Lecture14-img-2.png" alt="img-2" style="zoom: 33%;" />
 
 *Recursively divide the space along **alternating** axes ($x \to y \to z$ loop) using a hyperplane, creating a binary tree structure.*
 
@@ -147,7 +149,7 @@ Intersect(Ray ray, BVH node) {
 }
 ```
 
-<img src="images/Lecture14-img-3.png" alt="img-3" style="zoom:50%;" />
+<img src="../images/Lecture14-img-3.png" alt="img-3" style="zoom:50%;" />
 
 
 
@@ -197,7 +199,7 @@ $$
 
 ### Radiant Intensity
 
-<img src="images/Lecture14-img-4.png" alt="img-4" style="zoom:50%;" />
+<img src="../images/Lecture14-img-4.png" alt="img-4" style="zoom:50%;" />
 
 ***Definition***: The **radiant (luminous) intensity** is the power *per unit solid angle* emitted by a point light source.
 
@@ -239,13 +241,13 @@ A sphere has $4\pi$ **steradians**.
 
 **Direction Vector**: **$\omega$** will be used to denote a **direction vector** of unit length.
 
-<img src="images\Lecture14-img-5.png" alt="img-5" style="zoom: 33%;" />
+<img src="../images\Lecture14-img-5.png" alt="img-5" style="zoom: 33%;" />
 
 
 
 ### Differential Solid Angle
 
-<img src="images/Lecture14-img-6.png" alt="img-6" style="zoom: 33%;" />
+<img src="../images/Lecture14-img-6.png" alt="img-6" style="zoom: 33%;" />
 
 $$
 \begin{align}
@@ -262,7 +264,7 @@ $$
 
 ### Isotropic Point Source
 
-<img src="images/Lecture14-img-7.png" alt="img-7" style="zoom: 33%;" />
+<img src="../images/Lecture14-img-7.png" alt="img-7" style="zoom: 33%;" />
 
 An **isotropic point source** has an uniform intensity.
 
@@ -281,7 +283,7 @@ $$
 
 ### Irradiance
 
-<img src="images/Lecture14-img-8.png" alt="img-8" style="zoom:50%;" />
+<img src="../images/Lecture14-img-8.png" alt="img-8" style="zoom:50%;" />
 
 ***Definition***: The **irradiance** is the power per unit area **incident** on a surface point.
 
@@ -294,7 +296,7 @@ $$
 
 where $\theta$ is the angle of incidence following **Lambert's Cosine Law**.
 
-<img src="images/Lecture14-img-13.png" alt="img-13" style="zoom:33%;" />
+<img src="../images/Lecture14-img-13.png" alt="img-13" style="zoom:33%;" />
 
 *Hint: Think of the $\cos{\theta}$ operation as adjusting the plane such that it sits perpendicular to the incident light.*
 
@@ -302,20 +304,20 @@ where $\theta$ is the angle of incidence following **Lambert's Cosine Law**.
 
 #### Correction: Irradiance Falloff
 
-<img src="images/Lecture14-img-9.png" alt="img-9" style="zoom:33%;" />
+<img src="../images/Lecture14-img-9.png" alt="img-9" style="zoom:33%;" />
 
 
 
 ### Radiance
 
-<img src="images/Lecture14-img-10.png" alt="img-10" style="zoom:33%;" />
+<img src="../images/Lecture14-img-10.png" alt="img-10" style="zoom:33%;" />
 
 Radiance is the fundamental field quantity that describes the distribution of light in an environment.
 
 - Radiance is the quantity associated **with a ray**
 - Rendering is all about computing radiance
 
-<img src="images/Lecture14-img-11.png" alt="img-11" style="zoom: 33%;" />
+<img src="../images/Lecture14-img-11.png" alt="img-11" style="zoom: 33%;" />
 
 ***Definition***: The **radiance (luminance)** is the power emitted reflected, transmitted or received by a surface, **per unit solid angle**, **per projected unit area**.
 
@@ -361,7 +363,7 @@ $$
 
 #### Irradiance vs. Radiance
 
-<img src="images/Lecture14-img-12.png" alt="img-12" style="zoom:33%;" />
+<img src="../images/Lecture14-img-12.png" alt="img-12" style="zoom:33%;" />
 
 - **Irradiance**: Total power received by area $\dd{A}$
 - **Radiance**: Power received by area $\dd{A}$ from **direction** $\dd{\omega}$

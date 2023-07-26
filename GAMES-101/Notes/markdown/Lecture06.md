@@ -1,5 +1,7 @@
 # GAMES101 Lecture 06 - Rasterization 2 (Antialiasing and Z-Buffering)
 
+[GAMES101_Lecture_06.pdf](https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_06.pdf)
+
 ## I. Antialiasing - Sampling Artifacts
 
 Signals are *changing too fast* (high frequency) but *sampled too slowly*.

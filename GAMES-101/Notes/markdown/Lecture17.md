@@ -1,8 +1,10 @@
 # GAMES101 Lecture 17 - Materials and Appearances
 
+[GAMES101_Lecture_17.pdf](https://sites.cs.ucsb.edu/~lingqi/teaching/resources/GAMES101_Lecture_17.pdf)
+
 ## I. Materials and Apperances
 
-![img-27](images/Lecture17-img-27.png)
+![img-27](../images/Lecture17-img-27.png)
 
 Textures and appearances are closely related:
 
@@ -19,7 +21,7 @@ Some of the features from natural materials:
 
 
 
-![img-1](images/Lecture17-img-1.png)
+![img-1](../images/Lecture17-img-1.png)
 
 The term **material** is equivalent to **BSDF**.
 
@@ -31,15 +33,15 @@ The term **material** is equivalent to **BSDF**.
 
 ### Diffuse/Lambertian Material
 
-<img src="images/Lecture17-img-2.png" alt="img-2" style="zoom: 25%;" />
+<img src="../images/Lecture17-img-2.png" alt="img-2" style="zoom: 25%;" />
 
-<img src="images/Lecture17-img-3.png" alt="img-3" style="zoom: 33%;" />
+<img src="../images/Lecture17-img-3.png" alt="img-3" style="zoom: 33%;" />
 
 <p align="center">From [Mitsuba render, Wenzel Jakob, 2010</p>
 
 Light is **equally** reflected in each output direction.
 
-<img src="images/Lecture17-img-28.png" alt="img-28" style="zoom:50%;" />
+<img src="../images/Lecture17-img-28.png" alt="img-28" style="zoom:50%;" />
 
 Suppose the incident lighting is **uniform in radiance**, and without self-emission we have:
 
@@ -71,9 +73,9 @@ in which $\rho$ is called **albedo**, or color.
 
 ### Glossy Material
 
-<img src="images/Lecture17-img-4.png" alt="img-4" style="zoom: 25%;" />
+<img src="../images/Lecture17-img-4.png" alt="img-4" style="zoom: 25%;" />
 
-<img src="images/Lecture17-img-5.png" alt="img-5" style="zoom:25%;" />
+<img src="../images/Lecture17-img-5.png" alt="img-5" style="zoom:25%;" />
 
 <p align="center">From [Mitsuba render, Wenzel Jakob, 2010</p>
 
@@ -81,9 +83,9 @@ in which $\rho$ is called **albedo**, or color.
 
 ### Ideal Reflective/Refractive Material
 
-<img src="images/Lecture17-img-6.png" alt="img-6" style="zoom: 25%;" />
+<img src="../images/Lecture17-img-6.png" alt="img-6" style="zoom: 25%;" />
 
-<img src="images/Lecture17-img-7.png" alt="img-17" style="zoom:25%;" />
+<img src="../images/Lecture17-img-7.png" alt="img-17" style="zoom:25%;" />
 
 <p align="center">From [Mitsuba render, Wenzel Jakob, 2010</p>
 
@@ -93,11 +95,11 @@ in which $\rho$ is called **albedo**, or color.
 
 ### Perfect Specular Reflection
 
-![img-9](images/Lecture17-img-9.png)
+![img-9](../images/Lecture17-img-9.png)
 
 <p align="center">From PBRT</p>
 
-![img-8](images/Lecture17-img-8.png)
+![img-8](../images/Lecture17-img-8.png)
 
 $$
 \omega_o + \omega_i = 2 \cos{\theta} ~ \vec{n} = 2(\omega_i \cdot \vec{n}) \vec{n}
@@ -119,7 +121,7 @@ $\theta$ and $\phi$ are obtained from the local coordinate system.
 
 Light refracts when it enters a new medium.
 
-![img-29](images/Lecture17-img-29.png)
+![img-29](../images/Lecture17-img-29.png)
 
 #### Snell's Law
 
@@ -128,7 +130,7 @@ Transmitted angle depends on
 - **index of refraction (IOR)** for incident ray
 - IOR for exiting ray
 
-![img-10](images/Lecture17-img-10.png)
+![img-10](../images/Lecture17-img-10.png)
 
 $$
 \eta_i \sin{\theta_i} = \eta_t \sin{\theta_t}
@@ -171,7 +173,7 @@ then light incident on boundary from large enough angle will not exit the medium
 
 - **Snell's Window/Circle**
 
-  <img src="images/Lecture17-img-30.png" alt="img-30" style="zoom:50%;" />
+  <img src="../images/Lecture17-img-30.png" alt="img-30" style="zoom:50%;" />
 
 
 
@@ -181,7 +183,7 @@ then light incident on boundary from large enough angle will not exit the medium
 
 Reflectance depends on **incident angle** (and **polarization** of light).
 
-![img-11](images/Lecture17-img-11.png)
+![img-11](../images/Lecture17-img-11.png)
 
 <p align="center">This example: reflectance increases with grazing angle [Lafortune et al. 1997]</p>
 
@@ -191,13 +193,13 @@ Reflectance depends on **incident angle** (and **polarization** of light).
 
 **Dielectric**, $\eta = 1.5$:
 
-<img src="images/Lecture17-img-12.png" alt="img-12" style="zoom:33%;" />
+<img src="../images/Lecture17-img-12.png" alt="img-12" style="zoom:33%;" />
 
 
 
 **Conductor**:
 
-<img src="images/Lecture17-img-13.png" alt="img-13" style="zoom:33%;" />
+<img src="../images/Lecture17-img-13.png" alt="img-13" style="zoom:33%;" />
 
 - **Conductors** have negative indices of refraction.
 
@@ -266,11 +268,11 @@ $$
 
 *State of art*.
 
-![img-14](images/Lecture17-img-14.png)
+![img-14](../images/Lecture17-img-14.png)
 
 #### Microfacet Theory
 
-![img-15](images/Lecture17-img-15.png)
+![img-15](../images/Lecture17-img-15.png)
 
 Rough surface:
 
@@ -285,17 +287,17 @@ Rough surface:
 
 - Concentrated <==> Glossy
 
-  <img src="images/Lecture17-img-16.png" alt="img-16" style="zoom: 67%;" />
+  <img src="../images/Lecture17-img-16.png" alt="img-16" style="zoom: 67%;" />
 
-  <img src="images/Lecture17-img-17.png" alt="img-17" style="zoom: 50%;" />
+  <img src="../images/Lecture17-img-17.png" alt="img-17" style="zoom: 50%;" />
 
 - Spread <==> Diffuse
 
-  <img src="images/Lecture17-img-18.png" alt="img-18" style="zoom:67%;" />
+  <img src="../images/Lecture17-img-18.png" alt="img-18" style="zoom:67%;" />
 
-  <img src="images/Lecture17-img-19.png" alt="img-19" style="zoom:50%;" />
+  <img src="../images/Lecture17-img-19.png" alt="img-19" style="zoom:50%;" />
 
-<img src="images/Lecture17-img-20.png" alt="img-20" style="zoom:50%;" />
+<img src="../images/Lecture17-img-20.png" alt="img-20" style="zoom:50%;" />
 
 **Microfacet BRDF**:
 
@@ -325,15 +327,15 @@ In which:
 
 ### Isotropic/Anisotropic Materials (BRDFs)
 
-![img-21](images/Lecture17-img-21.png)
+![img-21](../images/Lecture17-img-21.png)
 
 **Key**: **Directionality** of the underlying surface.
 
-<img src="images/Lecture17-img-22.png" alt="img-22" style="zoom:50%;" />
+<img src="../images/Lecture17-img-22.png" alt="img-22" style="zoom:50%;" />
 
 
 
-<img src="images/Lecture17-img-23.png" alt="img-23" style="zoom:50%;" />
+<img src="../images/Lecture17-img-23.png" alt="img-23" style="zoom:50%;" />
 
 **Anisotropic**: Reflection depends on **azimuthal angle** $\phi$
 
@@ -370,7 +372,7 @@ $$
 
   The nature of integration make BRDFs addable.
   
-  ![img-24](images/Lecture17-img-24.png)
+  ![img-24](../images/Lecture17-img-24.png)
   
 - **Reciprocity Principle**
   
@@ -378,7 +380,7 @@ $$
   f_r (\omega_r, \omega_i) = f_r (\omega_i, \omega_r)
   $$
 
-  ![img-25](images/Lecture17-img-25.png)
+  ![img-25](../images/Lecture17-img-25.png)
 
 - **Energy Conservation**
   
@@ -398,7 +400,7 @@ $$
     f_r (\theta_i, \theta_r, \phi_r - \phi_i) = f_r (\theta_r, \theta_i, \phi_i - \phi_r) = f_r (\theta_i, \theta_r, \abs{\phi_r - \phi_i})
     $$
 
-  ![img-26](images/Lecture17-img-26.png)
+  ![img-26](../images/Lecture17-img-26.png)
 
 
 
@@ -415,7 +417,7 @@ Target:
 
 #### General Approach
 
-![img-31](images/Lecture17-img-31.png)
+![img-31](../images/Lecture17-img-31.png)
 
 - For each outgoing direction $\omega_o$
   - move light to illuminate surface with a thin beam from $\omega_o$
@@ -427,7 +429,7 @@ Target:
 
 **Gonioreflectometer**:
 
-<img src="images/Lecture17-img-32.png" alt="img-32" style="zoom: 50%;" />
+<img src="../images/Lecture17-img-32.png" alt="img-32" style="zoom: 50%;" />
 
 <p align="center">Spherical gantry at UCSD</p>
 
@@ -484,7 +486,7 @@ Reference: [Microfacet Models (pbr-book.org)](https://www.pbr-book.org/3ed-2018/
 
 Many geometric-optics-based approaches to modeling surface reflection and transmission are based on the idea that rough surfaces can be modeled as a collection of small *microfacets*. They are often modeled as heightfields, where the **distribution** of facet orientations is described statistically.
 
-<img src="images/Lecture17-img-33.png" alt="img-33" style="zoom: 67%;" />
+<img src="../images/Lecture17-img-33.png" alt="img-33" style="zoom: 67%;" />
 
 - **Microsurface** is used to describe microfacet surfaces
 - **Macrosurface** is used to describe the underlying smooth surface (as represented by a `Shape`, or other `Object` in our framework for homework).
@@ -513,7 +515,7 @@ The two main components of microfacet models are:
 
 Three important geometric effects to consider with Microfacet Reflection Models:
 
-<img src="images/Lecture17-img-34.png" alt="img-34" style="zoom:50%;" />
+<img src="../images/Lecture17-img-34.png" alt="img-34" style="zoom:50%;" />
 
 - **Masking**
   - Microfacet is occluded by another facet
@@ -581,7 +583,7 @@ Microfacet distribution functions must be
   \int_{H^2 (\textbf{n})} D(\omega_h) \cos \theta_h \dd{\omega_h} = 1
   $$
 
-  <img src="images/Lecture17-img-35.png" alt="image-20230719171037939" style="zoom:50%;" />
+  <img src="../images/Lecture17-img-35.png" alt="image-20230719171037939" style="zoom:50%;" />
 
 #### Beckmann Distribution
 
@@ -633,7 +635,7 @@ In comparison to the Beckmann-Spizzichino model,
 - It has higher tails - it falls off to zero more slowly for directions far from the surface normal.
   - This characteristic matches the properties of many real-world surfaces well
 
-<img src="images/Lecture17-img-36.png" alt="img-36" style="zoom:50%;" />
+<img src="../images/Lecture17-img-36.png" alt="img-36" style="zoom:50%;" />
 
 Usually, we specify $\alpha_x$ and $\alpha_y$ by **roughness**, which is between $[0, 1]$, and value close to zero correspond to near-perfect specular reflection.
 
@@ -664,7 +666,7 @@ $$
 \cos \theta = \int_{H^2(\textbf{n})} G_1 (\omega, \omega_h) \max(0, \omega \cdot \omega_h) D(\omega_h) \dd{\omega_h}
 $$
 
-<img src="images/Lecture17-img-37.png" alt="img-37" style="zoom:50%;" />
+<img src="../images/Lecture17-img-37.png" alt="img-37" style="zoom:50%;" />
 
 
 
@@ -716,7 +718,7 @@ $$
 $$
 
 
-<img src="images/Lecture17-img-38.png" alt="img-38" style="zoom:50%;" />
+<img src="../images/Lecture17-img-38.png" alt="img-38" style="zoom:50%;" />
 
 - The function is close to one over much of the domain, but *falls to zero at **grazing angles***.
 - Increasing surface roughness causes the function to fall off more quickly.
@@ -751,5 +753,4 @@ f_r(\omega_o, \omega_i) = \frac{D(\omega_h) G(\omega_o, \omega_i) F_r(\omega_o)}
 $$
 
 For very detailed derivation, refer to the PBR book. Basically, we assume that individual microfacets are perfectly specular, and therefore only those that have the direction of their normals matched with the orientation of $\omega_h$ will reflect light.
-
 
