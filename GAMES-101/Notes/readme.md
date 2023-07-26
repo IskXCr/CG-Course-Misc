@@ -1,5 +1,11 @@
 # About Notes
 
+## How do I read notes online?
+
+So far GitHub markdown preview cannot provide satisfying experience on physical formulae. We compiled these notes into HTML format for easy access.
+
+Online reading experience currently relies on the HTML preview service provided by GitHub. Below are some temporary links that you may use to access notes.
+
 Only when the entire note has been completed will the readable-html be available.
 
 Select a html file from here and preview it in [HTML Preview](https://htmlpreview.github.io).
@@ -49,12 +55,6 @@ Select a html file from here and preview it in [HTML Preview](https://htmlprevie
 [Lecture21 - Animation](https://htmlpreview.github.io/?https://github.com/IskXCr/CG-Course-Misc/blob/main/GAMES-101/Notes/readable-html/Lecture21.html)
 
 [Lecture22 - Animation Cont.](https://htmlpreview.github.io/?https://github.com/IskXCr/CG-Course-Misc/blob/main/GAMES-101/Notes/readable-html/Lecture22.html)
-
-
-## How do I read notes online?
-
-Online reading experience currently relies on the HTML preview service provided by GitHub. Below are some temporary links that you may use to access notes.
-
 
 
 ## How do I read notes using local tools?
