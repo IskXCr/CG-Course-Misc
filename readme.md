@@ -10,15 +10,15 @@ The current list is as follows.
 
 In each course, if there is a course project, the project constitutes 33% of the entire progress.
 
-| Course Code | Course Name                                          | Starting Date | Progress |
-| ----------- | ---------------------------------------------------- | ------------- | -------- |
-| GAMES-101   | Introduction to Computer Graphics                    | 3/4/2023      | 58.30%   |
-| GAMES-102   | Foundations of Geometry Modeling and Processing      | TBD           | 0%       |
-| GAMES-103   | Introduction to Physics-Based Animation              | TBD           | 0%       |
-| GAMES-104   | Introduction to Game Engines                         | 7/24/2023     | 0%       |
-| GAMES-106   | Principles and Practice of Modern Graphics Pipelines | TBD           | 0%       |
-| GAMES-201   | 2020 - Introduction to Advanced Physics Engine       | TBD           | 0%       |
-| GAMES-202   | Real-Time High Quality Rendering                     | 7/24/2023     | 0%       |
+| Course Code | Course Name                                          | Instructor             | Affiliation  | Starting Date | Progress |
+| ----------- | ---------------------------------------------------- | ---------------------- | ------------ | ------------- | -------- |
+| GAMES-101   | Introduction to Computer Graphics                    | Prof. Lingqi Yan       | UCSB         | 3/4/2023      | 58.30%   |
+| GAMES-102   | Foundations of Geometry Modeling and Processing      | Prof. Ligang Liu       | USTC         | TBD           | 0%       |
+| GAMES-103   | Introduction to Physics-Based Animation              | Prof. Huamin Wang      | Style3D/ OSU | TBD           | 0%       |
+| GAMES-104   | Introduction to Game Engines                         | Xi Wang                | Booming Tech | 7/24/2023     | 0%       |
+| GAMES-106   | Principles and Practice of Modern Graphics Pipelines | *Multiple Instructors* | ZJU          | TBD           | 0%       |
+| GAMES-201   | 2020 - Introduction to Advanced Physics Engine       | Dr. Yuanming Hu        | MIT CSAIL    | TBD           | 0%       |
+| GAMES-202   | Real-Time High Quality Rendering                     | Prof. Lingqi Yan       | UCSB         | 7/24/2023     | 0%       |
 
 *GAMES: Graphics and Mixed Environment Symposium*.
 
