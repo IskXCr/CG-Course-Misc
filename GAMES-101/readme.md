@@ -18,7 +18,7 @@ The corresponding English version can be found at [Course Website - CS180/CS280 
 
 ### Notes
 
-Notes can be found under the folder `./Notes`
+Notes can be found inside another repository [IskXCr - CG-Note-Misc](https://github.com/IskXCr/CG-Note-Misc/blob/main/GAMES-101)
 
 ### Assignments & Projects
 
@@ -30,7 +30,7 @@ Their implementation can be found in the corresponding directory.
 
 ## About This Repository
 
-This repository contains my notes, assignments and projects for GAMES101 conducted by Prof. Lingqi Yan. 
+This repository contains my assignments and projects for GAMES101 conducted by Prof. Lingqi Yan. 
 
 The purpose of this repository is to track personal progress.
 
@@ -40,9 +40,9 @@ It is VIOLATING THE POLICY specified in GAMES101 to directly copy these referent
 
 
 
-## Notes and Copyright Disclaimer
+## Notes, Text and Copyright Disclaimer
 
-COPYRIGHT DISCLAIMER: If not otherwise specifically mentioned, all the figures inside the notes are captured/created from slides of GAMES101. If you have found a figure without reference, then either it is from the slides and made by the author, or the source has been mentioned in the slides (for some reason they are not mentioned inside the notes). **The author of these notes doesn't own the COPYRIGHT of them, and there is NO copyright infringement intended.**
+COPYRIGHT DISCLAIMER: If not otherwise specifically mentioned, all the figures inside the notes are captured/created from slides. If you have found a figure without reference, then either it is from the slides and made by the author, or the source has been mentioned in the slides (for some reason they are not mentioned inside the notes). **The author of these notes doesn't own the COPYRIGHT of them, and there is NO copyright infringement intended.**
 
 
 

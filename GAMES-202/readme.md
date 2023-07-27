@@ -1,4 +1,4 @@
-# GAMES202 - Notes, Assignments and Projects
+# GAMES202 - Assignments and Projects
 
 ## Academic Integrity (IMPORTANT)
 
@@ -30,7 +30,7 @@ The corresponding English version can be found at [Course Website - CS292f - Rea
 
 ### Notes
 
-Notes can be found under the folder `./Notes`
+Notes can be found inside another repository [IskXCr - CG-Note-Misc](https://github.com/IskXCr/CG-Note-Misc/blob/main/GAMES-202)
 
 ### Assignments & Projects
 
@@ -42,7 +42,7 @@ Their implementation can be found in the corresponding directory.
 
 ## About This Repository
 
-This repository contains my notes, assignments and projects for GAMES202 conducted by Prof. Lingqi Yan. 
+This repository contains my assignments and projects for GAMES202 conducted by Prof. Lingqi Yan. 
 
 The purpose of this repository is to track personal progress.
 
@@ -52,7 +52,7 @@ It is VIOLATING THE POLICY specified in GAMES202 to directly copy these referent
 
 ## Notes and Copyright Disclaimer
 
-COPYRIGHT DISCLAIMER: If not otherwise specifically mentioned, all the figures inside the notes are captured/created from slides of GAMES202. If you have found a figure without reference, then either it is from the slides and made by the author, or the source has been mentioned in the slides (for some reason they are not mentioned inside the notes). **The author of these notes doesn't own the COPYRIGHT of them, and there is NO copyright infringement intended.**
+COPYRIGHT DISCLAIMER: If not otherwise specifically mentioned, all the figures inside the notes are captured/created from slides. If you have found a figure without reference, then either it is from the slides and made by the author, or the source has been mentioned in the slides (for some reason they are not mentioned inside the notes). **The author of these notes doesn't own the COPYRIGHT of them, and there is NO copyright infringement intended.**
 
 ## Project Demo
 

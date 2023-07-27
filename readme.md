@@ -1,16 +1,20 @@
-# Collection of Notes and Implementations of Assignments and Projects from Various CG Courses
+# Collection of Implementations of Assignments and Projects from Various CG Courses
 
 Author: [IskXCr - GitHub](https://github.com/IskXCr)
 
-## FAQ
+## Related-Links
 
-Q: Why does the repository mainly contain HTML code?
+[IskXCr - CG-Note-Misc](https://github.com/IskXCr/CG-Note-Misc)
 
-A: Because some notes written in Markdown are compiled to HTML for better viewing experience on inline math.
+[IskXCr - CG-Course-Misc](https://github.com/IskXCr/CG-Course-Misc)
+
+[IskXCr - CG-Textbook-Misc](https://github.com/IskXCr/CG-Textbook-Misc)
+
+[IskXCr - CG-Paper-Misc](https://github.com/IskXCr/CG-Paper-Misc)
 
 ## Introduction
 
-This repository contains author's notes (in English) and implementations of assignments and projects from various courses in computer graphics.
+This repository contains implementations of assignments and projects from various courses in computer graphics.
 
 The current list is as follows. 
 
@@ -46,7 +50,7 @@ For copyright information, please also consult the readme document.
 
 At the root level, you will find the folders associated with each specific course. Within each folder a `readme.md` file provides an introduction to that course, related information (such as copyright disclaimer) and selected demos made by us.
 
-### Assignments
+### Assignments and Projects
 
 For each course, a single section about the content of all assignments and project is provided.
 
