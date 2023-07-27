@@ -18,7 +18,7 @@ The corresponding English version can be found at [Course Website - CS180/CS280 
 
 ### Notes
 
-Notes can be found inside another repository [IskXCr - CG-Note-Misc](https://github.com/IskXCr/CG-Note-Misc/blob/main/GAMES-101)
+Notes can be found inside another repository [IskXCr - CG-Note-Misc](https://iskxcr.github.io/CG-Note-Misc/GAMES-101/)
 
 ### Assignments & Projects
 

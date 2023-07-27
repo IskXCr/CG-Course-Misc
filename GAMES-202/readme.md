@@ -30,7 +30,7 @@ The corresponding English version can be found at [Course Website - CS292f - Rea
 
 ### Notes
 
-Notes can be found inside another repository [IskXCr - CG-Note-Misc](https://github.com/IskXCr/CG-Note-Misc/blob/main/GAMES-202)
+Notes can be found inside another repository [IskXCr - CG-Note-Misc](https://iskxcr.github.io/CG-Note-Misc/GAMES-202/)
 
 ### Assignments & Projects
 
