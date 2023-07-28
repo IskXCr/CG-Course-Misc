@@ -1,3 +1,6 @@
 [submodule "GAMES-101/GAMES-101-Assignment-Impl"]
 	path = GAMES-101/GAMES-101-Assignment-Impl
 	url = https://github.com/IskXCr/GAMES-101-Assignment-Impl
+[submodule "GAMES-202/GAMES-202-Assignment-Impl"]
+	path = GAMES-202/GAMES-202-Assignment-Impl
+	url = https://github.com/IskXCr/GAMES-202-Assignment-Impl
