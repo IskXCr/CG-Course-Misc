@@ -27,17 +27,11 @@ Notes can be found inside another repository [IskXCr - CG-Note-Misc](https://isk
 Their implementation can be found in the corresponding directory.
 
 
-
 ## About This Repository
 
 This repository contains my assignments and projects for GAMES101 conducted by Prof. Lingqi Yan. 
 
 The purpose of this repository is to track personal progress.
-
-According to the policy listed in the slide of the first week, this public repository is uploaded only for educational/referential usages and discussions.
-
-It is VIOLATING THE POLICY specified in GAMES101 to directly copy these referential materials and use as a student's own solution without having them walked through by itself first. 
-
 
 
 ## Notes, Text and Copyright Disclaimer
@@ -45,13 +39,10 @@ It is VIOLATING THE POLICY specified in GAMES101 to directly copy these referent
 COPYRIGHT DISCLAIMER: If not otherwise specifically mentioned, all the figures inside the notes are captured/created from slides. If you have found a figure without reference, then either it is from the slides and made by the author, or the source has been mentioned in the slides (for some reason they are not mentioned inside the notes). **The author of these notes doesn't own the COPYRIGHT of them, and there is NO copyright infringement intended.**
 
 
-
 ## Project Demo
 
 
-
 ## Selected Demos
-
 
 
 ## Appendix: List of Assignments
