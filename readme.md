@@ -20,6 +20,12 @@ Uploading these assignments are solely for **educational and discussion purposes
 
 FOR ANYONE WHO IS **CURRENTLY** OR IS **TO BE ENROLLED** IN THIS COURSE (OR ITS ENGLISH VERSION), **DO NOT** VIEW OR EVEN COPY-PASTE CODE FOR ASSIGNMENTS PROVIDED INSIDE THIS COURSE REPOSITORY, AS THIS IS A **DIRECT VIOLATION OF ACADEMIC INTEGRITY**.
 
+### Where is the code for assignments?
+
+By requirement, some of the assignments are created as Git submodules and have their visibility set to private. 
+
+**The reports for assignments are still available.**
+
 ## Introduction
 
 This repository contains implementations of assignments and projects from various courses in computer graphics.
