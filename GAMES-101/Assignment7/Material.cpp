@@ -120,6 +120,7 @@ float TrowbridgeReitzDistribution::lambda(const Vector3f &w) const
     return (-1 + std::sqrt(1.0f + alpha2Tan2Theta)) / 2;
 }
 
+// from PBRT
 static void BeckmannSample11(Float cosThetaI, Float U1, Float U2,
                              Float *slope_x, Float *slope_y)
 {
@@ -205,6 +206,7 @@ static void BeckmannSample11(Float cosThetaI, Float U1, Float U2,
     CHECK(!std::isnan(*slope_y));
 }
 
+// from PBRT
 static Vector3f BeckmannSample(const Vector3f &wi, Float alpha_x, Float alpha_y,
                                Float U1, Float U2)
 {
@@ -229,6 +231,7 @@ static Vector3f BeckmannSample(const Vector3f &wi, Float alpha_x, Float alpha_y,
     return Normalize(Vector3f(-slope_x, -slope_y, 1.f));
 }
 
+// from PBRT
 Vector3f BeckmannDistribution::sampleWh(const Vector3f &wo) const
 {
     std::array<float, 2> u = {get_random_float(), get_random_float()};
@@ -279,6 +282,7 @@ Vector3f BeckmannDistribution::sampleWh(const Vector3f &wo) const
     }
 }
 
+// from PBRT
 static void TrowbridgeReitzSample11(Float cosTheta, Float U1, Float U2,
                                     Float *slope_x, Float *slope_y)
 {
@@ -331,6 +335,7 @@ static void TrowbridgeReitzSample11(Float cosTheta, Float U1, Float U2,
     CHECK(!std::isnan(*slope_y));
 }
 
+// from PBRT
 static Vector3f TrowbridgeReitzSample(const Vector3f &wi, Float alpha_x,
                                       Float alpha_y, Float U1, Float U2)
 {
@@ -355,6 +360,7 @@ static Vector3f TrowbridgeReitzSample(const Vector3f &wi, Float alpha_x,
     return Normalize(Vector3f(-slope_x, -slope_y, 1.));
 }
 
+// from PBRT
 Vector3f TrowbridgeReitzDistribution::sampleWh(const Vector3f &wo) const
 {
     std::array<float, 2> u = {get_random_float(), get_random_float()};

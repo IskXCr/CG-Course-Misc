@@ -12,6 +12,14 @@ Author: [IskXCr - GitHub](https://github.com/IskXCr)
 
 [IskXCr - CG-Paper-Misc](https://github.com/IskXCr/CG-Paper-Misc)
 
+## Academic Integrity (IMPORTANT)
+
+As some courses have required, code using skeletons provided by these courses **cannot and should NOT be published on GitHub**. 
+
+Uploading these assignments are solely for **educational and discussion purposes**.
+
+FOR ANYONE WHO IS **CURRENTLY** OR IS **TO BE ENROLLED** IN THIS COURSE (OR ITS ENGLISH VERSION), **DO NOT** VIEW OR EVEN COPY-PASTE CODE FOR ASSIGNMENTS PROVIDED INSIDE THIS COURSE REPOSITORY, AS THIS IS A **DIRECT VIOLATION OF ACADEMIC INTEGRITY**.
+
 ## Introduction
 
 This repository contains implementations of assignments and projects from various courses in computer graphics.
