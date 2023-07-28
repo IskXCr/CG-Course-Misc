@@ -3,3 +3,6 @@
 
 # Windows Files
 *Zone.Identifier
+
+# Utility Scripts
+*.sh
