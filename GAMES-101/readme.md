@@ -1,5 +1,21 @@
 # GAMES101 - Notes, Assignments and Projects
 
+View reports for assignments and projects at the following links.
+
+| Name                                  | Status      |
+| ------------------------------------- | ----------- |
+| [Assignment 1](./Reports/Assignment1) | Completed   |
+| [Assignment 2](./Reports/Assignment2) | Completed   |
+| [Assignment 3](./Reports/Assignment3) | Completed   |
+| [Assignment 4](./Reports/Assignment4) | Completed   |
+| [Assignment 5](./Reports/Assignment5) | Completed   |
+| [Assignment 6](./Reports/Assignment6) | Completed   |
+| [Assignment 7](./Reports/Assignment7) | Completed   |
+| [Assignment 8](./Reports/Assignment8) | Completed   |
+| Project                               | Not Started |
+
+
+
 ## Academic Integrity (IMPORTANT)
 
 As a course requirement, code using the skeleton provided by the course **cannot and should NOT be published on GitHub**. 
@@ -7,6 +23,8 @@ As a course requirement, code using the skeleton provided by the course **cannot
 Uploading these assignments are solely for **educational and discussion purposes**, as the online version of this course has stopped accepting new assignment submissions.
 
 FOR ANYONE WHO IS **CURRENTLY** OR IS **TO BE ENROLLED** IN THIS COURSE (OR ITS ENGLISH VERSION), **DO NOT** VIEW OR EVEN COPY-PASTE CODE FOR ASSIGNMENTS PROVIDED INSIDE THIS COURSE REPOSITORY, AS THIS IS A **DIRECT VIOLATION OF ACADEMIC INTEGRITY**.
+
+
 
 ## Introduction to This Course
 
@@ -27,6 +45,8 @@ Notes can be found inside another repository [IskXCr - CG-Note-Misc](https://isk
 Their implementation can be found in the corresponding directory.
 
 
+
+
 ## About This Repository
 
 This repository contains my assignments and projects for GAMES101 conducted by Prof. Lingqi Yan. 
@@ -34,15 +54,25 @@ This repository contains my assignments and projects for GAMES101 conducted by P
 The purpose of this repository is to track personal progress.
 
 
+
+
 ## Notes, Text and Copyright Disclaimer
 
 COPYRIGHT DISCLAIMER: If not otherwise specifically mentioned, all the figures inside the notes are captured/created from slides. If you have found a figure without reference, then either it is from the slides and made by the author, or the source has been mentioned in the slides (for some reason they are not mentioned inside the notes). **The author of these notes doesn't own the COPYRIGHT of them, and there is NO copyright infringement intended.**
 
 
+
 ## Project Demo
 
 
-## Selected Demos
+
+
+
+## Selected Assignment Demos
+
+View [Assignment 7](./Reports/Assignment7) for implementation of Fresnel reflections, transmission, Microfacet material and BVH with SAH (Surface Area Heuristics).
+
+
 
 
 ## Appendix: List of Assignments
