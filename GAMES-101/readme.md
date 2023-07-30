@@ -32,7 +32,7 @@ GAMES101 (2020-02), or **Introduction to Computer Graphics**, conducted by Prof.
 
 [Course Website - GAMES101](https://sites.cs.ucsb.edu/~lingqi/teaching/games101.html)
 
-The corresponding English version can be found at [Course Website - CS180/CS280 - Introduction to Computer Graphics](https://sites.cs.ucsb.edu/~lingqi/teaching/cs180.html).
+The corresponding English version can be found at [Course Website - CS180/CS280 - Introduction to Computer Graphics](https://sites.cs.ucsb.edu/~lingqi/teaching/cs180.html). Notice that the English version conducted at UCSB covers less content in comparison to GAMES101.
 
 ### Notes
 

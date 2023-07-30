@@ -40,7 +40,7 @@ As real-time rendering demands high speed (>30 FPS), the course focuses on break
 
 [Course Website - GAMES202](https://sites.cs.ucsb.edu/~lingqi/teaching/games202.html)
 
-The corresponding English version can be found at [Course Website - CS292f - Real-Time High Quality Rendering](https://sites.cs.ucsb.edu/~lingqi/teaching/cs292f.html).
+The corresponding English version can be found at [Course Website - CS292f - Real-Time High Quality Rendering](https://sites.cs.ucsb.edu/~lingqi/teaching/cs292f.html). Notice that the English version conducted at UCSB covers less content in comparison to GAMES202.
 
 ### Notes
 
