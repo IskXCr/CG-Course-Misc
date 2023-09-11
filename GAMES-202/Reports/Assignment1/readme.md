@@ -43,7 +43,11 @@
 
 2 passes are implemented.
 
+![image-20230911213603996](images/Multiple-Light-Source-1.png)
 
+**Implementation**: For each light source, create a separate shadow map. In the Blinn-Phong fragment shader, blend the result from two separate shading process.
+
+![image-20230911214042372](images/Multiple-Light-Source-2.png)
 
 
 
