@@ -39,7 +39,9 @@
 
 
 
-#### Multiple Lights (2 Lights)
+#### Multiple Lights
+
+2 passes are implemented.
 
 
 
