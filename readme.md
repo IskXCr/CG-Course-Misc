@@ -44,7 +44,7 @@ In each course, if there is a course project, the project constitutes 33% of the
 | GAMES-104                | Introduction to Game Engines                         | Xi Wang                | Booming Tech | 7/24/2023     | 0%       |
 | GAMES-106                | Principles and Practice of Modern Graphics Pipelines | *Multiple Instructors* | ZJU          | TBD           | 0%       |
 | GAMES-201                | 2020 - Introduction to Advanced Physics Engine       | Dr. Yuanming Hu        | MIT CSAIL    | TBD           | 0%       |
-| [GAMES-202](./GAMES-202) | Real-Time High Quality Rendering                     | Prof. Lingqi Yan       | UCSB         | 7/24/2023     | 0%       |
+| [GAMES-202](./GAMES-202) | Real-Time High Quality Rendering                     | Prof. Lingqi Yan       | UCSB         | 7/24/2023     | 20%      |
 
 *GAMES: Graphics and Mixed Environment Symposium*.
 
